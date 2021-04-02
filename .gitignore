@@ -338,3 +338,22 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/Assets/First person controller/Audio
+/Assets/First person controller/Demo & documentation
+/Assets/HDRPDefaultResources
+/Assets/Materials
+/Assets/Meshes
+/Assets/Scenes
+/Assets/Sounds/Short Sound FX
+/Assets/UnityHDRI
+/Library
+/Temp
+/UserSettings
+/Substance.EditorHelper.csproj
+/Substance.Platform.csproj
+/Logs
+/ProjectSettings
+/Assets/Animations
+/Assets/Allegorithmic/Plugins
+/Assets/First person controller/First person controller full.prefab
+/Assets/First person controller/First person controller.prefab
