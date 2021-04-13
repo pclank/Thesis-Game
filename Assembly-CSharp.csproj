@@ -56,19 +56,19 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Audio Scripts\audio_play.cs" />
     <Compile Include="Assets\First person controller\Scripts\FirstPersonMovement.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\Zoom.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\FirstPersonAudio.cs" />
     <Compile Include="Assets\First person controller\Scripts\FirstPersonLook.cs" />
+    <Compile Include="Assets\Scripts\Switch Scripts\lightswitch.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\interaction_restriction.cs" />
+    <Compile Include="Assets\Scripts\Switch Scripts\light_control.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\Jump.cs" />
-    <Compile Include="Assets\Scripts\Animation Scripts\stall_parent.cs" />
-    <Compile Include="Assets\Scripts\Animation Scripts\stall_door.cs" />
+    <Compile Include="Assets\Scripts\Animation Scripts\door_rotator_parent.cs" />
+    <Compile Include="Assets\Scripts\Animation Scripts\door_rotator.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\Crouch.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\Switch Scripts\lightswitch.cs" />
-    <Compile Include="Assets\Scripts\Switch Scripts\light_control.cs" />
-    <Compile Include="Assets\Scripts\Audio Scripts\audio_play.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />

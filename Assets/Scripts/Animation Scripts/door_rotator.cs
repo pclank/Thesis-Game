@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class stall_door : MonoBehaviour
+public class door_rotator : MonoBehaviour
 {
     // Get Collider from Parent
     private Collider inter_col;

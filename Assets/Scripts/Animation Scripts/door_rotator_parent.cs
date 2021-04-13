@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class stall_parent : MonoBehaviour
+public class door_rotator_parent : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
         // If the Trigger is the Player
         if (other.gameObject.CompareTag("Player"))
         {
-            gameObject.GetComponentInChildren<stall_door>().OnPlEnter(other);
+            gameObject.GetComponentInChildren<door_rotator>().OnPlEnter(other);
         }
     }
 
@@ -19,7 +19,7 @@ public class stall_parent : MonoBehaviour
         // If the Trigger is the Player
         if (other.gameObject.CompareTag("Player"))
         {
-            gameObject.GetComponentInChildren<stall_door>().OnPlExit(other);
+            gameObject.GetComponentInChildren<door_rotator>().OnPlExit(other);
         }
     }
 }
