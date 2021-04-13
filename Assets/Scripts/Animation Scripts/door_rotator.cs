@@ -17,6 +17,15 @@ public class door_rotator : MonoBehaviour
     // Mouse Vertical Translation
     private float mouse_translation = 0.0f;
 
+    // Rotation Direction Parameter
+    public bool reverse = false;
+
+    // Opening Limit
+    public float open_limit = 90.0f;
+
+    // Lock Parameter
+    public bool locked = false;
+
     // Smoothing Factor
     public float speed_factor = 40.0f;
 
@@ -58,21 +67,44 @@ public class door_rotator : MonoBehaviour
 
         // Door Moving
 
-        if (was_clicked && inter_flag)
+        if (was_clicked && inter_flag && !locked)
         {
             mouse_translation = Input.GetAxis("Mouse Y");       // Get Mouse Translation
 
             float rotation_factor = -mouse_translation * Time.deltaTime * speed_factor;
-            float new_rotation = rotation_factor + transform.localRotation.eulerAngles.y;
 
-            if (mouse_translation < 0 && new_rotation < 90)         // Door Closing - Mouse Towards Player
+            // Normal Direction
+
+            if (!reverse)
             {
-                transform.Rotate(0.0f, rotation_factor, 0.0f, Space.Self);
+                float new_rotation = rotation_factor + transform.localRotation.eulerAngles.y;
+
+                if (mouse_translation < 0 && new_rotation < open_limit) // Door Closing - Mouse Towards Player
+                {
+                    transform.Rotate(0.0f, rotation_factor, 0.0f, Space.Self);
+                }
+                else if (mouse_translation > 0 && new_rotation > 0)     // Door Opening - Mouse Away Player
+                {
+                    transform.Rotate(0.0f, rotation_factor, 0.0f, Space.Self);
+                }
             }
-            else if (mouse_translation > 0 && new_rotation > 0)     // Door Opening - Mouse Away Player
+
+            // Reverse Direction
+
+            else
             {
-                transform.Rotate(0.0f, rotation_factor, 0.0f, Space.Self);
+                float new_rotation = -rotation_factor + transform.localRotation.eulerAngles.y;
+
+                if (mouse_translation < 0 && (new_rotation > 360 - open_limit || transform.localRotation.eulerAngles.y == 0))    // Door Opening - Mouse Towards Player
+                {
+                    transform.Rotate(0.0f, -rotation_factor, 0.0f, Space.Self);
+                }
+                else if (mouse_translation > 0 && new_rotation < 360)       // Door Closing - Mouse Away Player
+                {
+                    transform.Rotate(0.0f, -rotation_factor, 0.0f, Space.Self);
+                }
             }
+            
         }
 
         // Door Idle

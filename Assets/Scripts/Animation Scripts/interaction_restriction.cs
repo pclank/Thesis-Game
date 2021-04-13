@@ -6,7 +6,7 @@ using System;
 public class interaction_restriction : MonoBehaviour
 {
     // Expected Collider Tag
-    public string col_tag = "Stall";    // TODO: Possibly Add a List of Strings to Check From
+    private string col_tag = "Door";    // TODO: Possibly Add a List of Strings to Check From
 
     private bool was_clicked = false;
 
@@ -22,7 +22,7 @@ public class interaction_restriction : MonoBehaviour
         Debug.Log("Trigger Detected");
 
         // Check if Collider Matches Expected Tag
-        if (String.Equals(other.tag, col_tag) && was_clicked)
+        if (other.gameObject.CompareTag(col_tag) && was_clicked)
         {
             gameObject.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
             gameObject.GetComponentInChildren<FirstPersonLook>().stop_flag = true;  // Freeze Camera
