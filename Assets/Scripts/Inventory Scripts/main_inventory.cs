@@ -44,7 +44,10 @@ public class main_inventory : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-
+        if (other.gameObject.CompareTag("MainCamera"))
+        {
+            cam_trig = false;
+        }
     }
 
     // ************************************************************************************
