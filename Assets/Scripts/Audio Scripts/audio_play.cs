@@ -7,7 +7,7 @@ public class audio_play : MonoBehaviour
     // Mouse Click Flag
     private bool was_clicked = false;
 
-    // Camera Pointing to Switch Flag
+    // Camera Pointing to Trigger Flag
     private bool cam_trig = false;
 
     // Catch Trigger

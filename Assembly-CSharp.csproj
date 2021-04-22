@@ -70,6 +70,7 @@
     <Compile Include="Assets\First person controller\Scripts\Components\Crouch.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
     <Compile Include="Assets\Scripts\Inventory Scripts\main_inventory.cs" />
+    <Compile Include="Assets\Scripts\Inventory Scripts\object_collision_check.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
