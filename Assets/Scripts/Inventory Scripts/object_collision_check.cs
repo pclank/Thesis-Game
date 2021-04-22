@@ -17,8 +17,11 @@ public class object_collision_check : MonoBehaviour
     // Camera Pointing to Trigger Flag
     private bool cam_trig = false;
 
-    // GameObject Variable
+    // Player GameObject Variable
     private GameObject player_object;
+
+    // Interaction Icon GameObject Variable
+    public GameObject icon_object;
 
     // Detect Collision with Camera
     private void OnTriggerEnter(Collider other)
@@ -27,7 +30,7 @@ public class object_collision_check : MonoBehaviour
         {
             cam_trig = true;
 
-            // TODO: Enable UI Icon!
+            icon_object.SetActive(true);
         }
     }
 
@@ -37,7 +40,7 @@ public class object_collision_check : MonoBehaviour
         {
             cam_trig = false;
 
-            // TODO: Disable UI Icon!
+            icon_object.SetActive(false);
         }
     }
 
@@ -47,11 +50,26 @@ public class object_collision_check : MonoBehaviour
         // Get Player GameObject
         player_object = GameObject.FindWithTag("Player");
 
+        // Get Icon GameObject
+        if (icon_object == null)
+        {
+            icon_object = GameObject.Find("Pick Up - Text");
+        }
+
+        icon_object.SetActive(false);
 
         // Check if Player wasn't Found
         if (player_object == null)
         {
             Debug.Log("No Player Object Found!");
+
+            // TODO: Add Exception Here!
+        }
+
+        // Check if Icon wasn't Found
+        if (icon_object == null)
+        {
+            Debug.Log("No Icon Object Found!");
 
             // TODO: Add Exception Here!
         }
@@ -82,7 +100,8 @@ public class object_collision_check : MonoBehaviour
             // Check that Collider is the Player and was Pressed
             if (cam_trig && was_clicked)
             {
-                // TODO: Disable UI Icon
+                // Disable UI Icon
+                icon_object.SetActive(false);
 
                 // Build Item in Inventory
                 player_object.GetComponent<main_inventory>().buildItem(item_name, item_id);

@@ -71,6 +71,7 @@
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
     <Compile Include="Assets\Scripts\Inventory Scripts\main_inventory.cs" />
     <Compile Include="Assets\Scripts\Inventory Scripts\object_collision_check.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\disable_on_start.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
