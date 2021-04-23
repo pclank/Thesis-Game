@@ -99,6 +99,10 @@ public class Item
 // ************************************************************************************
 public class main_inventory : MonoBehaviour
 {
+    // Public Variables
+
+    public float display_distance = 0.5f;
+
     // Private Variables
 
     private List<Item> inventory = new List<Item>();    // List of Items in Inventory
@@ -185,7 +189,30 @@ public class main_inventory : MonoBehaviour
         new_go.AddComponent<MeshFilter>(item.getMeshFilter());                                          // Add MeshFilter
         new_go.AddComponent<MeshRenderer>(item.getMeshRenderer());                                      // Add MeshRenderer
 
-        Quaternion camera_rotation = player_object.transform.localRotation;                             // Get Camera Rotation
+        Vector3 camera_rotation = player_object.transform.localRotation.eulerAngles;                    // Get Camera Rotation
+        float y_rotation = camera_rotation.y;                                                           // Get Y - Axis Rotation
+        float x_rotation = camera_rotation.x;                                                           // Get X - Axis Rotation
+
+        double x_space = display_distance * Math.Sin(y_rotation);                                       // Calculate X - Axis Distance
+        double z_space = display_distance * Math.Cos(y_rotation);                                       // Calculate Y - Axis Distance
+        double y_space = display_distance * Math.Cos(x_rotation);                                       // Calculate Y - Axis Distance
+
+        if (y_rotation >= 0.0f && y_rotation < 90.0f)
+        {
+            // TODO: Add Functionality
+        }
+        else if (y_rotation >= 90.0f && y_rotation < 180.0f)
+        {
+            // TODO: Add Functionality
+        }
+        else if (y_rotation >= 180.0f && y_rotation < 270.0f)
+        {
+            // TODO: Add Functionality
+        }
+        else if (y_rotation >= 270.0f)
+        {
+            // TODO: Add Functionality
+        }
     }
 
     // ************************************************************************************
