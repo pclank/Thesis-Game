@@ -220,9 +220,6 @@
     <Reference Include="UnityEngine.UIModule">
       <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.UIModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UIElementsModule">
-      <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.UIElementsModule.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UIElementsNativeModule">
       <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.UIElementsNativeModule.dll</HintPath>
     </Reference>
@@ -294,9 +291,6 @@
     </Reference>
     <Reference Include="UnityEditor.SceneTemplateModule">
       <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEditor.SceneTemplateModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UIElementsModule">
-      <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEditor.UIElementsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UIElementsSamplesModule">
       <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEditor.UIElementsSamplesModule.dll</HintPath>
@@ -714,6 +708,30 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextCore">
+      <HintPath>Library\ScriptAssemblies\Unity.TextCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.UIElements.Editor.Text">
+      <HintPath>Library\ScriptAssemblies\Unity.UIElements.Editor.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.UIElementsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UIElementsModule">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.UIElementsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextCore.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.TextCore.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsInputSystemModule">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.UIElementsInputSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsGameObjectsModule">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.UIElementsGameObjectsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.UIElements.Text">
+      <HintPath>Library\ScriptAssemblies\Unity.UIElements.Text.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

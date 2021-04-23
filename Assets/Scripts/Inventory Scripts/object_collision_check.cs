@@ -8,8 +8,8 @@ public class object_collision_check : MonoBehaviour
     // GameObject Parameters to be Used in Item Creation
     // ******************************************************
 
-    public string item_name;
-    public int item_id;
+    public string item_name = null;
+    public int item_id = -1;
 
     // Mouse Click Flag
     private bool was_clicked = false;
@@ -75,7 +75,7 @@ public class object_collision_check : MonoBehaviour
         }
 
         // Check Item Parameters are Set
-        if (item_name == null || item_id == null)
+        if (item_name == null || item_id == -1)         // -1 is Invalid ID
         {
             Debug.Log("Item Parameters not Set!");
 

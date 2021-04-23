@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// ************************************************************************************
 // Inventory Item Class
+// ************************************************************************************
 public class Item
 {
     // Public Variables
 
-    public string name;
-    public int id;
+    public string name;                             // Holds Item Name-Title
+    public int id;                                  // Holds Item ID
+
+    // Private Variables
+
+    private MeshFilter mesh_filter;                 // Holds Mesh of Item
+    private MeshRenderer mesh_renderer;             // Holds Material of Item
 
     // Member Functions
 
@@ -18,7 +25,18 @@ public class Item
         id = item_id;
     }
 
-    // TODO: Add Functions Chief!
+    // Get Item ID
+
+    public int getID()
+    {
+        return this.id;
+    }
+
+    // Get Item Name
+    public string getName()
+    {
+        return this.name;
+    }
 }
 
 public class main_inventory : MonoBehaviour
@@ -60,7 +78,7 @@ public class main_inventory : MonoBehaviour
     {
         Item new_item = new Item(item_name, item_id);       // Build Item
 
-        addItem(new_item);
+        addItem(new_item);                                  // Add to Inventory
     }
 
     // Add Item to Inventory
@@ -68,7 +86,7 @@ public class main_inventory : MonoBehaviour
     private void addItem(Item item)
     {
         bool flag = true;
-        foreach (Item it in inventory)
+        foreach (Item it in inventory)                      // Check that item isn't in Inventory
         {
             if (item.id != it.id)
             {
@@ -84,7 +102,23 @@ public class main_inventory : MonoBehaviour
         }
     }
 
-    public 
+    // Compare Item Tags
+
+    private bool compareID(Item item1, Item item2)
+    {
+        if (item1.getID() == item2.getID())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    // ************************************************************************************
+    // Runtime Functions
+    // ************************************************************************************
 
     // Start is called before the first frame update
     void Start()
