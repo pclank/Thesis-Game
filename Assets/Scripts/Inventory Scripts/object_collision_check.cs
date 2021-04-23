@@ -91,7 +91,7 @@ public class object_collision_check : MonoBehaviour
         // Check Item Parameters are Set
         if (item_name == null || item_id == -1)         // -1 is Invalid ID
         {
-            Debug.Log("Item Parameters not Set!");
+            Debug.Log("Item Parameters Not Set!");
 
             // TODO: Add Exception Here!
         }
@@ -100,6 +100,14 @@ public class object_collision_check : MonoBehaviour
 
         mesh_f = this.GetComponent(typeof(MeshFilter)) as MeshFilter;
         mesh_r = this.GetComponent(typeof(MeshRenderer)) as MeshRenderer;
+
+        // Check Above Components are Set
+        if (mesh_f == null || mesh_r == null)
+        {
+            Debug.Log("Item Components Not Retrieved!");
+
+            // TODO: Add Exception Here!
+        }
     }
 
     // Update is called once per frame
