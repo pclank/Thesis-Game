@@ -53,12 +53,12 @@ public class Item
 
     // Private Variables
 
-    private MeshFilter mesh_filter;                 // Holds Mesh of Item
-    private MeshRenderer mesh_renderer;             // Holds Material of Item
+    private Component mesh_filter;                 // Holds Mesh of Item
+    private Component mesh_renderer;             // Holds Material of Item
 
     // Member Functions
 
-    public Item(string item_name, int item_id, MeshFilter mesh_f, MeshRenderer mesh_r)      // Item Constructor
+    public Item(string item_name, int item_id, Component mesh_f, Component mesh_r)      // Item Constructor
     {
         name = item_name;
         id = item_id;
@@ -81,14 +81,14 @@ public class Item
 
     // Get Mesh Filter
 
-    public MeshFilter getMeshFilter()
+    public Component getMeshFilter()
     {
         return this.mesh_filter;
     }
     
     // Get Mesh Renderer
 
-    public MeshRenderer getMeshRenderer()
+    public Component getMeshRenderer()
     {
         return this.mesh_renderer;
     }
@@ -138,11 +138,13 @@ public class main_inventory : MonoBehaviour
 
     // Build Item
 
-    public void buildItem(string item_name, int item_id, MeshFilter mesh_f, MeshRenderer mesh_r)
+    public void buildItem(string item_name, int item_id, Component mesh_f, Component mesh_r)
     {
         Item new_item = new Item(item_name, item_id, mesh_f, mesh_r);   // Build Item
 
         addItem(new_item);                                              // Add to Inventory
+
+        displayItem(new_item);                                          // Display Item
     }
 
     // Add Item to Inventory
@@ -186,15 +188,15 @@ public class main_inventory : MonoBehaviour
     {
         GameObject new_go = new GameObject(item.getName(), typeof(MeshFilter), typeof(MeshRenderer));   // Create GameObject Object Using Constructor
 
-        new_go.AddComponent<MeshFilter>(item.getMeshFilter());                                          // Add MeshFilter
-        new_go.AddComponent<MeshRenderer>(item.getMeshRenderer());                                      // Add MeshRenderer
+        var sm = new_go.AddComponent<MeshFilter>(item.getMeshFilter());                                          // Add MeshFilter
+        var se = new_go.AddComponent<MeshRenderer>(item.getMeshRenderer());                                      // Add MeshRenderer
 
         Vector3 camera_rotation = player_object.transform.localRotation.eulerAngles;                    // Get Camera Rotation
         float y_rotation = camera_rotation.y;                                                           // Get Y - Axis Rotation
         float x_rotation = camera_rotation.x;                                                           // Get X - Axis Rotation
 
         double x_space = display_distance * Math.Sin(y_rotation);                                       // Calculate X - Axis Distance
-        double z_space = display_distance * Math.Cos(y_rotation);                                       // Calculate Y - Axis Distance
+        double z_space = display_distance * Math.Cos(y_rotation);                                       // Calculate Z - Axis Distance
         double y_space = display_distance * Math.Cos(x_rotation);                                       // Calculate Y - Axis Distance
 
         if (y_rotation >= 0.0f && y_rotation < 90.0f)
