@@ -24,10 +24,10 @@ public class object_collision_check : MonoBehaviour
     public GameObject icon_object;
 
     // MeshFilter Component Object
-    private Component mesh_f;
+    private MeshFilter mesh_f;
 
     // MeshRenderer Component Object
-    private Component mesh_r;
+    private MeshRenderer mesh_r;
 
     // ************************************************************************************
     // Trigger Functions
@@ -98,8 +98,8 @@ public class object_collision_check : MonoBehaviour
 
         // Get Item GameObject MeshFilter and Mesh Renderer Components
 
-        mesh_f = this.GetComponent(typeof(MeshFilter)); //as MeshFilter;
-        mesh_r = this.GetComponent(typeof(MeshRenderer)); //*as MeshRenderer;
+        mesh_f = this.GetComponent(typeof(MeshFilter)) as MeshFilter;
+        mesh_r = this.GetComponent(typeof(MeshRenderer)) as MeshRenderer;
 
         // Check Above Components are Set
         if (mesh_f == null || mesh_r == null)

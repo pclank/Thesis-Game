@@ -53,12 +53,12 @@ public class Item
 
     // Private Variables
 
-    private Component mesh_filter;                 // Holds Mesh of Item
-    private Component mesh_renderer;             // Holds Material of Item
+    private MeshFilter mesh_filter;                 // Holds Mesh of Item
+    private MeshRenderer mesh_renderer;             // Holds Material of Item
 
     // Member Functions
 
-    public Item(string item_name, int item_id, Component mesh_f, Component mesh_r)      // Item Constructor
+    public Item(string item_name, int item_id, MeshFilter mesh_f, MeshRenderer mesh_r)      // Item Constructor
     {
         name = item_name;
         id = item_id;
@@ -81,16 +81,21 @@ public class Item
 
     // Get Mesh Filter
 
-    public Component getMeshFilter()
+    public MeshFilter getMeshFilter()
     {
         return this.mesh_filter;
     }
     
     // Get Mesh Renderer
 
-    public Component getMeshRenderer()
+    public MeshRenderer getMeshRenderer()
     {
         return this.mesh_renderer;
+    }
+
+    public Material getMaterial()
+    {
+        return this.getMeshRenderer().material;
     }
 }
 
@@ -138,7 +143,7 @@ public class main_inventory : MonoBehaviour
 
     // Build Item
 
-    public void buildItem(string item_name, int item_id, Component mesh_f, Component mesh_r)
+    public void buildItem(string item_name, int item_id, MeshFilter mesh_f, MeshRenderer mesh_r)
     {
         Item new_item = new Item(item_name, item_id, mesh_f, mesh_r);   // Build Item
 
@@ -186,10 +191,12 @@ public class main_inventory : MonoBehaviour
 
     private void displayItem(Item item)
     {
-        GameObject new_go = new GameObject(item.getName(), typeof(MeshFilter), typeof(MeshRenderer));   // Create GameObject Object Using Constructor
+        GameObject new_go = new GameObject(item.getName());   // Create GameObject Object Using Constructor
 
-        var sm = new_go.AddComponent<MeshFilter>(item.getMeshFilter());                                          // Add MeshFilter
-        var se = new_go.AddComponent<MeshRenderer>(item.getMeshRenderer());                                      // Add MeshRenderer
+        var mf = new_go.AddComponent<MeshFilter>(item.getMeshFilter());                                 // Add MeshFilter
+        Material mat = item.getMaterial();                                                              // Get Material
+        var mr = new_go.AddComponent<MeshRenderer>(item.getMeshRenderer());                             // Add MeshRenderer
+        mr.material = mat;                                                                              // Assign Material
 
         Vector3 camera_rotation = player_object.transform.localRotation.eulerAngles;                    // Get Camera Rotation
         float y_rotation = camera_rotation.y;                                                           // Get Y - Axis Rotation
