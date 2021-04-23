@@ -19,10 +19,12 @@ public class Item
 
     // Member Functions
 
-    public Item(string item_name, int item_id)      // Item Constructor
+    public Item(string item_name, int item_id, MeshFilter mesh_f, MeshRenderer mesh_r)      // Item Constructor
     {
         name = item_name;
         id = item_id;
+        mesh_filter = mesh_f;
+        mesh_renderer = mesh_r;
     }
 
     // Get Item ID
@@ -47,6 +49,8 @@ public class main_inventory : MonoBehaviour
 
     private bool was_clicked = false;                   // Mouse Click Flag
     private bool cam_trig = false;                      // Camera Pointing to Trigger Flag
+
+    private GameObject player_object;                   // Player GameObject
 
     // ************************************************************************************
     // Trigger Functions
@@ -74,11 +78,11 @@ public class main_inventory : MonoBehaviour
 
     // Build Item
 
-    public void buildItem(string item_name, int item_id)
+    public void buildItem(string item_name, int item_id, MeshFilter mesh_f, MeshRenderer mesh_r)
     {
-        Item new_item = new Item(item_name, item_id);       // Build Item
+        Item new_item = new Item(item_name, item_id, mesh_f, mesh_r);   // Build Item
 
-        addItem(new_item);                                  // Add to Inventory
+        addItem(new_item);                                              // Add to Inventory
     }
 
     // Add Item to Inventory
@@ -123,7 +127,7 @@ public class main_inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        player_object = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame

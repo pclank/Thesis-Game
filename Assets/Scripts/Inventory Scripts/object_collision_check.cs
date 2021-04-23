@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class object_collision_check : MonoBehaviour
 {
-    // ******************************************************
+    // ************************************************************************************
     // GameObject Parameters to be Used in Item Creation
-    // ******************************************************
+    // ************************************************************************************
 
     public string item_name = null;
     public int item_id = -1;
@@ -22,6 +22,16 @@ public class object_collision_check : MonoBehaviour
 
     // Interaction Icon GameObject Variable
     public GameObject icon_object;
+
+    // MeshFilter Component Object
+    private MeshFilter mesh_f;
+
+    // MeshRenderer Component Object
+    private MeshRenderer mesh_r;
+
+    // ************************************************************************************
+    // Trigger Functions
+    // ************************************************************************************
 
     // Detect Collision with Camera
     private void OnTriggerEnter(Collider other)
@@ -43,6 +53,10 @@ public class object_collision_check : MonoBehaviour
             icon_object.SetActive(false);
         }
     }
+
+    // ************************************************************************************
+    // Runtime Functions
+    // ************************************************************************************
 
     // Start is called before the first frame update
     void Start()
@@ -81,6 +95,11 @@ public class object_collision_check : MonoBehaviour
 
             // TODO: Add Exception Here!
         }
+
+        // Get Item GameObject MeshFilter and Mesh Renderer Components
+
+        mesh_f = this.GetComponent(typeof(MeshFilter)) as MeshFilter;
+        mesh_r = this.GetComponent(typeof(MeshRenderer)) as MeshRenderer;
     }
 
     // Update is called once per frame
@@ -104,7 +123,7 @@ public class object_collision_check : MonoBehaviour
                 icon_object.SetActive(false);
 
                 // Build Item in Inventory
-                player_object.GetComponent<main_inventory>().buildItem(item_name, item_id);
+                player_object.GetComponent<main_inventory>().buildItem(item_name, item_id, mesh_f, mesh_r);
 
                 // Disable Picked-Up Item's GameObject
                 this.gameObject.SetActive(false);
