@@ -10,6 +10,10 @@ public class object_collision_check : MonoBehaviour
 
     public string item_name = null;
     public int item_id = -1;
+    public float item_scale = 1.5f;
+
+    // Interaction Icon GameObject Variable
+    public GameObject icon_object;
 
     // Mouse Click Flag
     private bool was_clicked = false;
@@ -19,9 +23,6 @@ public class object_collision_check : MonoBehaviour
 
     // Player GameObject Variable
     private GameObject player_object;
-
-    // Interaction Icon GameObject Variable
-    public GameObject icon_object;
 
     // MeshFilter Component Object
     private MeshFilter mesh_f;
@@ -131,7 +132,7 @@ public class object_collision_check : MonoBehaviour
                 icon_object.SetActive(false);
 
                 // Build Item in Inventory
-                player_object.GetComponent<main_inventory>().buildItem(item_name, item_id, mesh_f, mesh_r);
+                player_object.GetComponent<main_inventory>().buildItem(item_name, item_id, mesh_f, mesh_r, item_scale);
 
                 // Disable Picked-Up Item's GameObject
                 this.gameObject.SetActive(false);

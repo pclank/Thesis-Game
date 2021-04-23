@@ -48,20 +48,22 @@ public class Item
 {
     // Public Variables
 
-    public string name;                             // Holds Item Name-Title
-    public int id;                                  // Holds Item ID
-
     // Private Variables
+
+    private string name;                            // Holds Item Name-Title
+    private int id;                                 // Holds Item ID
+    private float scale;                            // Holds Item Scale
 
     private MeshFilter mesh_filter;                 // Holds Mesh of Item
     private MeshRenderer mesh_renderer;             // Holds Material of Item
 
     // Member Functions
 
-    public Item(string item_name, int item_id, MeshFilter mesh_f, MeshRenderer mesh_r)      // Item Constructor
+    public Item(string item_name, int item_id, MeshFilter mesh_f, MeshRenderer mesh_r, float item_scale)    // Item Constructor
     {
         name = item_name;
         id = item_id;
+        scale = item_scale;
         mesh_filter = mesh_f;
         mesh_renderer = mesh_r;
     }
@@ -78,6 +80,13 @@ public class Item
     {
         return this.name;
     }
+
+    // Get Item Scale
+
+    public float getScale()
+    {
+        return this.scale;
+    }    
 
     // Get Mesh Filter
 
@@ -107,6 +116,8 @@ public class main_inventory : MonoBehaviour
     // Public Variables
 
     public float display_distance = 0.5f;
+    public GameObject display_background;
+    public GameObject display_light;
 
     // Private Variables
 
@@ -116,6 +127,7 @@ public class main_inventory : MonoBehaviour
     private bool cam_trig = false;                      // Camera Pointing to Trigger Flag
 
     private GameObject player_object;                   // Player GameObject
+    private GameObject camera_object;                   // Camera GameObject
 
     // ************************************************************************************
     // Trigger Functions
@@ -143,13 +155,13 @@ public class main_inventory : MonoBehaviour
 
     // Build Item
 
-    public void buildItem(string item_name, int item_id, MeshFilter mesh_f, MeshRenderer mesh_r)
+    public void buildItem(string item_name, int item_id, MeshFilter mesh_f, MeshRenderer mesh_r, float item_scale)
     {
-        Item new_item = new Item(item_name, item_id, mesh_f, mesh_r);   // Build Item
+        Item new_item = new Item(item_name, item_id, mesh_f, mesh_r, item_scale);   // Build Item
 
-        addItem(new_item);                                              // Add to Inventory
+        addItem(new_item);                                                          // Add to Inventory
 
-        displayItem(new_item);                                          // Display Item
+        displayItem(new_item);                                                      // Display Item
     }
 
     // Add Item to Inventory
@@ -159,7 +171,7 @@ public class main_inventory : MonoBehaviour
         bool flag = true;
         foreach (Item it in inventory)                      // Check that item isn't in Inventory
         {
-            if (item.id != it.id)
+            if (item.getID() != it.getID())
             {
                 flag = false;
 
@@ -191,37 +203,49 @@ public class main_inventory : MonoBehaviour
 
     private void displayItem(Item item)
     {
-        GameObject new_go = new GameObject(item.getName());   // Create GameObject Object Using Constructor
+        display_background.SetActive(true);                                                             // Enable Background
+        display_light.SetActive(true);                                                                  // Enable Light
 
-        var mf = new_go.AddComponent<MeshFilter>(item.getMeshFilter());                                 // Add MeshFilter
-        Material mat = item.getMaterial();                                                              // Get Material
+        GameObject new_go = new GameObject(item.getName());                                             // Create GameObject Object Using Constructor
+
+        new_go.AddComponent<MeshFilter>(item.getMeshFilter());                                          // Add MeshFilter
+        Material mat = item.getMaterial();                                                              // Get Material from Renderer
         var mr = new_go.AddComponent<MeshRenderer>(item.getMeshRenderer());                             // Add MeshRenderer
         mr.material = mat;                                                                              // Assign Material
 
-        Vector3 camera_rotation = player_object.transform.localRotation.eulerAngles;                    // Get Camera Rotation
+        float x_tr = player_object.transform.position.x;                                                // Get X - Axis Position
+        float z_tr = player_object.transform.position.z;                                                // Get Z - Axis Position
+        new_go.transform.position = new Vector3(x_tr, 1.82f, z_tr);                                     // Set Initial Position to Camera Position
+
+        Vector3 camera_rotation = player_object.transform.localRotation.eulerAngles;                    // Get Camera (Player GameObject) Rotation
         float y_rotation = camera_rotation.y;                                                           // Get Y - Axis Rotation
         float x_rotation = camera_rotation.x;                                                           // Get X - Axis Rotation
 
-        double x_space = display_distance * Math.Sin(y_rotation);                                       // Calculate X - Axis Distance
-        double z_space = display_distance * Math.Cos(y_rotation);                                       // Calculate Z - Axis Distance
-        double y_space = display_distance * Math.Cos(x_rotation);                                       // Calculate Y - Axis Distance
+        float x_space = display_distance * (float)Math.Sin(y_rotation);                                 // Calculate X - Axis Distance
+        float z_space = display_distance * (float)Math.Cos(y_rotation);                                 // Calculate Z - Axis Distance
+        float y_space = display_distance * (float)Math.Cos(x_rotation);                                 // Calculate Y - Axis Distance
 
         if (y_rotation >= 0.0f && y_rotation < 90.0f)
         {
-            // TODO: Add Functionality
+            new_go.transform.Translate(x_space, 0, z_space);
         }
         else if (y_rotation >= 90.0f && y_rotation < 180.0f)
         {
-            // TODO: Add Functionality
+            new_go.transform.Translate(x_space, 0, -z_space);
         }
         else if (y_rotation >= 180.0f && y_rotation < 270.0f)
         {
-            // TODO: Add Functionality
+            new_go.transform.Translate(-x_space, 0, -z_space);
         }
         else if (y_rotation >= 270.0f)
         {
-            // TODO: Add Functionality
+            new_go.transform.Translate(-x_space, 0, z_space);
         }
+
+        float scale = item.getScale();                                                                  // Get Scale
+        new_go.transform.localScale = new Vector3(scale, scale, scale);                                 // Set Scale
+
+        // TODO: Factor In Horizontal Rotation.
     }
 
     // ************************************************************************************
@@ -231,7 +255,11 @@ public class main_inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player_object = this.gameObject;
+        player_object = this.gameObject;                                // Get Player GameObject
+        camera_object = GameObject.FindWithTag("MainCamera");           // Get Camera GameObject
+
+        display_background.SetActive(false);                            // Disable Background on Start
+        display_light.SetActive(false);                                 // Disable Light on Start
     }
 
     // Update is called once per frame
