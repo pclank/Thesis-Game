@@ -117,6 +117,7 @@ public class main_inventory : MonoBehaviour
 
     public float display_distance = 0.5f;
     public float rotation_speed = 100.0f;               // Speed of Rotation for Item Display
+    public float scale_speed = 10.0f;                   // Speed of Scaling for Item Display
     public GameObject display_background;
     public GameObject display_light;
 
@@ -235,8 +236,9 @@ public class main_inventory : MonoBehaviour
         display_light.SetActive(false);                                                                 // Disable Light
         display_on = false;                                                                             // Disable Display Flag
 
-        player_object.GetComponent<FirstPersonMovement>().stop_flag = false;                             // UnFreeze Player Controller
+        player_object.GetComponent<FirstPersonMovement>().stop_flag = false;                            // UnFreeze Player Controller
 
+        Destroy(displayed_object);                                                                      // Destroy GameObject
         displayed_object = null;                                                                        // Reset GameObject Variable
     }
 
@@ -282,9 +284,10 @@ public class main_inventory : MonoBehaviour
                 float horizontal_rotation = Input.GetAxis("Mouse X") * rotation_speed;      // Calculate Horizontal Rotation
                 float vertical_rotation = Input.GetAxis("Mouse Y") * rotation_speed;        // Calculate Vertical Rotation
 
-                displayed_object.transform.Rotate(vertical_rotation, horizontal_rotation, vertical_rotation);   // Apply Rotation
+                float scale_factor = Input.GetAxis("Mouse ScrollWheel") * scale_speed + displayed_object.transform.localScale.x;    // Calculate Zoom - Scaling
 
-                // TODO: Add Zoom (Possibly By Scaling) Functionality
+                displayed_object.transform.Rotate(vertical_rotation, horizontal_rotation, vertical_rotation);   // Apply Rotation
+                displayed_object.transform.localScale = new Vector3(scale_factor, scale_factor, scale_factor);  // Set Scale
             }
         }
     }
