@@ -227,6 +227,19 @@ public class main_inventory : MonoBehaviour
         displayed_object = new_go;                                                                      // Set Displayed Object
     }
 
+    // Exit Item Display
+
+    private void exitDisplay()
+    {
+        display_background.SetActive(false);                                                            // Disable Background
+        display_light.SetActive(false);                                                                 // Disable Light
+        display_on = false;                                                                             // Disable Display Flag
+
+        player_object.GetComponent<FirstPersonMovement>().stop_flag = false;                             // UnFreeze Player Controller
+
+        displayed_object = null;                                                                        // Reset GameObject Variable
+    }
+
     // ************************************************************************************
     // Runtime Functions
     // ************************************************************************************
@@ -254,16 +267,24 @@ public class main_inventory : MonoBehaviour
             was_clicked = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.Mouse1))                           // Exit Item Display on Right Click
+        {
+            exitDisplay();
+        }
+
         if (display_on)                                                 // Item Being Displayed in Inventory
         {
-            camera_object.transform.LookAt(displayed_object.transform); // Look at Item
+            camera_object.transform.LookAt(displayed_object.transform);             // Look at Item
+            player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
 
             if (was_clicked)
             {
-                float horizontal_rotation = Input.GetAxis("Mouse X") * rotation_speed;   // Calculate Horizontal Rotation
-                float vertical_rotation = Input.GetAxis("Mouse Y") * rotation_speed;       // Calculate Vertical Rotation
+                float horizontal_rotation = Input.GetAxis("Mouse X") * rotation_speed;      // Calculate Horizontal Rotation
+                float vertical_rotation = Input.GetAxis("Mouse Y") * rotation_speed;        // Calculate Vertical Rotation
 
                 displayed_object.transform.Rotate(vertical_rotation, horizontal_rotation, vertical_rotation);   // Apply Rotation
+
+                // TODO: Add Zoom (Possibly By Scaling) Functionality
             }
         }
     }
