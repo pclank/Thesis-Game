@@ -116,6 +116,7 @@ public class main_inventory : MonoBehaviour
     // Public Variables
 
     public float display_distance = 0.5f;
+    public float rotation_speed = 100.0f;               // Speed of Rotation for Item Display
     public GameObject display_background;
     public GameObject display_light;
 
@@ -125,9 +126,12 @@ public class main_inventory : MonoBehaviour
 
     private bool was_clicked = false;                   // Mouse Click Flag
     private bool cam_trig = false;                      // Camera Pointing to Trigger Flag
+    private bool display_on = false;                    // Item Being Displayed
 
     private GameObject player_object;                   // Player GameObject
     private GameObject camera_object;                   // Camera GameObject
+
+    private GameObject displayed_object;                // Object Being Displayed
 
     // ************************************************************************************
     // Trigger Functions
@@ -206,6 +210,8 @@ public class main_inventory : MonoBehaviour
         display_background.SetActive(true);                                                             // Enable Background
         display_light.SetActive(true);                                                                  // Enable Light
 
+        display_on = true;                                                                              // Enable Display Flag
+
         GameObject new_go = new GameObject(item.getName());                                             // Create GameObject Object Using Constructor
 
         new_go.AddComponent<MeshFilter>(item.getMeshFilter());                                          // Add MeshFilter
@@ -213,39 +219,12 @@ public class main_inventory : MonoBehaviour
         var mr = new_go.AddComponent<MeshRenderer>(item.getMeshRenderer());                             // Add MeshRenderer
         mr.material = mat;                                                                              // Assign Material
 
-        float x_tr = player_object.transform.position.x;                                                // Get X - Axis Position
-        float z_tr = player_object.transform.position.z;                                                // Get Z - Axis Position
-        new_go.transform.position = new Vector3(x_tr, 1.82f, z_tr);                                     // Set Initial Position to Camera Position
-
-        Vector3 camera_rotation = player_object.transform.localRotation.eulerAngles;                    // Get Camera (Player GameObject) Rotation
-        float y_rotation = camera_rotation.y;                                                           // Get Y - Axis Rotation
-        float x_rotation = camera_rotation.x;                                                           // Get X - Axis Rotation
-
-        float x_space = display_distance * (float)Math.Sin(y_rotation);                                 // Calculate X - Axis Distance
-        float z_space = display_distance * (float)Math.Cos(y_rotation);                                 // Calculate Z - Axis Distance
-        float y_space = display_distance * (float)Math.Cos(x_rotation);                                 // Calculate Y - Axis Distance
-
-        if (y_rotation >= 0.0f && y_rotation < 90.0f)
-        {
-            new_go.transform.Translate(x_space, 0, z_space);
-        }
-        else if (y_rotation >= 90.0f && y_rotation < 180.0f)
-        {
-            new_go.transform.Translate(x_space, 0, -z_space);
-        }
-        else if (y_rotation >= 180.0f && y_rotation < 270.0f)
-        {
-            new_go.transform.Translate(-x_space, 0, -z_space);
-        }
-        else if (y_rotation >= 270.0f)
-        {
-            new_go.transform.Translate(-x_space, 0, z_space);
-        }
+        new_go.transform.position = camera_object.transform.position + transform.forward;
 
         float scale = item.getScale();                                                                  // Get Scale
         new_go.transform.localScale = new Vector3(scale, scale, scale);                                 // Set Scale
 
-        // TODO: Factor In Horizontal Rotation.
+        displayed_object = new_go;                                                                      // Set Displayed Object
     }
 
     // ************************************************************************************
@@ -265,6 +244,27 @@ public class main_inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            was_clicked = true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            was_clicked = false;
+        }
+
+        if (display_on)                                                 // Item Being Displayed in Inventory
+        {
+            camera_object.transform.LookAt(displayed_object.transform); // Look at Item
+
+            if (was_clicked)
+            {
+                float horizontal_rotation = Input.GetAxis("Mouse X") * rotation_speed;   // Calculate Horizontal Rotation
+                float vertical_rotation = Input.GetAxis("Mouse Y") * rotation_speed;       // Calculate Vertical Rotation
+
+                displayed_object.transform.Rotate(vertical_rotation, horizontal_rotation, vertical_rotation);   // Apply Rotation
+            }
+        }
     }
 }
