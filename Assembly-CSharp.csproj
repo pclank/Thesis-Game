@@ -57,21 +57,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Audio Scripts\audio_play.cs" />
+    <Compile Include="Assets\Scripts\Inventory Scripts\main_inventory.cs" />
     <Compile Include="Assets\First person controller\Scripts\FirstPersonMovement.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\Zoom.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\FirstPersonAudio.cs" />
     <Compile Include="Assets\First person controller\Scripts\FirstPersonLook.cs" />
     <Compile Include="Assets\Scripts\Switch Scripts\lightswitch.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\interaction_restriction.cs" />
+    <Compile Include="Assets\Scripts\Inventory Scripts\object_collision_check.cs" />
     <Compile Include="Assets\Scripts\Switch Scripts\light_control.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\Jump.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\disable_on_start.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\door_rotator_parent.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\door_rotator.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\Crouch.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\Inventory Scripts\main_inventory.cs" />
-    <Compile Include="Assets\Scripts\Inventory Scripts\object_collision_check.cs" />
-    <Compile Include="Assets\Scripts\UI Scripts\disable_on_start.cs" />
+    <Compile Include="Assets\Scripts\Modular Room Scripts\change_room.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
@@ -694,8 +695,17 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UIElementsInputSystemModule">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.UIElementsInputSystemModule.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.UIElements.Text">
+      <HintPath>Library\ScriptAssemblies\Unity.UIElements.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextCore">
+      <HintPath>Library\ScriptAssemblies\Unity.TextCore.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
@@ -703,14 +713,14 @@
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.TextCore.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.TextCore.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.HighDefinition.Config.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Config.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextCore">
-      <HintPath>Library\ScriptAssemblies\Unity.TextCore.dll</HintPath>
+    <Reference Include="UnityEditor.UIElementsModule">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.UIElementsModule.dll</HintPath>
     </Reference>
     <Reference Include="Unity.UIElements.Editor.Text">
       <HintPath>Library\ScriptAssemblies\Unity.UIElements.Editor.Text.dll</HintPath>
@@ -718,20 +728,11 @@
     <Reference Include="UnityEngine.UIElementsModule">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UIElementsModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UIElementsModule">
-      <HintPath>Library\ScriptAssemblies\UnityEditor.UIElementsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextCore.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.TextCore.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UIElementsInputSystemModule">
-      <HintPath>Library\ScriptAssemblies\UnityEngine.UIElementsInputSystemModule.dll</HintPath>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIElementsGameObjectsModule">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UIElementsGameObjectsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.UIElements.Text">
-      <HintPath>Library\ScriptAssemblies\Unity.UIElements.Text.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

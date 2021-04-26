@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.UI;
 
 // ************************************************************************************
 // Helper Functions
@@ -120,6 +121,7 @@ public class main_inventory : MonoBehaviour
     public float scale_speed = 10.0f;                   // Speed of Scaling for Item Display
     public GameObject display_background;
     public GameObject display_light;
+    public GameObject title_text;                       // Item Title UI GameObject
 
     // Private Variables
 
@@ -211,6 +213,10 @@ public class main_inventory : MonoBehaviour
         display_background.SetActive(true);                                                             // Enable Background
         display_light.SetActive(true);                                                                  // Enable Light
 
+        title_text.GetComponent<Text>().text = item.getName();                                          // Change Text to Item's Name
+
+        title_text.SetActive(true);                                                                     // Enable Title Text
+
         display_on = true;                                                                              // Enable Display Flag
 
         GameObject new_go = new GameObject(item.getName());                                             // Create GameObject Object Using Constructor
@@ -234,12 +240,32 @@ public class main_inventory : MonoBehaviour
     {
         display_background.SetActive(false);                                                            // Disable Background
         display_light.SetActive(false);                                                                 // Disable Light
+        title_text.SetActive(false);                                                                    // Disable Title Text
         display_on = false;                                                                             // Disable Display Flag
 
         player_object.GetComponent<FirstPersonMovement>().stop_flag = false;                            // UnFreeze Player Controller
 
         Destroy(displayed_object);                                                                      // Destroy GameObject
         displayed_object = null;                                                                        // Reset GameObject Variable
+    }
+
+    // Query Inventory for Item
+
+    private bool queryInventory(Item query_item)
+    {
+        bool result = false;                                                                            // Initialize Returned Variable
+
+        foreach (Item it in inventory)
+        {
+            if (compareID(query_item, it))                                                                      // Use Member Function to Compare IDs
+            {
+                result = true;
+
+                return result;                                                                                      // Return
+            }
+        }
+
+        return result;
     }
 
     // ************************************************************************************
