@@ -73,6 +73,7 @@
     <Compile Include="Assets\First person controller\Scripts\Components\Crouch.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\change_room.cs" />
+    <Compile Include="Assets\Scripts\Animation Scripts\start_animation.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />

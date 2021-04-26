@@ -160,6 +160,13 @@ public class main_inventory : MonoBehaviour
     // Member Functions
     // ************************************************************************************
 
+    // Public Function to Query Inventory
+
+    public bool startQuery(int q_id)
+    {
+        return queryInventory(q_id);
+    }
+
     // Build Item
 
     public void buildItem(string item_name, int item_id, MeshFilter mesh_f, MeshRenderer mesh_r, float item_scale)
@@ -194,9 +201,9 @@ public class main_inventory : MonoBehaviour
 
     // Compare Item Tags
 
-    private bool compareID(Item item1, Item item2)
+    private bool compareID(int item1, Item item2)
     {
-        if (item1.getID() == item2.getID())
+        if (item1 == item2.getID())
         {
             return true;
         }
@@ -251,7 +258,7 @@ public class main_inventory : MonoBehaviour
 
     // Query Inventory for Item
 
-    private bool queryInventory(Item query_item)
+    private bool queryInventory(int query_item)
     {
         bool result = false;                                                                            // Initialize Returned Variable
 
