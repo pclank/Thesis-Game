@@ -82,7 +82,7 @@ public class start_animation : MonoBehaviour
                 {
                     ui_open.SetActive(false);
 
-                    anim.Play(state_name, 0, 0.25f);                // Play Animator
+                    anim.Play(state_name);                          // Play Animator
                     audio_source.Play();                            // Play AudioFX
 
                     Destroy(this);                                  // Destroy Script Component
