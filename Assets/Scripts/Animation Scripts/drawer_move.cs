@@ -10,9 +10,14 @@ public class drawer_move : MonoBehaviour
 
     public GameObject icon_object;
 
-    public float z_limit = 2.0f;
-    public float z_limit_upper = 0.0f;
+    public float limit = 2.0f;
     public float movement_speed = 2.0f;
+
+    // Limit Choices
+
+    public bool x_limit = false;
+    public bool y_limit = false;
+    public bool z_limit = false;
 
     // ************************************************************************************
     // Private Variables
@@ -24,8 +29,23 @@ public class drawer_move : MonoBehaviour
     // Camera Pointing to Trigger Flag
     private bool cam_trig = false;
 
+    // Interact Flag
+    private bool interact = false;
+
     // Player GameObject Variable
     private GameObject player_object;
+
+    // Rigid Body of this GameObject
+    private Rigidbody rigid_body;
+
+    // Initial Global Position
+    private Vector3 initial_position;
+
+    // Global Position Limit
+    private Vector3 position_limit;
+
+    // Initial Drag
+    private float initial_drag;
 
     // ************************************************************************************
     // Trigger Functions
@@ -60,6 +80,18 @@ public class drawer_move : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Get Rigid Body
+        rigid_body = GetComponent<Rigidbody>();
+
+        // Get Initial Drag
+        initial_drag = rigid_body.drag;
+
+        // Get Initial Global Position
+        initial_position = transform.position;
+
+        // Get Position Limit
+        position_limit = initial_position - new Vector3(limit, limit, limit);
+
         // Get Player GameObject
         player_object = GameObject.FindWithTag("Player");
 
@@ -79,6 +111,14 @@ public class drawer_move : MonoBehaviour
             // TODO: Add Exception Here!
         }
 
+        // Check if Rigid Body Component Doesn't Exist
+        if (rigid_body == null)
+        {
+            Debug.Log("No Rigid Body!");
+
+            // TODO: Add Exception Here!
+        }
+
         icon_object.SetActive(false);
     }
 
@@ -89,6 +129,8 @@ public class drawer_move : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             was_clicked = false;
+
+            interact = false;
         }
 
         // Check for Mouse Down
@@ -97,19 +139,62 @@ public class drawer_move : MonoBehaviour
             was_clicked = true;
         }
 
-        // Check that Collider is the Player and was Pressed
         if (cam_trig && was_clicked)
         {
-            if (Input.GetAxis("Mouse Y") <= 0 && transform.localPosition.z < z_limit)
+            interact = true;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        
+
+        // Check that Collider is the Player and was Pressed
+        if (interact)
+        {
+            if (x_limit)
             {
-                float movement = -movement_speed * Input.GetAxis("Mouse Y");
-                transform.Translate(new Vector3(0, 0, movement) * Time.deltaTime);
+                if (Input.GetAxis("Mouse Y") < 0 && transform.position.x > position_limit.x)
+                {
+                    float movement = movement_speed * Input.GetAxis("Mouse Y");
+                    rigid_body.AddForce(new Vector3(movement, 0, 0), ForceMode.Impulse);
+                }
+
+                else if (Input.GetAxis("Mouse Y") > 0 && transform.position.x < initial_position.x)
+                {
+                    float movement = movement_speed * Input.GetAxis("Mouse Y");
+                    rigid_body.AddForce(new Vector3(movement, 0, 0), ForceMode.Impulse);
+                }
             }
-            
-            else if (Input.GetAxis("Mouse Y") > 0 && transform.localPosition.z > z_limit_upper)
+
+            else if (y_limit)
             {
-                float movement = -movement_speed * Input.GetAxis("Mouse Y");
-                transform.Translate(new Vector3(0, 0, movement) * Time.deltaTime);
+                if (Input.GetAxis("Mouse Y") < 0 && transform.position.y > position_limit.y)
+                {
+                    float movement = movement_speed * Input.GetAxis("Mouse Y");
+                    rigid_body.AddForce(new Vector3(0, movement, 0), ForceMode.Impulse);
+                }
+
+                else if (Input.GetAxis("Mouse Y") > 0 && transform.position.y < initial_position.y)
+                {
+                    float movement = movement_speed * Input.GetAxis("Mouse Y");
+                    rigid_body.AddForce(new Vector3(0, movement, 0), ForceMode.Impulse);
+                }
+            }
+
+            else if (z_limit)
+            {
+                if (Input.GetAxis("Mouse Y") < 0 && transform.position.z > position_limit.z)
+                {
+                    float movement = movement_speed * Input.GetAxis("Mouse Y");
+                    rigid_body.AddForce(new Vector3(0, 0, movement), ForceMode.Impulse);
+                }
+
+                else if (Input.GetAxis("Mouse Y") > 0 && transform.position.z < initial_position.z)
+                {
+                    float movement = movement_speed * Input.GetAxis("Mouse Y");
+                    rigid_body.AddForce(new Vector3(0, 0, movement), ForceMode.Impulse);
+                }
             }
         }
     }
