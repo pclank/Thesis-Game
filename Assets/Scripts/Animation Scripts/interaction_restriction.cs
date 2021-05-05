@@ -9,9 +9,28 @@ public class interaction_restriction : MonoBehaviour
     private string col_tag = "Door";    // TODO: Possibly Add a List of Strings to Check From
 
     private bool was_clicked = false;
+    private bool entered = false;
 
     // On Trigger Enter
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag(col_tag))
+        {
+            entered = true;
+        }
+    }
+
+    // On Trigger Exit
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag(col_tag))
+        {
+            entered = false;
+        }
+    }    
+
+    // Update is called once per frame
+    void Update()
     {
         // First Mouse0 Down
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -19,19 +38,6 @@ public class interaction_restriction : MonoBehaviour
             was_clicked = true;
         }
 
-        Debug.Log("Trigger Detected");
-
-        // Check if Collider Matches Expected Tag
-        if (other.gameObject.CompareTag(col_tag) && was_clicked)
-        {
-            gameObject.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
-            gameObject.GetComponentInChildren<FirstPersonLook>().stop_flag = true;  // Freeze Camera
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         // Mouse0 Up
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
@@ -39,6 +45,13 @@ public class interaction_restriction : MonoBehaviour
 
             gameObject.GetComponent<FirstPersonMovement>().stop_flag = false;   // Unfreeze Player Controller
             gameObject.GetComponentInChildren<FirstPersonLook>().stop_flag = false; // Unfreeze Camera
+        }
+
+        // Check if Collider Matches Expected Tag
+        if (entered && was_clicked)
+        {
+            gameObject.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
+            gameObject.GetComponentInChildren<FirstPersonLook>().stop_flag = true;  // Freeze Camera
         }
     }
 }

@@ -70,11 +70,12 @@
     <Compile Include="Assets\First person controller\Scripts\Components\Jump.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\disable_on_start.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\start_animation.cs" />
+    <Compile Include="Assets\Scripts\Animation Scripts\drawer_move.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\door_rotator_parent.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\door_rotator.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\Crouch.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\Animation Scripts\drawer_move.cs" />
+    <Compile Include="Assets\Scripts\Animation Scripts\rotate_door_physics.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
