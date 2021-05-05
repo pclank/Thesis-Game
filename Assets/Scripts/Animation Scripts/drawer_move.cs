@@ -54,7 +54,7 @@ public class drawer_move : MonoBehaviour
     // Detect Collision with Camera
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("MainCamera"))
+        if (other.gameObject.CompareTag("MainCamera") && other.isTrigger)
         {
             cam_trig = true;
 
@@ -64,7 +64,7 @@ public class drawer_move : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("MainCamera"))
+        if (other.gameObject.CompareTag("MainCamera") && other.isTrigger)
         {
             cam_trig = false;
             was_clicked = false;
@@ -139,9 +139,11 @@ public class drawer_move : MonoBehaviour
             was_clicked = true;
         }
 
-        if (cam_trig && was_clicked)
+        if (cam_trig && was_clicked && player_object.GetComponent<interaction_restriction>().getFreedom())
         {
             interact = true;
+
+            player_object.GetComponent<interaction_restriction>().setFreedom(true);
         }
     }
 

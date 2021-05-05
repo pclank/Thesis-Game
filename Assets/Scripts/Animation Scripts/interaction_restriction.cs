@@ -8,6 +8,8 @@ public class interaction_restriction : MonoBehaviour
     // Expected Collider Tag
     private string col_tag = "Door";    // TODO: Possibly Add a List of Strings to Check From
 
+    private bool is_free = true;        // Player is free to Interact with Object
+
     private bool was_clicked = false;
     private bool entered = false;
 
@@ -27,7 +29,21 @@ public class interaction_restriction : MonoBehaviour
         {
             entered = false;
         }
-    }    
+    }
+
+    // Change Freedom of Interaction
+
+    public void setFreedom(bool flag)
+    {
+        is_free = flag;
+    }
+
+    // Get Freedom
+
+    public bool getFreedom()
+    {
+        return is_free;
+    }
 
     // Update is called once per frame
     void Update()
