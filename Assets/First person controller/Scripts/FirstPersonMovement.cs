@@ -33,5 +33,9 @@ public class FirstPersonMovement : MonoBehaviour
             velocity.x = Input.GetAxis("Horizontal") * movingSpeed * Time.deltaTime;
             transform.Translate(velocity.x, 0, velocity.y);
         }
+        else
+        {
+            gameObject.GetComponent<Rigidbody>().Sleep();
+        }
     }
 }
