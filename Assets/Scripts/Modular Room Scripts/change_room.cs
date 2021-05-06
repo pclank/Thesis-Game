@@ -14,6 +14,10 @@ public class change_room : MonoBehaviour
     public float rotation_limit_lower = -90.0f;         // Lower Rotation Limit
     public float rotation_limit_upper = 90.0f;          // Upper Rotation Limit
 
+    public bool inventory_requirement = false;          // Flag that an Item Must be in Inventory for Room Change
+
+    public int req_item_id = 0;                         // The ID of the Item Required
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
@@ -59,7 +63,15 @@ public class change_room : MonoBehaviour
         if (player_object == null)
         {
             Debug.Log("Player GameObject Not Found!");
-        }    
+        }
+
+        if (inventory_requirement)              // If Item is Required
+        {
+            if (req_item_id == 0)                   // Check that Item ID Has Been Set
+            {
+                Debug.Log("Required Item ID Not Set!");
+            }
+        }
     }
 
     // Update is called once per frame
@@ -67,13 +79,32 @@ public class change_room : MonoBehaviour
     {
         if (player_trig)                        // Player in Collider
         {
-            float player_rotation = player_object.transform.eulerAngles.y;      // Get Player Rotation
+            // No Inventory Requirement
 
-            if (player_rotation >= rotation_limit_lower && player_rotation <= rotation_limit_upper)     // Rotation is Within Limits
+            if (!inventory_requirement)
             {
-                player_trig = false;                                                                        // Reset Flag
+                float player_rotation = player_object.transform.eulerAngles.y;      // Get Player Rotation
 
-                changeRooms();                                                                              // Switch Rooms
+                if (player_rotation >= rotation_limit_lower && player_rotation <= rotation_limit_upper)     // Rotation is Within Limits
+                {
+                    player_trig = false;                                                                        // Reset Flag
+
+                    changeRooms();                                                                              // Switch Rooms
+                }
+            }
+            
+            // Inventory Requirement
+
+            else if (inventory_requirement && player_object.GetComponent<main_inventory>().startQuery(req_item_id))
+            {
+                float player_rotation = player_object.transform.eulerAngles.y;      // Get Player Rotation
+
+                if (player_rotation >= rotation_limit_lower && player_rotation <= rotation_limit_upper)     // Rotation is Within Limits
+                {
+                    player_trig = false;                                                                        // Reset Flag
+
+                    changeRooms();                                                                              // Switch Rooms
+                }
             }
         }
     }
