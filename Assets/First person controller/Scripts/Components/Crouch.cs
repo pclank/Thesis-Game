@@ -43,7 +43,7 @@ public class Crouch : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Input.GetKey(key))
+        if (Input.GetKeyDown(key))
         {
             // Enforce crouched y local position of the head.
             head.localPosition = new Vector3(head.localPosition.x, crouchYLocalPosition, head.localPosition.z);
@@ -62,23 +62,23 @@ public class Crouch : MonoBehaviour
                 SetSpeedOverrideActive(true);
                 CrouchStart?.Invoke();
             }
-        }
-        else if (IsCrouched)
-        {
-            // Reset the head to its default y local position.
-            head.localPosition = new Vector3(head.localPosition.x, defaultHeadYLocalPosition, head.localPosition.z);
-
-            // Reset the capsule collider's position.
-            if (capsuleCollider)
+            else
             {
-                capsuleCollider.height = defaultCapsuleColliderHeight;
-                capsuleCollider.center = Vector3.up * capsuleCollider.height * .5f;
-            }
+                // Reset the head to its default y local position.
+                head.localPosition = new Vector3(head.localPosition.x, defaultHeadYLocalPosition, head.localPosition.z);
 
-            // Reset state.
-            IsCrouched = false;
-            SetSpeedOverrideActive(false);
-            CrouchEnd?.Invoke();
+                // Reset the capsule collider's position.
+                if (capsuleCollider)
+                {
+                    capsuleCollider.height = defaultCapsuleColliderHeight;
+                    capsuleCollider.center = Vector3.up * capsuleCollider.height * .5f;
+                }
+
+                // Reset state.
+                IsCrouched = false;
+                SetSpeedOverrideActive(false);
+                CrouchEnd?.Invoke();
+            }
         }
     }
 

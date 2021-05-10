@@ -13,6 +13,8 @@ public class rotate_door_physics : MonoBehaviour
 
     public float movement_speed = 2.0f;
 
+    public bool use_force_direction = true;
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
@@ -98,6 +100,14 @@ public class rotate_door_physics : MonoBehaviour
             // TODO: Add Exception Here!
         }
 
+        // Check if Force Direction Object is Present
+        if (use_force_direction && handle == null)
+        {
+            Debug.Log("No Direction Object Found!");
+
+            // TODO: Add Exception Here!
+        }
+
         icon_object.SetActive(false);
     }
 
@@ -138,16 +148,28 @@ public class rotate_door_physics : MonoBehaviour
                 float movement = movement_speed * Input.GetAxis("Mouse Y");
                 Vector3 direction = movement * (player_object.transform.position - transform.position);
 
-                rigid_body.AddForceAtPosition(new Vector3(movement, 0, movement), handle.transform.position);
-                //rigid_body.AddForceAtPosition(direction.normalized, handle.transform.position);
+                if (use_force_direction)
+                {
+                    rigid_body.AddForceAtPosition(new Vector3(movement, 0, movement), handle.transform.position);
+                }
+                else
+                {
+                    rigid_body.AddForce(direction);
+                }
             }
             else if (Input.GetAxis("Mouse Y") > 0)
             {
                 float movement = movement_speed * Input.GetAxis("Mouse Y");
                 Vector3 direction = movement * (player_object.transform.position - transform.position);
 
-                rigid_body.AddForceAtPosition(new Vector3(movement, 0, movement), handle.transform.position);
-                //rigid_body.AddForceAtPosition(direction.normalized, handle.transform.position);
+                if (use_force_direction)
+                {
+                    rigid_body.AddForceAtPosition(new Vector3(movement, 0, movement), handle.transform.position);
+                }
+                else
+                {
+                    rigid_body.AddForce(direction);
+                }
             }
         }
     }

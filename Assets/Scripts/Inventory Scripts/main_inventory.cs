@@ -119,6 +119,9 @@ public class main_inventory : MonoBehaviour
     public float display_distance = 0.5f;
     public float rotation_speed = 100.0f;               // Speed of Rotation for Item Display
     public float scale_speed = 10.0f;                   // Speed of Scaling for Item Display
+
+    public bool background_enable = false;              // Enable Background for Item Display
+
     public GameObject display_background;
     public GameObject display_light;
     public GameObject title_text;                       // Item Title UI GameObject
@@ -217,7 +220,11 @@ public class main_inventory : MonoBehaviour
 
     private void displayItem(Item item)
     {
-        display_background.SetActive(true);                                                             // Enable Background
+        if (background_enable)
+        {
+            display_background.SetActive(true);                                                             // Enable Background
+        }
+
         display_light.SetActive(true);                                                                  // Enable Light
 
         title_text.GetComponent<Text>().text = item.getName();                                          // Change Text to Item's Name
