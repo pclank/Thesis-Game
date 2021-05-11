@@ -24,6 +24,9 @@ public class object_collision_check : MonoBehaviour
     // Player GameObject Variable
     private GameObject player_object;
 
+    // Camera GameObject Variable
+    private GameObject camera_object;
+
     // MeshFilter Component Object
     private MeshFilter mesh_f;
 
@@ -37,7 +40,7 @@ public class object_collision_check : MonoBehaviour
     // Detect Collision with Camera
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("MainCamera"))
+        if (other.gameObject.CompareTag("MainCamera") && camera_object.GetComponent<hand_collision_detection>().isUnobstructed())
         {
             cam_trig = true;
 
@@ -65,6 +68,9 @@ public class object_collision_check : MonoBehaviour
         // Get Player GameObject
         player_object = GameObject.FindWithTag("Player");
 
+        // Get Camera GameObject
+        camera_object = GameObject.FindWithTag("MainCamera");
+
         // Get Icon GameObject
         if (icon_object == null)
         {
@@ -77,6 +83,14 @@ public class object_collision_check : MonoBehaviour
         if (player_object == null)
         {
             Debug.Log("No Player Object Found!");
+
+            // TODO: Add Exception Here!
+        }
+
+        // Check if Camera wasn't Found
+        if (camera_object == null)
+        {
+            Debug.Log("No Camera Object Found!");
 
             // TODO: Add Exception Here!
         }
