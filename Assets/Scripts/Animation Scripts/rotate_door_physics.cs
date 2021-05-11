@@ -10,10 +10,16 @@ public class rotate_door_physics : MonoBehaviour
 
     public GameObject icon_object;
     public GameObject handle;
+    public GameObject ui_missing;                           // UI Item Missing Text GameObject
 
     public float movement_speed = 2.0f;
 
+    [Tooltip("Indicates if Item (eg. a Key) is Required to Apply Force.")]
+    public bool requires_item = false;
     public bool use_force_direction = true;
+
+    [Tooltip("Indicates ID of Item Required.\nDoes Nothing if requires_item is False.")]
+    public int required_item_id = 0;
 
     // ************************************************************************************
     // Private Variables
@@ -60,6 +66,7 @@ public class rotate_door_physics : MonoBehaviour
 
             cam_trig = false;
             was_clicked = false;
+            ui_missing.SetActive(false);
         }
     }
 
@@ -132,9 +139,18 @@ public class rotate_door_physics : MonoBehaviour
 
         if (cam_trig && was_clicked && player_object.GetComponent<interaction_restriction>().getFreedom())
         {
-            interact = true;
+            bool has_item = player_object.GetComponent<main_inventory>().startQuery(required_item_id);
 
-            player_object.GetComponent<interaction_restriction>().setFreedom(true);
+            if ((requires_item && has_item) || (!requires_item))
+            {
+                interact = true;
+
+                player_object.GetComponent<interaction_restriction>().setFreedom(true);
+            }
+            else if (requires_item && !has_item)
+            {
+                ui_missing.SetActive(true);                     // Display UI Text that Item is Missing
+            }
         }
     }
 
