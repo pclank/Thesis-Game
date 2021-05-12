@@ -11,6 +11,7 @@ public class rotate_door_physics : MonoBehaviour
     public GameObject icon_object;
     public GameObject handle;
     public GameObject ui_missing;                           // UI Item Missing Text GameObject
+    public GameObject ui_unlocked;                          // UI Unlocked Text GameObject
 
     public float movement_speed = 2.0f;
 
@@ -33,6 +34,15 @@ public class rotate_door_physics : MonoBehaviour
 
     // Interact Flag
     private bool interact = false;
+
+    // Object is Locked/Unlocked
+    private bool locked;
+
+    // Timer Has Ran
+    private bool t_ran = false;
+
+    // Time to Show Unlocked Text
+    private float t_remaining = 2.0f;
 
     // Player GameObject
     private GameObject player_object;
@@ -77,6 +87,16 @@ public class rotate_door_physics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Set Locked/Unlocked Variable
+        if (requires_item)
+        {
+            locked = true;
+        }
+        else
+        {
+            locked = false;
+        }
+
         // Get Rigid Body
         rigid_body = GetComponent<Rigidbody>();
 
@@ -145,11 +165,34 @@ public class rotate_door_physics : MonoBehaviour
             {
                 interact = true;
 
+                if (locked)
+                {
+                    locked = false;                                 // Unlock Object
+
+                    ui_unlocked.SetActive(true);                    // Show Unlocked Text
+                }
+
                 player_object.GetComponent<interaction_restriction>().setFreedom(true);
             }
             else if (requires_item && !has_item)
             {
                 ui_missing.SetActive(true);                     // Display UI Text that Item is Missing
+            }
+        }
+
+        // Timer Section
+        if (!locked && !t_ran)
+        {
+            // Time Remaining
+            if (t_remaining > 0)
+            {
+                t_remaining -= Time.deltaTime;
+            }
+            // Time Expired
+            else
+            {
+                t_ran = true;                                   // Lock Timer
+                ui_unlocked.SetActive(false);                   // Disable UI Text
             }
         }
     }

@@ -116,7 +116,7 @@ public class main_inventory : MonoBehaviour
 {
     // Public Variables
 
-    public float display_distance = 0.5f;
+    public float display_distance = 0.5f;               // Distance from Camera to Display Item
     public float rotation_speed = 100.0f;               // Speed of Rotation for Item Display
     public float scale_speed = 10.0f;                   // Speed of Scaling for Item Display
 
