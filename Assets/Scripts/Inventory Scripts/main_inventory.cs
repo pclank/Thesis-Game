@@ -125,6 +125,11 @@ public class main_inventory : MonoBehaviour
     public GameObject display_background;
     public GameObject display_light;
     public GameObject title_text;                       // Item Title UI GameObject
+    public GameObject ui_inventory;                     // Inventory UI GameObject
+    public GameObject ui_main;                          // Main UI GameObject
+    public GameObject item_ui_prefab;                   // Item UI Prefab
+
+    public KeyCode inventory_key = KeyCode.I;           // Key that Opens Inventory Menu
 
     // Private Variables
 
@@ -133,6 +138,7 @@ public class main_inventory : MonoBehaviour
     private bool was_clicked = false;                   // Mouse Click Flag
     private bool cam_trig = false;                      // Camera Pointing to Trigger Flag
     private bool display_on = false;                    // Item Being Displayed
+    private bool inventory_open = false;                // Inventory is Open/Closed
 
     private GameObject player_object;                   // Player GameObject
     private GameObject camera_object;                   // Camera GameObject
@@ -188,7 +194,7 @@ public class main_inventory : MonoBehaviour
         bool flag = true;
         foreach (Item it in inventory)                      // Check that item isn't in Inventory
         {
-            if (item.getID() != it.getID())
+            if (item.getID() == it.getID())
             {
                 flag = false;
 
@@ -282,6 +288,43 @@ public class main_inventory : MonoBehaviour
         return result;
     }
 
+    // Open Item Inventory
+
+    private void openInventory()
+    {
+        inventory_open = true;              // Set Inventory to Open
+
+        ui_main.SetActive(true);            // Enable Inventory GameObject
+
+        // Fill Item List
+
+        foreach (Item it in inventory)
+        {
+            GameObject temp_ui_item = item_ui_prefab;                           // Get Prefab Instance to Edit Before Adding to Inventory
+
+            temp_ui_item.GetComponentInChildren<Text>().text = it.getName();    // Assign Item Name
+            Debug.Log(it.getName());
+
+            Instantiate(temp_ui_item, ui_inventory.transform);
+        }
+    }
+
+    // Close Item Inventory
+
+    private void closeInventory()
+    {
+        inventory_open = false;             // Set Inventory to Closed
+
+        ui_main.SetActive(false);
+
+        // Clear Item List
+
+        foreach (Transform child in ui_inventory.transform)
+        {
+            Destroy(child.gameObject);          // Destroy GameObject
+        }
+    }
+
     // ************************************************************************************
     // Runtime Functions
     // ************************************************************************************
@@ -292,8 +335,16 @@ public class main_inventory : MonoBehaviour
         player_object = this.gameObject;                                // Get Player GameObject
         camera_object = GameObject.FindWithTag("MainCamera");           // Get Camera GameObject
 
+        ui_main.SetActive(false);                                       // Disable Inventory UI on Start
+
         display_background.SetActive(false);                            // Disable Background on Start
         display_light.SetActive(false);                                 // Disable Light on Start
+
+        // Check that Inventory UI GameObject has Been Assigned
+        if (ui_inventory == null)
+        {
+            Debug.Log("Inventory GameObject not Found!");
+        }
     }
 
     // Update is called once per frame
@@ -312,6 +363,15 @@ public class main_inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse1))                           // Exit Item Display on Right Click
         {
             exitDisplay();
+        }
+
+        if (Input.GetKeyDown(inventory_key) && !inventory_open)
+        {
+            openInventory();
+        }
+        else if (Input.GetKeyDown(inventory_key) && inventory_open)
+        {
+            closeInventory();
         }
 
         if (display_on)                                                 // Item Being Displayed in Inventory
