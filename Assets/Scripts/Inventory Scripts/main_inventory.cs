@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -40,6 +41,28 @@ public static class Helper
     {
         return go.AddComponent<T>().GetCopyOf(toAdd) as T;
     }
+}
+
+// ************************************************************************************
+// JSON Object Class
+// ************************************************************************************
+[System.Serializable]
+public class Jitem
+{
+    public int id;
+    public string title;
+    public string description;
+}
+
+// ************************************************************************************
+// JSON Object List Class
+// ************************************************************************************
+
+[System.Serializable]
+public class Jitem_list
+{
+    //public List<Jitem> items;
+    public Jitem[] items;
 }
 
 // ************************************************************************************
@@ -131,6 +154,8 @@ public class main_inventory : MonoBehaviour
 
     public KeyCode inventory_key = KeyCode.I;           // Key that Opens Inventory Menu
 
+    public TextAsset json_file_name;                    // JSON File with Item Information
+
     // Private Variables
 
     private List<Item> inventory = new List<Item>();    // List of Items in Inventory
@@ -144,6 +169,8 @@ public class main_inventory : MonoBehaviour
     private GameObject camera_object;                   // Camera GameObject
 
     private GameObject displayed_object;                // Object Being Displayed
+
+    private Jitem_list items_in_json;                   // Items in JSON File
 
     // ************************************************************************************
     // Trigger Functions
@@ -288,6 +315,26 @@ public class main_inventory : MonoBehaviour
         return result;
     }
 
+    // Find Item Description from JSON File
+
+    private string getDescription(int i_id)
+    {
+        string i_description = "PLACEHOLDER";                                               // Initialize Description Variable
+
+        foreach (Jitem jitem in items_in_json.items)                                        // Get Item Description of Requested Items
+        {
+            // Find Item with Requested ID and Return
+            if (jitem.id == i_id)
+            {
+                i_description = jitem.description;
+
+                break;
+            }
+        }
+
+        return i_description;
+    }
+
     // Open Item Inventory
 
     private void openInventory()
@@ -332,6 +379,8 @@ public class main_inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        items_in_json = JsonUtility.FromJson<Jitem_list>(json_file_name.text);   // Deserialize JSON File
+
         player_object = this.gameObject;                                // Get Player GameObject
         camera_object = GameObject.FindWithTag("MainCamera");           // Get Camera GameObject
 
