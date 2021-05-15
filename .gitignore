@@ -341,6 +341,7 @@ healthchecksdb
 /Assets/First person controller/Audio
 /Assets/First person controller/Demo & documentation
 /Assets/HDRPDefaultResources
+/Assets/Icons
 /Assets/Materials
 /Assets/Meshes
 /Assets/Scenes
@@ -359,3 +360,4 @@ healthchecksdb
 /Assets/First person controller/First person controller.prefab
 /Assets/Editor
 /Assets/UI Prefabs
+/Assets/Icons

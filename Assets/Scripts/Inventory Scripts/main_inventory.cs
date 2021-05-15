@@ -341,6 +341,9 @@ public class main_inventory : MonoBehaviour
     {
         inventory_open = true;              // Set Inventory to Open
 
+        player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
+        camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
+
         ui_main.SetActive(true);            // Enable Inventory GameObject
 
         // Fill Item List
@@ -354,6 +357,9 @@ public class main_inventory : MonoBehaviour
 
             Instantiate(temp_ui_item, ui_inventory.transform);
         }
+
+        Cursor.lockState = CursorLockMode.None;         // Unlock Cursor
+        Cursor.visible = true;                          // Make Cursor Visible
     }
 
     // Close Item Inventory
@@ -370,6 +376,12 @@ public class main_inventory : MonoBehaviour
         {
             Destroy(child.gameObject);          // Destroy GameObject
         }
+
+        player_object.GetComponent<FirstPersonMovement>().stop_flag = false;        // Unfreeze Player Controller
+        camera_object.GetComponent<FirstPersonLook>().stop_flag = false;            // Unfreeze Camera Controller
+
+        Cursor.lockState = CursorLockMode.Locked;                                   // Lock Cursor to Center
+        Cursor.visible = false;                                                     // Hide Cursor
     }
 
     // ************************************************************************************
@@ -409,7 +421,7 @@ public class main_inventory : MonoBehaviour
             was_clicked = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))                           // Exit Item Display on Right Click
+        if (Input.GetKeyDown(KeyCode.Mouse1) && display_on)                           // Exit Item Display on Right Click
         {
             exitDisplay();
         }
