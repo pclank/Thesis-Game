@@ -151,6 +151,7 @@ public class main_inventory : MonoBehaviour
     public GameObject ui_inventory;                     // Inventory UI GameObject
     public GameObject ui_main;                          // Main UI GameObject
     public GameObject item_ui_prefab;                   // Item UI Prefab
+    public GameObject description_ui;                   // Item Description UI Element
 
     public KeyCode inventory_key = KeyCode.I;           // Key that Opens Inventory Menu
 
@@ -201,6 +202,13 @@ public class main_inventory : MonoBehaviour
     public bool startQuery(int q_id)
     {
         return queryInventory(q_id);
+    }
+
+    // Set Item Description in UI
+
+    public void setDescription(int it_id)
+    {
+        description_ui.GetComponent<Text>().text = getDescription(it_id);   // Set Description in UI Element
     }
 
     // Build Item
@@ -350,10 +358,10 @@ public class main_inventory : MonoBehaviour
 
         foreach (Item it in inventory)
         {
-            GameObject temp_ui_item = item_ui_prefab;                           // Get Prefab Instance to Edit Before Adding to Inventory
+            GameObject temp_ui_item = item_ui_prefab;                                       // Get Prefab Instance to Edit Before Adding to Inventory
 
-            temp_ui_item.GetComponentInChildren<Text>().text = it.getName();    // Assign Item Name
-            Debug.Log(it.getName());
+            temp_ui_item.GetComponentInChildren<Text>().text = it.getName();                // Assign Item Name
+            temp_ui_item.GetComponentInChildren<ui_click_detector>().item_id = it.getID();  // Assign Item ID
 
             Instantiate(temp_ui_item, ui_inventory.transform);
         }
@@ -369,6 +377,8 @@ public class main_inventory : MonoBehaviour
         inventory_open = false;             // Set Inventory to Closed
 
         ui_main.SetActive(false);
+
+        description_ui.GetComponent<Text>().text = "";  // Reset Description Text
 
         // Clear Item List
 
@@ -411,6 +421,12 @@ public class main_inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (inventory_open)
+        {
+            player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Unfreeze Player Controller
+            camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Unfreeze Camera Controller
+        }
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             was_clicked = true;
