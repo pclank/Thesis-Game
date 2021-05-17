@@ -168,6 +168,7 @@ public class main_inventory : MonoBehaviour
     private bool cam_trig = false;                      // Camera Pointing to Trigger Flag
     private bool display_on = false;                    // Item Being Displayed
     private bool inventory_open = false;                // Inventory is Open/Closed
+    private bool examine_on = false;                    // In Inventory Examine is On/Off
 
     private int selected_item;                          // ID of Currently Selected Item
 
@@ -275,6 +276,12 @@ public class main_inventory : MonoBehaviour
             display_background.SetActive(true);                                                             // Enable Background
         }
 
+        // Check if Display was Started from Inventory
+        if (examine_on)
+        {
+            closeInventory();
+        }
+
         display_light.SetActive(true);                                                                  // Enable Light
 
         title_text.GetComponent<Text>().text = item.getName();                                          // Change Text to Item's Name
@@ -311,6 +318,14 @@ public class main_inventory : MonoBehaviour
 
         Destroy(displayed_object);                                                                      // Destroy GameObject
         displayed_object = null;                                                                        // Reset GameObject Variable
+
+        // Check if Display was Started from Inventory
+        if (examine_on)
+        {
+            openInventory();
+
+            examine_on = false;
+        }
     }
 
     // Query Inventory for Item
@@ -506,9 +521,9 @@ public class main_inventory : MonoBehaviour
                 }
             }
 
-            displayItem(selected_it);                   // Display Item
+            examine_on = true;
 
-            // TODO: Disable Inventory Interaction while Item is Being Displayed
+            displayItem(selected_it);                   // Display Item
         }
 
         // Use Button Pressed
