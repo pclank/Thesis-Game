@@ -152,6 +152,9 @@ public class main_inventory : MonoBehaviour
     public GameObject ui_main;                          // Main UI GameObject
     public GameObject item_ui_prefab;                   // Item UI Prefab
     public GameObject description_ui;                   // Item Description UI Element
+    public GameObject button_layout;                    // Button UI Layout GameObject
+    public Button examine_but;                          // Examine Button UI Element
+    public Button use_but;                              // Use Button UI Element
 
     public KeyCode inventory_key = KeyCode.I;           // Key that Opens Inventory Menu
 
@@ -165,6 +168,8 @@ public class main_inventory : MonoBehaviour
     private bool cam_trig = false;                      // Camera Pointing to Trigger Flag
     private bool display_on = false;                    // Item Being Displayed
     private bool inventory_open = false;                // Inventory is Open/Closed
+
+    private int selected_item;                          // ID of Currently Selected Item
 
     private GameObject player_object;                   // Player GameObject
     private GameObject camera_object;                   // Camera GameObject
@@ -204,11 +209,15 @@ public class main_inventory : MonoBehaviour
         return queryInventory(q_id);
     }
 
-    // Set Item Description in UI
+    // Set Item Description in UI && item as Selected
 
     public void setDescription(int it_id)
     {
+        selected_item = it_id;                                              // Set Selected Item ID
+
         description_ui.GetComponent<Text>().text = getDescription(it_id);   // Set Description in UI Element
+
+        button_layout.SetActive(true);                                      // Enable Buttons
     }
 
     // Build Item
@@ -374,7 +383,7 @@ public class main_inventory : MonoBehaviour
 
     private void closeInventory()
     {
-        inventory_open = false;             // Set Inventory to Closed
+        inventory_open = false;                         // Set Inventory to Closed
 
         ui_main.SetActive(false);
 
@@ -384,7 +393,7 @@ public class main_inventory : MonoBehaviour
 
         foreach (Transform child in ui_inventory.transform)
         {
-            Destroy(child.gameObject);          // Destroy GameObject
+            Destroy(child.gameObject);                      // Destroy GameObject
         }
 
         player_object.GetComponent<FirstPersonMovement>().stop_flag = false;        // Unfreeze Player Controller
@@ -392,6 +401,8 @@ public class main_inventory : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;                                   // Lock Cursor to Center
         Cursor.visible = false;                                                     // Hide Cursor
+
+        button_layout.SetActive(false);                                             // Disable Buttons
     }
 
     // ************************************************************************************
@@ -416,6 +427,11 @@ public class main_inventory : MonoBehaviour
         {
             Debug.Log("Inventory GameObject not Found!");
         }
+
+        // Register Button Listeners
+
+        examine_but.onClick.AddListener(() => buttonCallBack(examine_but));
+        use_but.onClick.AddListener(() => buttonCallBack(use_but));
     }
 
     // Update is called once per frame
@@ -466,6 +482,39 @@ public class main_inventory : MonoBehaviour
                 displayed_object.transform.Rotate(vertical_rotation, horizontal_rotation, vertical_rotation);   // Apply Rotation
                 displayed_object.transform.localScale = new Vector3(scale_factor, scale_factor, scale_factor);  // Set Scale
             }
+        }
+    }
+
+    // Button CallBack Function
+
+    private void buttonCallBack(Button but_pressed)
+    {
+        // Examine Button Pressed
+        if (but_pressed == examine_but)
+        {
+            Item selected_it = null;                    // Initialize Selected Item
+
+            // Find Selected Item
+
+            foreach (Item it in inventory)
+            {
+                if (compareID(selected_item, it))           // Use Member Function to Compare IDs
+                {
+                    selected_it = it;                           // Set Item
+
+                    break;
+                }
+            }
+
+            displayItem(selected_it);                   // Display Item
+
+            // TODO: Disable Inventory Interaction while Item is Being Displayed
+        }
+
+        // Use Button Pressed
+        else if (but_pressed == use_but)
+        {
+            // TODO: Call Use Function
         }
     }
 }
