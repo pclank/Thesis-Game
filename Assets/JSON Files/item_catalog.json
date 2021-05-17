@@ -1,6 +1,5 @@
 {
-  "items":
-  [
+  "items": [
     {
       "id": 1,
       "title": "Ancient Coin",
@@ -35,6 +34,12 @@
       "id": 6,
       "title": "Bronze Key",
       "description": "A key made of bronze. It was found in a filing cabinet drawer."
+    },
+
+    {
+      "id": 7,
+      "title": "Ancient Athens Note",
+      "description": "A weathered note. It reads: In Ancient Athens, various animals symbolized specific Character Traits. Athena, the Goddess of Wisdom, was often portrayed by an Owl. This kind of Symbology has been found in many forms of art, including plates, vases, and coins."
     }
   ]
 }
