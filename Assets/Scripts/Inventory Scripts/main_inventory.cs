@@ -165,43 +165,32 @@ public class main_inventory : MonoBehaviour
     private List<Item> inventory = new List<Item>();    // List of Items in Inventory
 
     private bool was_clicked = false;                   // Mouse Click Flag
-    private bool cam_trig = false;                      // Camera Pointing to Trigger Flag
     private bool display_on = false;                    // Item Being Displayed
     private bool inventory_open = false;                // Inventory is Open/Closed
     private bool examine_on = false;                    // In Inventory Examine is On/Off
+    private bool item_slot_flag = false;                // Main Camera is Pointing to Item Slot
 
     private int selected_item;                          // ID of Currently Selected Item
 
     private GameObject player_object;                   // Player GameObject
     private GameObject camera_object;                   // Camera GameObject
-
     private GameObject displayed_object;                // Object Being Displayed
+    private GameObject selected_slot;                   // Currently Selected Slot
 
     private Jitem_list items_in_json;                   // Items in JSON File
 
     // ************************************************************************************
-    // Trigger Functions
-    // ************************************************************************************
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("MainCamera"))
-        {
-            cam_trig = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("MainCamera"))
-        {
-            cam_trig = false;
-        }
-    }
-
-    // ************************************************************************************
     // Member Functions
     // ************************************************************************************
+
+    // Item Slot Set
+
+    public void setSlotFlag(bool slot_flag, GameObject slot)
+    {
+        item_slot_flag = slot_flag;                         // Set Flag
+
+        selected_slot = slot;                               // Set Slot GameObject
+    }
 
     // Public Function to Query Inventory
 
@@ -418,6 +407,17 @@ public class main_inventory : MonoBehaviour
         Cursor.visible = false;                                                     // Hide Cursor
 
         button_layout.SetActive(false);                                             // Disable Buttons
+    }
+
+    // Function to Use Item from Inventory
+
+    private void useItem(Item item_used)
+    {
+        // Check if User can Interact with Slot
+        if (item_slot_flag)
+        {
+
+        }
     }
 
     // ************************************************************************************
