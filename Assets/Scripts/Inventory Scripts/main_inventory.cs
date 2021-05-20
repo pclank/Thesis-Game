@@ -416,7 +416,7 @@ public class main_inventory : MonoBehaviour
         // Check if User can Interact with Slot
         if (item_slot_flag)
         {
-
+            selected_slot.GetComponent<ItemSlot>().placeItem(item_used);        // Place Item on Slot
         }
     }
 
