@@ -529,7 +529,21 @@ public class main_inventory : MonoBehaviour
         // Use Button Pressed
         else if (but_pressed == use_but)
         {
-            // TODO: Call Use Function
+            Item selected_it = null;                    // Initialize Selected Item
+
+            // Find Selected Item
+
+            foreach (Item it in inventory)
+            {
+                if (compareID(selected_item, it))           // Use Member Function to Compare IDs
+                {
+                    selected_it = it;                           // Set Item
+
+                    break;
+                }
+            }
+
+            useItem(selected_it);                       // Call Use Function
         }
     }
 }

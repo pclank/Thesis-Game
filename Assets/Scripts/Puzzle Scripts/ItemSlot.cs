@@ -27,6 +27,9 @@ public class ItemSlot : MonoBehaviour
 
         new_go.transform.position = this.gameObject.transform.position;                                 // Place in Slot
 
+        float scale = item.getScale();                                                                  // Get Scale
+        new_go.transform.localScale = new Vector3(scale, scale, scale);                                 // Set Scale
+
         main_puzzle.setItem(item.getID());                                                              // Set Item ID on Puzzle List
     }
 

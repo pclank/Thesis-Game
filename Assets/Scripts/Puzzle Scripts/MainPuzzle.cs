@@ -8,7 +8,7 @@ public class MainPuzzle : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
-
+    public GameObject use_ui;                                       // Use UI Element
 
     // ************************************************************************************
     // Private Variables
@@ -30,6 +30,8 @@ public class MainPuzzle : MonoBehaviour
         selected_slot = used_slot;          // Set Slot Index
 
         player_object.GetComponent<main_inventory>().setSlotFlag(true, used_slot);          // Player Can Use Item on Slot
+
+        use_ui.SetActive(true);             // Enable UI Element
     }
 
     // Reset
@@ -37,6 +39,8 @@ public class MainPuzzle : MonoBehaviour
     public void resetSlot()
     {
         player_object.GetComponent<main_inventory>().setSlotFlag(false, this.gameObject);   // Player Can't Use Item on Slot
+
+        use_ui.SetActive(false);            // Disable UI Element
     }
 
     // Set Item on Slot
@@ -50,11 +54,5 @@ public class MainPuzzle : MonoBehaviour
     void Start()
     {
         player_object = GameObject.FindWithTag("Player");           // Set Player GameObject
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
