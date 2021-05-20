@@ -10,11 +10,13 @@ public class change_room : MonoBehaviour
 
     public GameObject initial_room;                     // Initial Room GameObject
     public GameObject secondary_room;                   // Secondary Room GameObject
+    public GameObject associated_puzzle;                // Puzzle Associated with Changing Rooms
 
     public float rotation_limit_lower = -90.0f;         // Lower Rotation Limit
     public float rotation_limit_upper = 90.0f;          // Upper Rotation Limit
 
     public bool inventory_requirement = false;          // Flag that an Item Must be in Inventory for Room Change
+    public bool puzzle_requirement = false;             // Flag that a Puzzle Must be Solved for Room Change
 
     public int req_item_id = 0;                         // The ID of the Item Required
 

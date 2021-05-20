@@ -21,6 +21,8 @@ public class MainPuzzle : MonoBehaviour
     private GameObject selected_slot;                               // Slot Camera is Pointing At
     private GameObject player_object;                               // Player GameObject
 
+    private bool solved = false;                                    // Whether Puzzle Has Been Solved
+
     // ************************************************************************************
     // Member Functions
     // ************************************************************************************
@@ -29,20 +31,28 @@ public class MainPuzzle : MonoBehaviour
 
     public void setSlot(GameObject used_slot)
     {
-        selected_slot = used_slot;          // Set Slot Index
+        // Check if Puzzle has Already Been Solved
+        if (!solved)
+        {
+            selected_slot = used_slot;          // Set Slot Index
 
-        player_object.GetComponent<main_inventory>().setSlotFlag(true, used_slot);          // Player Can Use Item on Slot
+            player_object.GetComponent<main_inventory>().setSlotFlag(true, used_slot);          // Player Can Use Item on Slot
 
-        use_ui.SetActive(true);             // Enable UI Element
+            use_ui.SetActive(true);             // Enable UI Element
+        }
     }
 
     // Reset
 
     public void resetSlot()
     {
-        player_object.GetComponent<main_inventory>().setSlotFlag(false, this.gameObject);   // Player Can't Use Item on Slot
+        // Check if Puzzle has Already Been Solved
+        if (!solved)
+        {
+            player_object.GetComponent<main_inventory>().setSlotFlag(false, this.gameObject);   // Player Can't Use Item on Slot
 
-        use_ui.SetActive(false);            // Disable UI Element
+            use_ui.SetActive(false);            // Disable UI Element
+        }
     }
 
     // Set Item on Slot
@@ -55,6 +65,8 @@ public class MainPuzzle : MonoBehaviour
         if (slot_list.Equals(solution_list))
         {
             openAfterSolution();                        // Act
+
+            solved = true;                              // Set Puzzle as Solved
         }
     }
 
@@ -63,6 +75,13 @@ public class MainPuzzle : MonoBehaviour
     public void unsetItem()
     {
         slot_list[selected_slot.GetComponent<ItemSlot>().slot_id] = 0;                      // Unset
+    }
+
+    // Called from Other Objects to Check if Puzzle is Solved
+
+    public bool checkSolved()
+    {
+        return solved;
     }
 
     // Do Something on Solution
