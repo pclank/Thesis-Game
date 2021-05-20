@@ -242,6 +242,27 @@ public class main_inventory : MonoBehaviour
         }
     }
 
+    // Remove Item from Inventory
+
+    private void removeItem(Item item)
+    {
+        bool flag = false;
+        foreach (Item it in inventory)                      // Check that item is in Inventory
+        {
+            if (item.getID() == it.getID())
+            {
+                flag = true;
+
+                break;
+            }
+        }
+
+        if (flag)
+        {
+            inventory.Remove(item);
+        }
+    }
+
     // Compare Item Tags
 
     private bool compareID(int item1, Item item2)
@@ -417,6 +438,10 @@ public class main_inventory : MonoBehaviour
         if (item_slot_flag)
         {
             selected_slot.GetComponent<ItemSlot>().placeItem(item_used);        // Place Item on Slot
+
+            closeInventory();                                                   // Close Inventory
+
+            removeItem(item_used);                                              // Remove Item from Inventory
         }
     }
 
@@ -482,6 +507,8 @@ public class main_inventory : MonoBehaviour
             closeInventory();
         }
 
+        // Displaying Section
+
         if (display_on)                                                 // Item Being Displayed in Inventory
         {
             camera_object.transform.LookAt(displayed_object.transform);             // Look at Item
@@ -496,6 +523,20 @@ public class main_inventory : MonoBehaviour
 
                 displayed_object.transform.Rotate(vertical_rotation, horizontal_rotation, vertical_rotation);   // Apply Rotation
                 displayed_object.transform.localScale = new Vector3(scale_factor, scale_factor, scale_factor);  // Set Scale
+            }
+        }
+
+        // Retrieve Item from Slot Section
+
+        if (item_slot_flag && was_clicked)                              // Pointing at Slot, and Left-Click Detected
+        {
+            Item removed_item = selected_slot.GetComponent<ItemSlot>().removeItem();            // Remove Item from Slot
+
+            // If Item was Removed
+
+            if (removed_item != null)
+            {
+                addItem(removed_item);                                  // Add Item Back to Inventory
             }
         }
     }

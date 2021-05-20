@@ -50,6 +50,13 @@ public class MainPuzzle : MonoBehaviour
         slot_list[selected_slot.GetComponent<ItemSlot>().slot_id] = item_id;                // Set Item ID to Current Slot
     }
 
+    // Unset Item from Slot
+
+    public void unsetItem()
+    {
+        slot_list[selected_slot.GetComponent<ItemSlot>().slot_id] = 0;                      // Unset
+    }
+
     // Start is called before the first frame update
     void Start()
     {

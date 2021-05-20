@@ -10,11 +10,15 @@ public class ItemSlot : MonoBehaviour
 
     private GameObject item_object;
 
+    private Item slot_item;
+
     private MainPuzzle main_puzzle;
 
     // ************************************************************************************
     // Member Functions
     // ************************************************************************************
+
+    // Place Item in Slot
 
     public void placeItem(Item item)
     {
@@ -30,7 +34,32 @@ public class ItemSlot : MonoBehaviour
         float scale = item.getScale();                                                                  // Get Scale
         new_go.transform.localScale = new Vector3(scale, scale, scale);                                 // Set Scale
 
+        new_go.transform.Rotate(90, 90, 0, Space.Self);                                                 // Rotate Object
+
         main_puzzle.setItem(item.getID());                                                              // Set Item ID on Puzzle List
+
+        item_object = new_go;                                                                           // Set Object
+        slot_item = item;                                                                               // Set Item
+    }
+
+    // Remove Item
+
+    public Item removeItem()
+    {
+        // Check that Slot isn't Empty
+
+        if (item_object != null)
+        {
+            main_puzzle.unsetItem();        // Unset Item
+
+            Destroy(item_object);           // Destroy Object
+
+            return slot_item;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     // ************************************************************************************
