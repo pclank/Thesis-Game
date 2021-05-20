@@ -10,6 +10,8 @@ public class MainPuzzle : MonoBehaviour
 
     public GameObject use_ui;                                       // Use UI Element
 
+    public int[] solution_list;                                     // List Containing Solution
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
@@ -48,6 +50,12 @@ public class MainPuzzle : MonoBehaviour
     public void setItem(int item_id)
     {
         slot_list[selected_slot.GetComponent<ItemSlot>().slot_id] = item_id;                // Set Item ID to Current Slot
+
+        // Check If Slots are Filled According to Solution
+        if (slot_list.Equals(solution_list))
+        {
+            openAfterSolution();                        // Act
+        }
     }
 
     // Unset Item from Slot
@@ -55,6 +63,13 @@ public class MainPuzzle : MonoBehaviour
     public void unsetItem()
     {
         slot_list[selected_slot.GetComponent<ItemSlot>().slot_id] = 0;                      // Unset
+    }
+
+    // Do Something on Solution
+
+    private void openAfterSolution()
+    {
+        // TODO: Add Code!
     }
 
     // Start is called before the first frame update
