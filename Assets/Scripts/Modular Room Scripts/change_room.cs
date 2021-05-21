@@ -24,6 +24,8 @@ public class change_room : MonoBehaviour
     // Private Variables
     // ************************************************************************************
 
+    private MainPuzzle main_puzzle;                     // Code of Associated Puzzle
+
     private GameObject player_object;                   // Player GameObject
     private bool player_trig;                           // Player In/Out of Box Collider
 
@@ -31,10 +33,25 @@ public class change_room : MonoBehaviour
     // Member Functions
     // ************************************************************************************
 
+    // Function to Change Rooms
+
     private void changeRooms()
     {
         initial_room.SetActive(false);
         secondary_room.SetActive(true);
+    }
+
+    // Function to Check Conditions
+    private void checkConditions()
+    {
+        float player_rotation = player_object.transform.eulerAngles.y;      // Get Player Rotation
+
+        if (player_rotation >= rotation_limit_lower && player_rotation <= rotation_limit_upper)     // Rotation is Within Limits
+        {
+            player_trig = false;                                                                        // Reset Flag
+
+            changeRooms();                                                                              // Switch Rooms
+        }
     }
 
     // ************************************************************************************
@@ -74,6 +91,11 @@ public class change_room : MonoBehaviour
                 Debug.Log("Required Item ID Not Set!");
             }
         }
+
+        if (puzzle_requirement)                 // If Puzzle is Required
+        {
+            main_puzzle = associated_puzzle.GetComponent<MainPuzzle>(); // Set Associated Script
+        }
     }
 
     // Update is called once per frame
@@ -81,32 +103,25 @@ public class change_room : MonoBehaviour
     {
         if (player_trig)                        // Player in Collider
         {
-            // No Inventory Requirement
+            // No Inventory or Puzzle Requirement
 
-            if (!inventory_requirement)
+            if (!inventory_requirement && !puzzle_requirement)
             {
-                float player_rotation = player_object.transform.eulerAngles.y;      // Get Player Rotation
-
-                if (player_rotation >= rotation_limit_lower && player_rotation <= rotation_limit_upper)     // Rotation is Within Limits
-                {
-                    player_trig = false;                                                                        // Reset Flag
-
-                    changeRooms();                                                                              // Switch Rooms
-                }
+                checkConditions();
             }
             
             // Inventory Requirement
 
             else if (inventory_requirement && player_object.GetComponent<main_inventory>().startQuery(req_item_id))
             {
-                float player_rotation = player_object.transform.eulerAngles.y;      // Get Player Rotation
+                checkConditions();
+            }
 
-                if (player_rotation >= rotation_limit_lower && player_rotation <= rotation_limit_upper)     // Rotation is Within Limits
-                {
-                    player_trig = false;                                                                        // Reset Flag
+            // Puzzle Requirement
 
-                    changeRooms();                                                                              // Switch Rooms
-                }
+            else if (puzzle_requirement && main_puzzle.checkSolved())
+            {
+                checkConditions();
             }
         }
     }
