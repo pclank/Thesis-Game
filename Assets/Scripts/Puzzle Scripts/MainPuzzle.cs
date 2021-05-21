@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class MainPuzzle : MonoBehaviour
     public GameObject use_ui;                                       // Use UI Element
 
     public int[] solution_list;                                     // List Containing Solution
+    public int[] valid_list;                                        // List of Valid Items
 
     // ************************************************************************************
     // Private Variables
@@ -26,6 +28,13 @@ public class MainPuzzle : MonoBehaviour
     // ************************************************************************************
     // Member Functions
     // ************************************************************************************
+
+    // Check if Item is Valid
+
+    public bool checkValid(int i_id)
+    {
+        return Array.Exists(valid_list, element => element == i_id);
+    }
 
     // Set Slot as Usable
 

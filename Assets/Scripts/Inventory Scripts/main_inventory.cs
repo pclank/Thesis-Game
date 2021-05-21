@@ -152,6 +152,7 @@ public class main_inventory : MonoBehaviour
     public GameObject ui_main;                          // Main UI GameObject
     public GameObject item_ui_prefab;                   // Item UI Prefab
     public GameObject description_ui;                   // Item Description UI Element
+    public GameObject invalid_ui;                       // Invalid Item UI Element
     public GameObject button_layout;                    // Button UI Layout GameObject
     public Button examine_but;                          // Examine Button UI Element
     public Button use_but;                              // Use Button UI Element
@@ -437,11 +438,19 @@ public class main_inventory : MonoBehaviour
         // Check if User can Interact with Slot
         if (item_slot_flag)
         {
-            selected_slot.GetComponent<ItemSlot>().placeItem(item_used);        // Place Item on Slot
+            bool validation = selected_slot.GetComponent<ItemSlot>().placeItem(item_used);          // Place Item on Slot
 
-            closeInventory();                                                   // Close Inventory
+            // If Validation is True
+            if (validation)
+            {
+                closeInventory();                   // Close Inventory
 
-            removeItem(item_used);                                              // Remove Item from Inventory
+                removeItem(item_used);              // Remove Item from Inventory
+            }
+            else
+            {
+                invalid_ui.SetActive(true);         // Enable Element
+            }
         }
     }
 
@@ -505,6 +514,12 @@ public class main_inventory : MonoBehaviour
         else if (Input.GetKeyDown(inventory_key) && inventory_open)
         {
             closeInventory();
+        }
+
+        // Disable Invalid Item UI Element
+        if (!item_slot_flag)
+        {
+            invalid_ui.SetActive(false);
         }
 
         // Displaying Section

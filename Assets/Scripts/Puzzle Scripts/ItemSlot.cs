@@ -26,26 +26,34 @@ public class ItemSlot : MonoBehaviour
 
     // Place Item in Slot
 
-    public void placeItem(Item item)
+    public bool placeItem(Item item)
     {
-        GameObject new_go = new GameObject(item.getName());                                             // Create GameObject Object Using Constructor
+        bool validation = main_puzzle.checkValid(item.getID());
 
-        new_go.AddComponent<MeshFilter>(item.getMeshFilter());                                          // Add MeshFilter
-        Material mat = item.getMaterial();                                                              // Get Material from Renderer
-        var mr = new_go.AddComponent<MeshRenderer>(item.getMeshRenderer());                             // Add MeshRenderer
-        mr.material = mat;                                                                              // Assign Material
+        // Check that Item Is Valid for Placement in Slot
+        if (validation)
+        {
+            GameObject new_go = new GameObject(item.getName());                                             // Create GameObject Object Using Constructor
 
-        new_go.transform.position = this.gameObject.transform.position;                                 // Place in Slot
+            new_go.AddComponent<MeshFilter>(item.getMeshFilter());                                          // Add MeshFilter
+            Material mat = item.getMaterial();                                                              // Get Material from Renderer
+            var mr = new_go.AddComponent<MeshRenderer>(item.getMeshRenderer());                             // Add MeshRenderer
+            mr.material = mat;                                                                              // Assign Material
 
-        float scale = item.getScale();                                                                  // Get Scale
-        new_go.transform.localScale = new Vector3(scale, scale, scale);                                 // Set Scale
+            new_go.transform.position = this.gameObject.transform.position;                                 // Place in Slot
 
-        new_go.transform.Rotate(90, 90, 0, Space.Self);                                                 // Rotate Object
+            float scale = item.getScale();                                                                  // Get Scale
+            new_go.transform.localScale = new Vector3(scale, scale, scale);                                 // Set Scale
 
-        main_puzzle.setItem(item.getID());                                                              // Set Item ID on Puzzle List
+            new_go.transform.Rotate(90, 90, 0, Space.Self);                                                 // Rotate Object
 
-        item_object = new_go;                                                                           // Set Object
-        slot_item = item;                                                                               // Set Item
+            main_puzzle.setItem(item.getID());                                                              // Set Item ID on Puzzle List
+
+            item_object = new_go;                                                                           // Set Object
+            slot_item = item;                                                                               // Set Item
+        }
+
+        return validation;                                                                                  // Return Validation Back to main_inventory
     }
 
     // Remove Item
