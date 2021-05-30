@@ -21,10 +21,12 @@ public class modular_volume : MonoBehaviour
     // Private Variables
     // ************************************************************************************
 
-    private bool player_trigger = false;    // Player In/Out of Volume
+    private bool player_trigger = false;                        // Player In/Out of Volume
 
-    private Volume volume;                  // Volume Component
-    private ColorAdjustments color_adjust;  // Color Adjustment Object
+    private Volume volume;                                      // Volume Component
+    private ColorAdjustments color_adjust;                      // Color Adjustment Object
+
+    private bool[] emotion_detected = { false, false, false };  // Emotion Detected
 
     // ************************************************************************************
     // Trigger Functions
@@ -86,33 +88,33 @@ public class modular_volume : MonoBehaviour
 
         if (prev_color.r < convertColor(tgt_color[0]))
         {
-            new_color.r += color_interval * Time.deltaTime;         // Update Color Value
+            new_color.r += color_interval * Time.deltaTime * color_smoothness;  // Update Color Value
         }
         else if (prev_color.r > convertColor(tgt_color[0]))
         {
-            new_color.r -= color_interval * Time.deltaTime;         // Update Color Value
+            new_color.r -= color_interval * Time.deltaTime * color_smoothness;  // Update Color Value
         }
 
         // Green Value
 
         if (prev_color.g < convertColor(tgt_color[1]))
         {
-            new_color.g += color_interval * Time.deltaTime;         // Update Color Value
+            new_color.g += color_interval * Time.deltaTime * color_smoothness;  // Update Color Value
         }
         else if (prev_color.g > convertColor(tgt_color[1]))
         {
-            new_color.g -= color_interval * Time.deltaTime;         // Update Color Value
+            new_color.g -= color_interval * Time.deltaTime * color_smoothness;  // Update Color Value
         }
 
         // Blue Value
 
         if (prev_color.b < convertColor(tgt_color[2]))
         {
-            new_color.b += color_interval * Time.deltaTime;         // Update Color Value
+            new_color.b += color_interval * Time.deltaTime * color_smoothness;  // Update Color Value
         }
         else if (prev_color.b > convertColor(tgt_color[2]))
         {
-            new_color.b -= color_interval * Time.deltaTime;         // Update Color Value
+            new_color.b -= color_interval * Time.deltaTime * color_smoothness;  // Update Color Value
         }
 
         // Apply Color
@@ -140,18 +142,34 @@ public class modular_volume : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            changeColor(happiness_color);
-            Debug.Log("Happiness Color!");
+            emotion_detected[0] = true;
         }
         else if (Input.GetKeyDown(KeyCode.H))
         {
-            changeColor(sadness_color);
-            Debug.Log("Sadness Color");
+            emotion_detected[1] = true;
         }
         else if (Input.GetKeyDown(KeyCode.J))
         {
-            changeColor(anger_color);
+            emotion_detected[2] = true;
+        }
+
+        if (emotion_detected[0])
+        {
+            //changeColor(happiness_color);
+            smoothChange(happiness_color);
+            Debug.Log("Happiness Color!");
+        }
+        else if (emotion_detected[1])
+        {
+            //changeColor(sadness_color);
+            smoothChange(sadness_color);
+            Debug.Log("Sadness Color");
+        }
+        else if (emotion_detected[2])
+        {
+            //changeColor(anger_color);
+            smoothChange(anger_color);
             Debug.Log("Anger Color");
-        }   
+        }
     }
 }
