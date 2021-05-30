@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class modular_volume : MonoBehaviour
 
     public float color_smoothness = 5.0f;
     public float color_interval = 0.0039f;
+    public float tgt_error = 0.0039f;
 
     // ************************************************************************************
     // Private Variables
@@ -59,6 +61,20 @@ public class modular_volume : MonoBehaviour
         return init_value / 255.0f;
     }
 
+    // Helper Function to Check If Error Condition is Met
+
+    private bool checkErrorCondition(float current_color, float tgt_color)
+    {
+        if (Math.Abs(current_color - tgt_color) <= tgt_error)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     // Change Color
 
     private void changeColor(int[] colors)
@@ -77,7 +93,7 @@ public class modular_volume : MonoBehaviour
         color_adjust.colorFilter.Override(new_color);
     }
 
-    // TODO: Add Condition to Check for Specific Error, and then Make Color Equal to Target Color
+    // Smoothly Change Color
 
     private void smoothChange(int[] tgt_color)
     {
@@ -86,7 +102,11 @@ public class modular_volume : MonoBehaviour
 
         // Red Value
 
-        if (prev_color.r < convertColor(tgt_color[0]))
+        if (checkErrorCondition(prev_color.r, convertColor(tgt_color[0])))
+        {
+            new_color.r = convertColor(tgt_color[0]);
+        }
+        else if (prev_color.r < convertColor(tgt_color[0]))
         {
             new_color.r += color_interval * Time.deltaTime * color_smoothness;  // Update Color Value
         }
@@ -97,7 +117,11 @@ public class modular_volume : MonoBehaviour
 
         // Green Value
 
-        if (prev_color.g < convertColor(tgt_color[1]))
+        if (checkErrorCondition(prev_color.g, convertColor(tgt_color[1])))
+        {
+            new_color.g = convertColor(tgt_color[1]);
+        }
+        else if (prev_color.g < convertColor(tgt_color[1]))
         {
             new_color.g += color_interval * Time.deltaTime * color_smoothness;  // Update Color Value
         }
@@ -108,7 +132,11 @@ public class modular_volume : MonoBehaviour
 
         // Blue Value
 
-        if (prev_color.b < convertColor(tgt_color[2]))
+        if (checkErrorCondition(prev_color.b, convertColor(tgt_color[2])))
+        {
+            new_color.b = convertColor(tgt_color[2]);
+        }
+        else if (prev_color.b < convertColor(tgt_color[2]))
         {
             new_color.b += color_interval * Time.deltaTime * color_smoothness;  // Update Color Value
         }
@@ -119,6 +147,8 @@ public class modular_volume : MonoBehaviour
 
         // Apply Color
         changeColor(new_color);
+
+        // TODO: Add Way to Reverse Procedure to White Color
     }
 
     // Start is called before the first frame update
