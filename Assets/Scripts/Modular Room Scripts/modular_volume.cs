@@ -14,6 +14,7 @@ public class modular_volume : MonoBehaviour
     public int[] anger_color = new int[3];
     public int[] happiness_color = new int[3];
     public int[] sadness_color = new int[3];
+    public int[] default_color = { 255, 255, 255 };
 
     public float color_smoothness = 5.0f;
     public float color_interval = 0.0039f;
@@ -24,6 +25,7 @@ public class modular_volume : MonoBehaviour
     // ************************************************************************************
 
     private bool player_trigger = false;                        // Player In/Out of Volume
+    private bool reverse_color = false;                         // Flag that is Set to Reverse Color, and Vice Versa
 
     private Volume volume;                                      // Volume Component
     private ColorAdjustments color_adjust;                      // Color Adjustment Object
@@ -148,7 +150,12 @@ public class modular_volume : MonoBehaviour
         // Apply Color
         changeColor(new_color);
 
-        // TODO: Add Way to Reverse Procedure to White Color
+        // Check Condition to Reverse Procedure
+
+        if (checkErrorCondition(prev_color.r, convertColor(tgt_color[0])) && checkErrorCondition(prev_color.g, convertColor(tgt_color[1])) && checkErrorCondition(prev_color.b, convertColor(tgt_color[2])))
+        {
+            reverse_color = !reverse_color;
+        }
     }
 
     // Start is called before the first frame update
@@ -185,21 +192,42 @@ public class modular_volume : MonoBehaviour
 
         if (emotion_detected[0])
         {
-            //changeColor(happiness_color);
-            smoothChange(happiness_color);
-            Debug.Log("Happiness Color!");
+            if (!reverse_color)
+            {
+                smoothChange(happiness_color);
+                Debug.Log("Happiness Color!");
+            }
+            else
+            {
+                smoothChange(default_color);
+                Debug.Log("Happiness Color!");
+            }    
         }
         else if (emotion_detected[1])
         {
-            //changeColor(sadness_color);
-            smoothChange(sadness_color);
-            Debug.Log("Sadness Color");
+            if (!reverse_color)
+            {
+                smoothChange(sadness_color);
+                Debug.Log("Sadness Color");
+            }
+            else
+            {
+                smoothChange(default_color);
+                Debug.Log("Sadness Color");
+            }
         }
         else if (emotion_detected[2])
         {
-            //changeColor(anger_color);
-            smoothChange(anger_color);
-            Debug.Log("Anger Color");
+            if (!reverse_color)
+            {
+                smoothChange(sadness_color);
+                Debug.Log("Sadness Color");
+            }
+            else
+            {
+                smoothChange(default_color);
+                Debug.Log("Sadness Color");
+            }
         }
     }
 }
