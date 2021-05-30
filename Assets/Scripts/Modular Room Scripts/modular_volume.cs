@@ -10,9 +10,12 @@ public class modular_volume : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
-    public float[] anger_color = new float[3];
-    public float[] happiness_color = new float[3];
-    public float[] sadness_color = new float[3];
+    public int[] anger_color = new int[3];
+    public int[] happiness_color = new int[3];
+    public int[] sadness_color = new int[3];
+
+    public float color_smoothness = 5.0f;
+    public float color_interval = 0.0039f;
 
     // ************************************************************************************
     // Private Variables
@@ -47,18 +50,74 @@ public class modular_volume : MonoBehaviour
     // Member Functions
     // ************************************************************************************
 
+    // Helper Function to Convert Color RGB Value to Float Value
+
+    private float convertColor(int init_value)
+    {
+        return init_value / 255.0f;
+    }
+
     // Change Color
 
-    private void changeColor(float[] colors)
+    private void changeColor(int[] colors)
     {
-        Color new_color = new Color(colors[0] / 255.0f, colors[1] / 255.0f, colors[2] / 255.0f, 1.0f);  // Build Color
+        Color new_color = new Color(convertColor(colors[0]), convertColor(colors[1]), convertColor(colors[2]), 1.0f);  // Build Color
 
         //var color_parameter = new ColorParameter(new_color);
 
         color_adjust.colorFilter.Override(new_color);                                                   // Apply Color to Filter
     }
 
-    // TODO: Add Function to Calculate Smooth Change to Color.
+    // Overriden Change Color, Using Float RGB Values in Color Type
+
+    private void changeColor(Color new_color)
+    {
+        color_adjust.colorFilter.Override(new_color);
+    }
+
+    // TODO: Add Condition to Check for Specific Error, and then Make Color Equal to Target Color
+
+    private void smoothChange(int[] tgt_color)
+    {
+        Color prev_color = color_adjust.colorFilter.value;      // Get Previous Color
+        Color new_color = prev_color;                           // Set Colors as the Same in the Beginning
+
+        // Red Value
+
+        if (prev_color.r < convertColor(tgt_color[0]))
+        {
+            new_color.r += color_interval * Time.deltaTime;         // Update Color Value
+        }
+        else if (prev_color.r > convertColor(tgt_color[0]))
+        {
+            new_color.r -= color_interval * Time.deltaTime;         // Update Color Value
+        }
+
+        // Green Value
+
+        if (prev_color.g < convertColor(tgt_color[1]))
+        {
+            new_color.g += color_interval * Time.deltaTime;         // Update Color Value
+        }
+        else if (prev_color.g > convertColor(tgt_color[1]))
+        {
+            new_color.g -= color_interval * Time.deltaTime;         // Update Color Value
+        }
+
+        // Blue Value
+
+        if (prev_color.b < convertColor(tgt_color[2]))
+        {
+            new_color.b += color_interval * Time.deltaTime;         // Update Color Value
+        }
+        else if (prev_color.b > convertColor(tgt_color[2]))
+        {
+            new_color.b -= color_interval * Time.deltaTime;         // Update Color Value
+        }
+
+        // Apply Color
+        changeColor(new_color);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +136,22 @@ public class modular_volume : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        changeColor(sadness_color);
+        // TODO: Remove This as It's a Test Version
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            changeColor(happiness_color);
+            Debug.Log("Happiness Color!");
+        }
+        else if (Input.GetKeyDown(KeyCode.H))
+        {
+            changeColor(sadness_color);
+            Debug.Log("Sadness Color");
+        }
+        else if (Input.GetKeyDown(KeyCode.J))
+        {
+            changeColor(anger_color);
+            Debug.Log("Anger Color");
+        }   
     }
 }
