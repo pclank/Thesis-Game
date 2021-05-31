@@ -179,14 +179,23 @@ public class modular_volume : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
         {
+            emotion_detected[1] = false;
+            emotion_detected[2] = false;
+
             emotion_detected[0] = true;
         }
         else if (Input.GetKeyDown(KeyCode.H))
         {
+            emotion_detected[0] = false;
+            emotion_detected[2] = false;
+
             emotion_detected[1] = true;
         }
         else if (Input.GetKeyDown(KeyCode.J))
         {
+            emotion_detected[0] = false;
+            emotion_detected[1] = false;
+
             emotion_detected[2] = true;
         }
 
@@ -220,8 +229,8 @@ public class modular_volume : MonoBehaviour
         {
             if (!reverse_color)
             {
-                smoothChange(sadness_color);
-                Debug.Log("Sadness Color");
+                smoothChange(anger_color);
+                Debug.Log("Anger Color");
             }
             else
             {
