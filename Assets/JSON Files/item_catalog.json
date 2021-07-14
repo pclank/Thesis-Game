@@ -2,44 +2,158 @@
   "items": [
     {
       "id": 1,
-      "title": "Ancient Coin",
-      "description": "A damaged coin, from an older period. Looks to Present some kind of Deity associated with a musical instrument."
+      "dev_title": "Ancient Greek Coin",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Ancient Coin",
+          "description": "A damaged coin, from an older period."
+        },
+
+        {
+          "level": 1,
+          "title": "Coin Depicting a Musical Diet",
+          "description": "A damaged coin, from an older period. Looks to Present some kind of Deity associated with a musical instrument."
+        },
+
+        {
+          "level": 2,
+          "title": "Coin Depicting the God Apollo",
+          "description": "A damaged coin, from an older period. Looks to Present the Greek God Apollo with a musical instrument."
+        },
+
+        {
+          "level": 3,
+          "title": "Ancient Greek Coin",
+          "description": "A damaged coin, from an older period. Looks to Present the Greek God Apollo with a musical instrument. Occured around 450 BCE in Ancient Greece."
+        }
+      ]
     },
 
     {
       "id": 2,
-      "title": "Ancient Coin",
-      "description": "A damaged coin, from an older period. Includes inscriptions in Latin."
+      "dev_title": "Ancient Roman Coin",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Ancient Coin",
+          "description": "A damaged coin, from an older period."
+        },
+
+        {
+          "level": 1,
+          "title": "Ancient Coin with a Latin Inscription",
+          "description": "A damaged coin, from an older period. Includes inscriptions in Latin."
+        },
+
+        {
+          "level": 2,
+          "title": "Coin Depecting Grant Latin Era Figures",
+          "description": "A damaged coin, from an older period. Includes inscriptions in Latin and Grant Figures of a Latin Period."
+        },
+
+        {
+          "level": 3,
+          "title": "Ancient Roman Coin",
+          "description": "A damaged coin, from an older period. Includes inscriptions in Latin and Grant Figures from the Ancient Roman Period. It existed around 69 - 96 CE."
+        }
+      ]
     },
 
     {
       "id": 3,
-      "title": "Ancient Coin",
-      "description": "A damaged coin, from an older period. Seems to follow a christian design."
+      "dev_title": "Byzantine Coin",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Ancient Coin",
+          "description": "A damaged coin, from an older period."
+        },
+
+        {
+          "level": 1,
+          "title": "Coin of a Christian Design",
+          "description": "A damaged coin, from an older period. Seems to follow a christian design."
+        },
+
+        {
+          "level": 2,
+          "title": "Byzantine Coin",
+          "description": "A damaged coin, from an older period. Seems to follow a christian design, common in the Byzantine Empire of 491 CE."
+        }
+      ]
     },
 
     {
       "id": 4,
-      "title": "Ancient Coin",
-      "description": "A curious coin, with a square cut in the center. Characters seem to follow an Asian tradition."
+      "dev_title": "Ancient Chinese Coin",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Ancient Coin",
+          "description": "A curious coin."
+        },
+
+        {
+          "level": 1,
+          "title": "Ancient Coin with a Square Hole",
+          "description": "A curious coin, with a square cut in the center. Characters seem to follow an Asian tradition."
+        },
+
+        {
+          "level": 2,
+          "title": "Ancient Chinese Coin",
+          "description": "A curious coin, with a square cut in the center. Chinese Characters are present. Design appears around 300 - 220 BCE."
+        }
+      ]
     },
 
     {
       "id": 5,
-      "title": "Ancient Coin",
-      "description": "A coin depecting an owl. In some cultures, owls where a sign of wisdom."
+      "dev_title": "Ancient Athenian Coin",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Ancient Coin",
+          "description": "A damaged Ancient Coin."
+        },
+
+        {
+          "level": 1,
+          "title": "Owl Ancient Coin",
+          "description": "A coin depecting an owl. In some cultures, owls where a sign of wisdom."
+        },
+
+        {
+          "level": 2,
+          "title": "Ancient Athenian Coin",
+          "description": "A coin depecting an owl. In Ancient Athens culture, owls where a sign of wisdom. Coins of this type appeared around 454 - 404 BCE."
+        }
+      ]
     },
 
     {
       "id": 6,
-      "title": "Bronze Key",
-      "description": "A key made of bronze. It was found in a filing cabinet drawer."
+      "dev_title": "Bronze Key",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Bronze Key",
+          "description": "A key made of bronze. It was found in a filing cabinet drawer."
+        }
+      ]
     },
 
     {
       "id": 7,
-      "title": "Ancient Athens Note",
-      "description": "A weathered note. It reads: In Ancient Athens, various animals symbolized specific Character Traits. Athena, the Goddess of Wisdom, was often portrayed by an Owl. This kind of Symbology has been found in many forms of art, including plates, vases, and coins."
+      "dev_title": "Ancient Athens Note",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Ancient Athens Note",
+          "description": "A weathered note. It reads: In Ancient Athens, various animals symbolized specific Character Traits. Athena, the Goddess of Wisdom, was often portrayed by an Owl. This kind of Symbology has been found in many forms of art, including plates, vases, and coins."
+        }
+      ]
     }
   ]
 }

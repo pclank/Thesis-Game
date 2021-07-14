@@ -85,6 +85,8 @@
     <Compile Include="Assets\Scripts\Modular Room Scripts\modular_volume.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\JSON Files\item_catalog.json" />
+    <None Include="Assets\JSON Files\item_catalog.json.meta" />
     <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
     <None Include="Assets\Allegorithmic\Plugins\Substance.Engine.dll" />
     <None Include="Assets\Allegorithmic\Plugins\EULA.txt" />
@@ -763,6 +765,7 @@
       <Name>TexturePacker.Editor</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

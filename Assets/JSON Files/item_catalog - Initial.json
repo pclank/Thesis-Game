@@ -1,0 +1,45 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "title": "Ancient Coin",
+      "description": "A damaged coin, from an older period. Looks to Present some kind of Deity associated with a musical instrument."
+    },
+
+    {
+      "id": 2,
+      "title": "Ancient Coin",
+      "description": "A damaged coin, from an older period. Includes inscriptions in Latin."
+    },
+
+    {
+      "id": 3,
+      "title": "Ancient Coin",
+      "description": "A damaged coin, from an older period. Seems to follow a christian design."
+    },
+
+    {
+      "id": 4,
+      "title": "Ancient Coin",
+      "description": "A curious coin, with a square cut in the center. Characters seem to follow an Asian tradition."
+    },
+
+    {
+      "id": 5,
+      "title": "Ancient Coin",
+      "description": "A coin depecting an owl. In some cultures, owls where a sign of wisdom."
+    },
+
+    {
+      "id": 6,
+      "title": "Bronze Key",
+      "description": "A key made of bronze. It was found in a filing cabinet drawer."
+    },
+
+    {
+      "id": 7,
+      "title": "Ancient Athens Note",
+      "description": "A weathered note. It reads: In Ancient Athens, various animals symbolized specific Character Traits. Athena, the Goddess of Wisdom, was often portrayed by an Owl. This kind of Symbology has been found in many forms of art, including plates, vases, and coins."
+    }
+  ]
+}
