@@ -50,19 +50,28 @@ public static class Helper
 public class Jitem
 {
     public int id;
-    public string title;
-    public string description;
+    public string dev_title;
+    public Jitem_knowledge[] knowledge;
 }
 
 // ************************************************************************************
 // JSON Object List Class
 // ************************************************************************************
-
 [System.Serializable]
 public class Jitem_list
 {
-    //public List<Jitem> items;
     public Jitem[] items;
+}
+
+// ************************************************************************************
+// JSON Object Knowledge List Class
+// ************************************************************************************
+[System.Serializable]
+public class Jitem_knowledge
+{
+    public int level;
+    public string title;
+    public string description;
 }
 
 // ************************************************************************************
@@ -74,7 +83,8 @@ public class Item
 
     // Private Variables
 
-    private string name;                            // Holds Item Name-Title
+    //private string name;                            // Holds Item Name-Title
+    private int knowledge_level = 0;                // Holds Item Level of Knowledge
     private int id;                                 // Holds Item ID
     private float scale;                            // Holds Item Scale
 
@@ -83,9 +93,8 @@ public class Item
 
     // Member Functions
 
-    public Item(string item_name, int item_id, MeshFilter mesh_f, MeshRenderer mesh_r, float item_scale)    // Item Constructor
+    public Item(int item_id, MeshFilter mesh_f, MeshRenderer mesh_r, float item_scale)    // Item Constructor
     {
-        name = item_name;
         id = item_id;
         scale = item_scale;
         mesh_filter = mesh_f;
@@ -99,10 +108,10 @@ public class Item
         return this.id;
     }
 
-    // Get Item Name
-    public string getName()
+    // Get Item Knowledge Level
+    public int getLevel()
     {
-        return this.name;
+        return this.knowledge_level;
     }
 
     // Get Item Scale
@@ -206,7 +215,8 @@ public class main_inventory : MonoBehaviour
     {
         selected_item = it_id;                                              // Set Selected Item ID
 
-        description_ui.GetComponent<Text>().text = getDescription(it_id);   // Set Description in UI Element
+        // TODO: Make Sure Function is Necessary!
+        //description_ui.GetComponent<Text>().text = getKnowledge(it_id, );   // Set Description in UI Element
 
         button_layout.SetActive(true);                                      // Enable Buttons
     }
@@ -295,13 +305,13 @@ public class main_inventory : MonoBehaviour
 
         display_light.SetActive(true);                                                                  // Enable Light
 
-        title_text.GetComponent<Text>().text = item.getName();                                          // Change Text to Item's Name
+        title_text.GetComponent<Text>().text = getKnowledge(item.getID(), item.getLevel()).Item1;       // Change Text to Item's Name
 
         title_text.SetActive(true);                                                                     // Enable Title Text
 
         display_on = true;                                                                              // Enable Display Flag
 
-        GameObject new_go = new GameObject(item.getName());                                             // Create GameObject Object Using Constructor
+        GameObject new_go = new GameObject("DisplayedItem");                                            // Create GameObject Object Using Constructor
 
         new_go.AddComponent<MeshFilter>(item.getMeshFilter());                                          // Add MeshFilter
         Material mat = item.getMaterial();                                                              // Get Material from Renderer
@@ -358,24 +368,26 @@ public class main_inventory : MonoBehaviour
         return result;
     }
 
-    // Find Item Description from JSON File
+    // Find Item Name and Description from JSON File Based on Knowledge
 
-    private string getDescription(int i_id)
+    private Tuple<string, string> getKnowledge(int i_id, int k_level)
     {
+        string i_title = "PLACEHOLDER";                                                     // Initialize Title Variable
         string i_description = "PLACEHOLDER";                                               // Initialize Description Variable
 
-        foreach (Jitem jitem in items_in_json.items)                                        // Get Item Description of Requested Items
+        foreach (Jitem jitem in items_in_json.items)                                        // Get Knowledge of Requested Item
         {
-            // Find Item with Requested ID and Return
+            // Find Item with Requested ID and Get Knowledge
             if (jitem.id == i_id)
             {
-                i_description = jitem.description;
+                i_title = jitem.knowledge[k_level].title;
+                i_description = jitem.knowledge[k_level].description;
 
                 break;
             }
         }
 
-        return i_description;
+        return new Tuple<string, string>(i_title, i_description);
     }
 
     // Open Item Inventory
@@ -393,10 +405,10 @@ public class main_inventory : MonoBehaviour
 
         foreach (Item it in inventory)
         {
-            GameObject temp_ui_item = item_ui_prefab;                                       // Get Prefab Instance to Edit Before Adding to Inventory
+            GameObject temp_ui_item = item_ui_prefab;                                                           // Get Prefab Instance to Edit Before Adding to Inventory
 
-            temp_ui_item.GetComponentInChildren<Text>().text = it.getName();                // Assign Item Name
-            temp_ui_item.GetComponentInChildren<ui_click_detector>().item_id = it.getID();  // Assign Item ID
+            temp_ui_item.GetComponentInChildren<Text>().text = getKnowledge(it.getID(), it.getLevel()).Item1;   // Assign Item Name
+            temp_ui_item.GetComponentInChildren<ui_click_detector>().item_id = it.getID();                      // Assign Item ID
 
             Instantiate(temp_ui_item, ui_inventory.transform);
         }
