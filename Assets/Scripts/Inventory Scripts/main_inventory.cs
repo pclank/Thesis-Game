@@ -114,6 +114,13 @@ public class Item
         return this.knowledge_level;
     }
 
+    // Set Item Knowledge Level
+
+    public void setLevel(int target_level)
+    {
+        this.knowledge_level = target_level;
+    }
+
     // Get Item Scale
 
     public float getScale()
@@ -225,11 +232,26 @@ public class main_inventory : MonoBehaviour
 
     public void buildItem(int item_id, MeshFilter mesh_f, MeshRenderer mesh_r, float item_scale)
     {
-        Item new_item = new Item(item_id, mesh_f, mesh_r, item_scale);   // Build Item
+        Item new_item = new Item(item_id, mesh_f, mesh_r, item_scale);              // Build Item
 
         addItem(new_item);                                                          // Add to Inventory
 
         displayItem(new_item);                                                      // Display Item
+    }
+
+    // Increase Knowledge Level of Item
+
+    public void increaseKnowledge(int i_id, int target_level)
+    {
+        foreach (Item it in inventory)
+        {
+            if (it.getID() == i_id)         // Find Item
+            {
+                it.setLevel(target_level);      // Set Level
+
+                break;
+            }
+        }
     }
 
     // Add Item to Inventory
