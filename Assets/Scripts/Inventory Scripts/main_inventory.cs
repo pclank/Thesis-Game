@@ -223,9 +223,9 @@ public class main_inventory : MonoBehaviour
 
     // Build Item
 
-    public void buildItem(string item_name, int item_id, MeshFilter mesh_f, MeshRenderer mesh_r, float item_scale)
+    public void buildItem(int item_id, MeshFilter mesh_f, MeshRenderer mesh_r, float item_scale)
     {
-        Item new_item = new Item(item_name, item_id, mesh_f, mesh_r, item_scale);   // Build Item
+        Item new_item = new Item(item_id, mesh_f, mesh_r, item_scale);   // Build Item
 
         addItem(new_item);                                                          // Add to Inventory
 
