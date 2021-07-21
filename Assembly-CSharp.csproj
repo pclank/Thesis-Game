@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\Audio Scripts\audio_play.cs" />
     <Compile Include="Assets\Scripts\Inventory Scripts\main_inventory.cs" />
     <Compile Include="Assets\First person controller\Scripts\FirstPersonMovement.cs" />
+    <Compile Include="Assets\Scripts\Item Scripts\KnowledgeOnPickup.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\change_room.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\Zoom.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\FirstPersonAudio.cs" />
