@@ -294,7 +294,7 @@ public class main_inventory : MonoBehaviour
                 {
                     item.setLevel(queued.Item2);                        // Update Knowledge Level
 
-                    levelup_queue.Remove(cnt);                          // Remove List Element After Update
+                    levelup_queue.RemoveAt(cnt);                        // Remove List Element After Update
 
                     break;
                 }
