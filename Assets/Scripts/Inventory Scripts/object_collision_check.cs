@@ -8,7 +8,6 @@ public class object_collision_check : MonoBehaviour
     // GameObject Parameters to be Used in Item Creation
     // ************************************************************************************
 
-    public string item_name = null;
     public int item_id = -1;
     public float item_scale = 1.5f;
 
@@ -104,7 +103,7 @@ public class object_collision_check : MonoBehaviour
         }
 
         // Check Item Parameters are Set
-        if (item_name == null || item_id == -1)         // -1 is Invalid ID
+        if (item_id == -1)                          // -1 is Invalid ID
         {
             Debug.Log("Item Parameters Not Set!");
 
@@ -146,7 +145,10 @@ public class object_collision_check : MonoBehaviour
                 icon_object.SetActive(false);
 
                 // Build Item in Inventory
-                player_object.GetComponent<main_inventory>().buildItem(item_name, item_id, mesh_f, mesh_r, item_scale);
+                player_object.GetComponent<main_inventory>().buildItem(item_id, mesh_f, mesh_r, item_scale);
+
+                // Call Knowledge Update Function from KnowledgeOnPickup Script
+                this.gameObject.GetComponent<KnowledgeOnPickup>().increaseKnowledge();
 
                 // Disable Picked-Up Item's GameObject
                 this.gameObject.SetActive(false);
