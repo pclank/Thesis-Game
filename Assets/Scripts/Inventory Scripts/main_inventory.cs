@@ -180,6 +180,7 @@ public class main_inventory : MonoBehaviour
     // Private Variables
 
     private List<Item> inventory = new List<Item>();    // List of Items in Inventory
+    private List<Tuple<int, int>> levelup_queue = new List<Tuple<int, int>>();  // List of Queued Items to be Leveled Up
 
     private bool was_clicked = false;                   // Mouse Click Flag
     private bool display_on = false;                    // Item Being Displayed
@@ -243,14 +244,24 @@ public class main_inventory : MonoBehaviour
 
     public void increaseKnowledge(int i_id, int target_level)
     {
+        bool existance = false;     // Target Item Is/Isn't in Inventory
+
         foreach (Item it in inventory)
         {
             if (it.getID() == i_id)         // Find Item
             {
                 it.setLevel(target_level);      // Set Level
 
+                existance = true;
+
                 break;
             }
+        }
+
+        // Item Not in Inventory
+        if (!existance)
+        {
+            levelup_queue.Add(new Tuple<int, int>(i_id, target_level));     // Add Info to Level-Up Queue
         }
     }
 
@@ -271,7 +282,25 @@ public class main_inventory : MonoBehaviour
 
         if (flag)
         {
-            inventory.Add(item);
+            inventory.Add(item);                                // Add Item to Inventory List
+
+            // Check Whether Knowledge Level-Up is Pending for Item
+
+            int cnt = 0;                                        // Reference to List Index
+            foreach (Tuple<int, int> queued in levelup_queue)
+            {
+                // Search for Item ID in Queue
+                if (queued.Item1 == item.getID())
+                {
+                    item.setLevel(queued.Item2);                        // Update Knowledge Level
+
+                    levelup_queue.Remove(cnt);                          // Remove List Element After Update
+
+                    break;
+                }
+
+                cnt++;
+            }
         }
     }
 
