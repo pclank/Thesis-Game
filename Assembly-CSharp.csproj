@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\Modular Room Scripts\change_room.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\Zoom.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\FirstPersonAudio.cs" />
+    <Compile Include="Assets\Scripts\Modular Room Scripts\DynamicMusic.cs" />
     <Compile Include="Assets\Scripts\Puzzle Scripts\ItemSlot.cs" />
     <Compile Include="Assets\First person controller\Scripts\FirstPersonLook.cs" />
     <Compile Include="Assets\Scripts\Switch Scripts\lightswitch.cs" />
