@@ -33,7 +33,7 @@ public class ItemSlot : MonoBehaviour
         // Check that Item Is Valid for Placement in Slot
         if (validation)
         {
-            GameObject new_go = new GameObject(item.getName());                                             // Create GameObject Object Using Constructor
+            GameObject new_go = new GameObject("temp_gameobject");                                          // Create GameObject Object Using Constructor
 
             new_go.AddComponent<MeshFilter>(item.getMeshFilter());                                          // Add MeshFilter
             Material mat = item.getMaterial();                                                              // Get Material from Renderer

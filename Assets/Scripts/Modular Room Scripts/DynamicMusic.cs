@@ -26,9 +26,9 @@ public class DynamicMusic : MonoBehaviour
 
     // Effect Flags
 
-    private bool chorus_enable = false;
-    private bool distortion_enable = false;
-    private bool lowpass_enable = false;
+    //private bool chorus_enable = false;
+    //private bool distortion_enable = false;
+    //private bool lowpass_enable = false;
 
     // Other Variables
 
@@ -45,7 +45,8 @@ public class DynamicMusic : MonoBehaviour
     // Change Clip on Emotion Change
     private void changeClip(int emotion_index)
     {
-        main_source.Stop();         // Stop Clip Playing
+        main_source.Stop();                     // Stop Clip Playing
+        clip_time = main_source.timeSamples;    // Get Time
 
         // Choose New Clip Based on Emotion
         switch (emotion_index)
@@ -84,11 +85,5 @@ public class DynamicMusic : MonoBehaviour
     void Start()
     {
         player_object = GameObject.FindWithTag("Player");       // Get Player GameObject
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

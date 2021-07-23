@@ -6,12 +6,6 @@ public class disable_on_start : MonoBehaviour
 {
     private int cnt = 1;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {

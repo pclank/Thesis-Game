@@ -32,7 +32,7 @@ public class FirstPersonAudio : MonoBehaviour
     {
         // Setup stuff.
         character = GetComponentInParent<FirstPersonMovement>();
-        groundCheck = (transform.parent ?? transform).GetComponentInChildren<GroundCheck>();
+        groundCheck = transform.parent.GetComponentInChildren<GroundCheck>();
         stepAudio = GetOrCreateAudioSource("Step audio");
         runningAudio = GetOrCreateAudioSource("Running audio");
         landingAudio = GetOrCreateAudioSource("Landing audio");
