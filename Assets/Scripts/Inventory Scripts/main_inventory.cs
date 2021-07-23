@@ -369,7 +369,8 @@ public class main_inventory : MonoBehaviour
         var mr = new_go.AddComponent<MeshRenderer>(item.getMeshRenderer());                             // Add MeshRenderer
         mr.material = mat;                                                                              // Assign Material
 
-        new_go.transform.position = camera_object.transform.position + transform.forward;
+        //new_go.transform.position = camera_object.transform.position + transform.forward;
+        new_go.transform.SetParent(ui_main.transform, false);                                           // Render in Front of UI
 
         float scale = item.getScale();                                                                  // Get Scale
         new_go.transform.localScale = new Vector3(scale, scale, scale);                                 // Set Scale
