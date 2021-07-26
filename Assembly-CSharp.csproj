@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{B2B58FB2-4462-6B0C-A872-40DD957E5FE0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -58,7 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Audio Scripts\audio_play.cs" />
-    <Compile Include="Assets\Scripts\Physics Scripts\InteractionRaycasting.cs" />
     <Compile Include="Assets\Scripts\Inventory Scripts\main_inventory.cs" />
     <Compile Include="Assets\First person controller\Scripts\FirstPersonMovement.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\change_room.cs" />
@@ -73,32 +71,34 @@
     <Compile Include="Assets\Scripts\Inventory Scripts\object_collision_check.cs" />
     <Compile Include="Assets\Scripts\Switch Scripts\light_control.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\Jump.cs" />
+    <Compile Include="Assets\Scripts\Physics Scripts\InteractionRaycasting.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\modular_volume.cs" />
-    <Compile Include="Assets\Scripts\Tool Scripts\PythonScriptConnector.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\disable_on_start.cs" />
     <Compile Include="Assets\Scripts\Puzzle Scripts\MainPuzzle.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\start_animation.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\rotate_door_physics.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\drawer_move.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\door_rotator_parent.cs" />
+    <Compile Include="Assets\Scripts\Tool Scripts\PythonScriptConnector.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\door_rotator.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\Crouch.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\ui_click_detector.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\DynamicMusic.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
+    <Compile Include="Assets\Scripts\Inventory Scripts\ObjectRaycastCheck.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
-    <None Include="Assets\Allegorithmic\Plugins\Substance.Engine.dll" />
-    <None Include="Assets\Allegorithmic\Plugins\EULA.txt" />
-    <None Include="Assets\UnityHDRI\TreasureIsland\Info.txt" />
-    <None Include="Assets\UnityHDRI\MuirWood\Info.txt" />
-    <None Include="Assets\Allegorithmic\Plugins\Substance.Game.dll" />
-    <None Include="Assets\Allegorithmic\Plugins\substance_sse2_blend.dll" />
-    <None Include="Assets\Allegorithmic\Plugins\engine_build_info.txt" />
-    <None Include="Assets\UnityHDRI\KirbyCove\Info.txt" />
-    <None Include="Assets\UnityHDRI\Gareoult\Info.txt" />
-    <None Include="Assets\UnityHDRI\Trinitatis Church\Info.txt" />
+     <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
+     <None Include="Assets\Allegorithmic\Plugins\Substance.Engine.dll" />
+     <None Include="Assets\Allegorithmic\Plugins\EULA.txt" />
+     <None Include="Assets\UnityHDRI\TreasureIsland\Info.txt" />
+     <None Include="Assets\UnityHDRI\MuirWood\Info.txt" />
+     <None Include="Assets\Allegorithmic\Plugins\Substance.Game.dll" />
+     <None Include="Assets\Allegorithmic\Plugins\substance_sse2_blend.dll" />
+     <None Include="Assets\Allegorithmic\Plugins\engine_build_info.txt" />
+     <None Include="Assets\UnityHDRI\KirbyCove\Info.txt" />
+     <None Include="Assets\UnityHDRI\Gareoult\Info.txt" />
+     <None Include="Assets\UnityHDRI\Trinitatis Church\Info.txt" />
     <Reference Include="UnityEngine">
       <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -234,9 +234,6 @@
     <Reference Include="UnityEngine.UIModule">
       <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.UIModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UIElementsModule">
-      <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.UIElementsModule.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UIElementsNativeModule">
       <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.UIElementsNativeModule.dll</HintPath>
     </Reference>
@@ -308,9 +305,6 @@
     </Reference>
     <Reference Include="UnityEditor.SceneTemplateModule">
       <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEditor.SceneTemplateModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UIElementsModule">
-      <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEditor.UIElementsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UIElementsSamplesModule">
       <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEditor.UIElementsSamplesModule.dll</HintPath>
@@ -772,7 +766,6 @@
       <Name>TexturePacker.Editor</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

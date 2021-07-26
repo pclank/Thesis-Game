@@ -31,6 +31,16 @@ public class InteractionRaycasting : MonoBehaviour
     // Update Native Player Loop
     void FixedUpdate()
     {
-        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), max_distance, layer_mask, QueryTriggerInteraction.Collide);  // Generate Ray and Trigger Colliders
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, max_distance, layer_mask, QueryTriggerInteraction.Collide))  // Generate Ray and Trigger Colliders
+        {
+            if (hit.transform.gameObject.CompareTag("Interactable"))
+            {
+                hit.transform.gameObject.GetComponent<ObjectRaycastCheck>().ray_trig = true;
+            }
+
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+        }
     }
 }
