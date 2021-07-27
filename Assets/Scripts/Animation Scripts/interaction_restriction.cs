@@ -13,6 +13,12 @@ public class interaction_restriction : MonoBehaviour
     private bool was_clicked = false;
     private bool entered = false;
 
+    // Manually Set Entered Flag
+    public void setEntered(bool flag)
+    {
+        entered = flag;
+    }
+
     // On Trigger Enter
     private void OnTriggerEnter(Collider other)
     {

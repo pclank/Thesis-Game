@@ -144,10 +144,9 @@ public class ObjectRaycastCheck : MonoBehaviour
             }
         }
 
-        if (Time.time - counter_value >= delay)
+        if (counter_on && Time.time - counter_value >= delay)
         {
             icon_object.SetActive(false);
-            ray_trig = false;
 
             counter_on = false;
         }
