@@ -43,6 +43,10 @@ public class InteractionRaycasting : MonoBehaviour
             {
                 hit.transform.gameObject.GetComponent<RotateHingePhysics>().ray_trig = true;
             }
+            else if (hit.transform.gameObject.CompareTag("Drawer"))
+            {
+                hit.transform.gameObject.GetComponent<MoveDrawerPhysics>().ray_trig = true;
+            }
 
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
         }
