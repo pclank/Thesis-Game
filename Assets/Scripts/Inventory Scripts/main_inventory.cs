@@ -221,12 +221,13 @@ public class main_inventory : MonoBehaviour
 
     public void setDescription(int it_id)
     {
-        selected_item = it_id;                                              // Set Selected Item ID
+        selected_item = it_id;                                                              // Set Selected Item ID
 
-        // TODO: Make Sure Function is Necessary!
-        //description_ui.GetComponent<Text>().text = getKnowledge(it_id, );   // Set Description in UI Element
+        int it_level = getKnowledgeFromID(it_id);                                           // Get Item Knowledge Level from ID
 
-        button_layout.SetActive(true);                                      // Enable Buttons
+        description_ui.GetComponent<Text>().text = getKnowledge(it_id, it_level).Item2;     // Set Description in UI Element
+
+        button_layout.SetActive(true);                                                      // Enable Buttons
     }
 
     // Build Item
@@ -337,6 +338,25 @@ public class main_inventory : MonoBehaviour
         {
             return false;
         }
+    }
+
+    // Get Knowledge Level from Item ID
+
+    private int getKnowledgeFromID(int i_id)
+    {
+        int knowledge_level = 0;
+
+        foreach (Item it in inventory)
+        {
+            if (compareID(i_id, it))
+            {
+                knowledge_level = it.getLevel();
+
+                break;
+            }
+        }
+
+        return knowledge_level;
     }
 
     // Display Item in Front of Camera
@@ -551,8 +571,8 @@ public class main_inventory : MonoBehaviour
     {
         if (inventory_open)
         {
-            player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Unfreeze Player Controller
-            camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Unfreeze Camera Controller
+            player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
+            camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))

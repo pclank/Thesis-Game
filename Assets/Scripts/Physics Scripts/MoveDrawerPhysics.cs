@@ -130,6 +130,7 @@ public class MoveDrawerPhysics : MonoBehaviour
         {
             interact = true;
 
+            player_object.GetComponent<interaction_restriction>().setEntered(true);
             player_object.GetComponent<interaction_restriction>().setFreedom(true);
         }
 
@@ -138,6 +139,8 @@ public class MoveDrawerPhysics : MonoBehaviour
             icon_object.SetActive(false);
 
             counter_on = false;
+
+            player_object.GetComponent<interaction_restriction>().setEntered(false);
         }
 
         ray_trig = false;
