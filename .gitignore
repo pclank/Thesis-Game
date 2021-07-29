@@ -352,6 +352,8 @@ healthchecksdb
 /UserSettings
 /Substance.EditorHelper.csproj
 /Substance.Platform.csproj
+/TexturePacker.Editor
+/TexturePacker.Runtime
 /Logs
 /ProjectSettings
 /Assets/Animations
