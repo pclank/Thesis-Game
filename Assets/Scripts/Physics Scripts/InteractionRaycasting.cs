@@ -20,6 +20,29 @@ public class InteractionRaycasting : MonoBehaviour
     // ************************************************************************************
 
     private int layer_mask;                     // Layer Mask for Raycasting
+    private bool hit_flag = false;              // Flag Denoting Hit in Previous Update
+    private GameObject hit_gameobject;          // Hit GameObject
+
+    // ************************************************************************************
+    // Member Functions
+    // ************************************************************************************
+
+    // Disable GameObject Hit Variable
+    private void disableHit()
+    {
+        if (hit_gameobject.CompareTag("Interactable"))
+        {
+            hit_gameobject.GetComponent<ObjectRaycastCheck>().ray_trig = false;
+        }
+        else if (hit_gameobject.CompareTag("Door"))
+        {
+            hit_gameobject.GetComponent<RotateHingePhysics>().ray_trig = false;
+        }
+        else if (hit_gameobject.CompareTag("Drawer"))
+        {
+            hit_gameobject.GetComponent<MoveDrawerPhysics>().ray_trig = false;
+        }
+    }
 
     // Use this for initialization
     void Start()
@@ -35,20 +58,50 @@ public class InteractionRaycasting : MonoBehaviour
 
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, max_distance, layer_mask, QueryTriggerInteraction.Collide))  // Generate Ray and Trigger Colliders
         {
+            // If a Different GameObject was Hit in the Next Update, Disable the Previous GameObject's Variable
+
+            if (hit_flag && hit.transform.gameObject != hit_gameobject)
+            {
+                disableHit();
+
+                hit_flag = false;
+            }
+
             if (hit.transform.gameObject.CompareTag("Interactable"))
             {
-                hit.transform.gameObject.GetComponent<ObjectRaycastCheck>().ray_trig = true;
+                hit_flag = true;
+
+                hit_gameobject = hit.transform.gameObject;
+
+                hit_gameobject.GetComponent<ObjectRaycastCheck>().ray_trig = true;
             }
             else if (hit.transform.gameObject.CompareTag("Door"))
             {
-                hit.transform.gameObject.GetComponent<RotateHingePhysics>().ray_trig = true;
+                hit_flag = true;
+
+                hit_gameobject = hit.transform.gameObject;
+
+                hit_gameobject.GetComponent<RotateHingePhysics>().ray_trig = true;
             }
             else if (hit.transform.gameObject.CompareTag("Drawer"))
             {
-                hit.transform.gameObject.GetComponent<MoveDrawerPhysics>().ray_trig = true;
+                hit_flag = true;
+
+                hit_gameobject = hit.transform.gameObject;
+
+                hit_gameobject.GetComponent<MoveDrawerPhysics>().ray_trig = true;
             }
 
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+        }
+        else
+        {
+            if (hit_flag)
+            {
+                disableHit();
+            }
+
+            hit_flag = false;
         }
     }
 }

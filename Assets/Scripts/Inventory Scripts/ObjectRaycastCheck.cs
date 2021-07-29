@@ -150,7 +150,5 @@ public class ObjectRaycastCheck : MonoBehaviour
 
             counter_on = false;
         }
-
-        ray_trig = false;
     }
 }
