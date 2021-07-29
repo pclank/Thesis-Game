@@ -10,6 +10,8 @@ public class ItemSlot : MonoBehaviour
 
     public int slot_id = 0;
 
+    public bool ray_trig = false;   // Raycasting Hit Flag
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
@@ -19,6 +21,8 @@ public class ItemSlot : MonoBehaviour
     private Item slot_item;
 
     private MainPuzzle main_puzzle;
+
+    private bool prev_hit = false;      // Hit was Detected in Previous Update
 
     // ************************************************************************************
     // Member Functions
@@ -76,26 +80,24 @@ public class ItemSlot : MonoBehaviour
         }
     }
 
-    // ************************************************************************************
-    // Trigger Functions
-    // ************************************************************************************
-
-    private void OnTriggerEnter(Collider other)
-    {
-        // Check that Collider is the MainCamera
-        if (other.gameObject.CompareTag("MainCamera"))
-        {
-            main_puzzle.setSlot(this.gameObject);        // Set Selected Slot
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        main_puzzle.resetSlot();                // Reset Slot
-    }
-
     void Start()
     {
         main_puzzle = this.GetComponentInParent<MainPuzzle>();              // Set Parent Script
+    }
+
+    void Update()
+    {
+        if (!prev_hit && ray_trig)
+        {
+            main_puzzle.setSlot(this.gameObject);   // Set Selected Slot
+
+            prev_hit = true;
+        }
+        else if (prev_hit && !ray_trig)
+        {
+            main_puzzle.resetSlot();                // Reset Slot
+
+            prev_hit = false;
+        }
     }
 }

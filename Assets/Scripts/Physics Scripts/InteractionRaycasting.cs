@@ -42,6 +42,10 @@ public class InteractionRaycasting : MonoBehaviour
         {
             hit_gameobject.GetComponent<MoveDrawerPhysics>().ray_trig = false;
         }
+        else if (hit_gameobject.CompareTag("Slot"))
+        {
+            hit_gameobject.GetComponent<ItemSlot>().ray_trig = false;
+        }
     }
 
     // Use this for initialization
@@ -90,6 +94,14 @@ public class InteractionRaycasting : MonoBehaviour
                 hit_gameobject = hit.transform.gameObject;
 
                 hit_gameobject.GetComponent<MoveDrawerPhysics>().ray_trig = true;
+            }
+            else if (hit.transform.gameObject.CompareTag("Slot"))
+            {
+                hit_flag = true;
+
+                hit_gameobject = hit.transform.gameObject;
+
+                hit_gameobject.GetComponent<ItemSlot>().ray_trig = true;
             }
 
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
