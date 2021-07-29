@@ -153,11 +153,15 @@ public class Item
 // ************************************************************************************
 public class main_inventory : MonoBehaviour
 {
+    // ************************************************************************************
     // Public Variables
+    // ************************************************************************************
 
     public float display_distance = 0.5f;               // Distance from Camera to Display Item
     public float rotation_speed = 100.0f;               // Speed of Rotation for Item Display
     public float scale_speed = 10.0f;                   // Speed of Scaling for Item Display
+    [Tooltip("The Time the UI Element Will Stay Active.")]
+    public float delay = 2.0f;                          // UI Element Active Delay
 
     public bool background_enable = false;              // Enable Background for Item Display
 
@@ -169,6 +173,7 @@ public class main_inventory : MonoBehaviour
     public GameObject item_ui_prefab;                   // Item UI Prefab
     public GameObject description_ui;                   // Item Description UI Element
     public GameObject invalid_ui;                       // Invalid Item UI Element
+    public GameObject knowledge_acq_ui;                 // New Knowledge UI Element
     public GameObject button_layout;                    // Button UI Layout GameObject
     public Button examine_but;                          // Examine Button UI Element
     public Button use_but;                              // Use Button UI Element
@@ -177,7 +182,9 @@ public class main_inventory : MonoBehaviour
 
     public TextAsset json_file_name;                    // JSON File with Item Information
 
+    // ************************************************************************************
     // Private Variables
+    // ************************************************************************************
 
     private List<Item> inventory = new List<Item>();    // List of Items in Inventory
     private List<Tuple<int, int>> levelup_queue = new List<Tuple<int, int>>();  // List of Queued Items to be Leveled Up
@@ -189,6 +196,8 @@ public class main_inventory : MonoBehaviour
     private bool item_slot_flag = false;                // Main Camera is Pointing to Item Slot
 
     private int selected_item;                          // ID of Currently Selected Item
+    
+    private float ui_counter_value = 0.0f;              // UI Counter Value
 
     private GameObject player_object;                   // Player GameObject
     private GameObject camera_object;                   // Camera GameObject
@@ -254,6 +263,9 @@ public class main_inventory : MonoBehaviour
                 it.setLevel(target_level);      // Set Level
 
                 existance = true;
+
+                knowledge_acq_ui.SetActive(true);   // Activate UI Element
+                ui_counter_value = Time.time;       // Set Timer
 
                 break;
             }
@@ -636,6 +648,15 @@ public class main_inventory : MonoBehaviour
             {
                 addItem(removed_item);                                  // Add Item Back to Inventory
             }
+        }
+
+        // UI Counter Section
+
+        if (ui_counter_value != 0.0f && Time.time - ui_counter_value >= delay)
+        {
+            knowledge_acq_ui.SetActive(false);      // Disable UI Element
+
+            ui_counter_value = 0.0f;                // Reset
         }
     }
 
