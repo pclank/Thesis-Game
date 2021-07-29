@@ -195,8 +195,6 @@ public class RotateHingePhysics : MonoBehaviour
 
             player_object.GetComponent<interaction_restriction>().setEntered(false);
         }
-
-        ray_trig = false;
     }
 
     void FixedUpdate()
