@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+
 
 public class PortalPhysics : MonoBehaviour
 {
@@ -9,6 +11,9 @@ public class PortalPhysics : MonoBehaviour
 
     [Tooltip("Target Portal for Teleportation.")]
     public GameObject target_portal;    // Target Portal for Teleport
+
+    [Tooltip("FX UI Element.")]
+    public GameObject fx_ui;            // FX UI Element
 
     [Tooltip("Requires Item to Go Through or Not.")]
     public bool item_required = false;  // Requires Item to Go Through or Not
@@ -24,8 +29,11 @@ public class PortalPhysics : MonoBehaviour
     // ************************************************************************************
 
     private GameObject player_object;   // Player GameObject
+    private GameObject camera_object;   // Camera GameObject
 
     private bool locked;                // Portal is Locked or Not
+    private bool engaged = false;       // Teleportation Engaged
+    private bool reverse = false;       // Reverse Image Fading
 
     // ************************************************************************************
     // Member Functions
@@ -48,14 +56,17 @@ public class PortalPhysics : MonoBehaviour
         // If Player is Trigger
         if (other.gameObject.CompareTag("Player"))
         {
-            teleport();                 // Initiate Teleport
+            engaged = true;
+
+            fx_ui.SetActive(true);
         }
     }
 
     // Use this for initialization
     void Start()
     {
-        player_object = GameObject.FindWithTag("Player");   // Get Player GameObject
+        player_object = GameObject.FindWithTag("Player");       // Get Player GameObject
+        camera_object = GameObject.FindWithTag("MainCamera");   // Get Camera GameObject
 
         // Set Locked or Not
 
@@ -79,6 +90,56 @@ public class PortalPhysics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Process FX
+        if (engaged)
+        {
+            player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
+            camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
 
+            if (fx_ui.GetComponent<Image>().color.a < 1.0f)
+            {
+                float temp_alpha = fx_ui.GetComponent<Image>().color.a + 0.1f;
+
+                if (temp_alpha > 1.0f)
+                {
+                    temp_alpha = 1.0f;
+
+                    reverse = true;         // Set for Reversal
+                    engaged = false;        // Reset Flag
+                }
+
+                fx_ui.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, temp_alpha);
+
+                if (!engaged)
+                {
+                    teleport();             // Initiate Teleport
+                }
+            }
+        }
+        else if (reverse)
+        {
+            if (fx_ui.GetComponent<Image>().color.a > 0.0f)
+            {
+                float temp_alpha = fx_ui.GetComponent<Image>().color.a - 0.1f;
+
+                if (temp_alpha < 0.0f)
+                {
+                    temp_alpha = 0.0f;
+
+                    reverse = false;        // Set for Reversal
+                    engaged = false;        // Reset Flag
+                }
+
+                fx_ui.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, temp_alpha);
+
+                if (!reverse)
+                {
+                    fx_ui.SetActive(false); // Disable UI Element
+
+                    player_object.GetComponent<FirstPersonMovement>().stop_flag = false;     // Unfreeze Player Controller
+                    camera_object.GetComponent<FirstPersonLook>().stop_flag = false;         // Unfreeze Camera Controller
+                }
+            }
+        }
     }
 }
