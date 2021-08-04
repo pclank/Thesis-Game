@@ -11,6 +11,8 @@ public class RotatingRooms : MonoBehaviour
     public float rotation = -0.2f;              // Degrees of Rotation per Frame
     public float delay = 5.0f;                  // Delay Between 90 Degree Rotations
 
+    public bool player_trigger = false;         // Player Inside Room
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
@@ -22,6 +24,15 @@ public class RotatingRooms : MonoBehaviour
 
     private bool timer_on = false;              // Whether Timer is On
 
+    // ************************************************************************************
+    // Member Functions
+    // ************************************************************************************
+
+    public void resetTimer()
+    {
+        timer_start = Time.time;
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -31,7 +42,7 @@ public class RotatingRooms : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!timer_on)
+        if (!player_trigger && !timer_on)
         {
             transform.Rotate(new Vector3(0, 0, rotation), Space.Self);      // Rotate
 
@@ -39,7 +50,7 @@ public class RotatingRooms : MonoBehaviour
         }
 
         // If GameObject is in Position, Start Timer
-        if (!timer_on && counter == limiter)
+        if (!player_trigger && !timer_on && counter == limiter)
         {
             counter = 0;
 
@@ -49,7 +60,7 @@ public class RotatingRooms : MonoBehaviour
         }
 
         // Timer Section
-        if (timer_on && Time.time - timer_start >= delay)
+        if (!player_trigger && timer_on && Time.time - timer_start >= delay)
         {
             timer_on = false;
         }
