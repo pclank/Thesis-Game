@@ -85,11 +85,11 @@ public class Keypad : MonoBehaviour
     // Reset Sequence
     private void resetSequence()
     {
-        sequence = new int[] { 0, 0, 0, 0 };    // Set Sequence to All Zeros
+        sequence = new int[] { 0, 0, 0, 0 };                                // Set Sequence to All Zeros
 
-        keys_in_sequence = 0;                   // Reset Keys Pressed Counter
+        keys_in_sequence = 0;                                               // Reset Keys Pressed Counter
 
-        // TODO: Add Code for Lighting Reset Indicator
+        fail_indicator.GetComponent<LightEmissionFX>().startIndicator();    // Start Indication
     }
 
     // Confirm Sequence
@@ -98,15 +98,15 @@ public class Keypad : MonoBehaviour
         // Check Sequence
         if (keys_in_sequence == 4 && sequence.Equals(correct_sequence))
         {
-            tgt_door.GetComponent<BasicStartAnimation>().startAnimation();  // Open Door
+            tgt_door.GetComponent<BasicStartAnimation>().startAnimation();      // Open Door
 
-            // TODO: Add Code for Lighting Success Indicator
+            success_indicator.GetComponent<LightEmissionFX>().startIndicator(); // Start Indication
         }
         else
         {
-            resetSequence();                    // Reset Sequence
+            resetSequence();                                                    // Reset Sequence
 
-            // TODO: Add Code for Lighting Reset Indicator
+            fail_indicator.GetComponent<LightEmissionFX>().startIndicator();    // Start Indication
         }
     }
 
