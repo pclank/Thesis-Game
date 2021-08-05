@@ -98,7 +98,7 @@ public class Keypad : MonoBehaviour
         // Check Sequence
         if (keys_in_sequence == 4 && sequence.Equals(correct_sequence))
         {
-            // TODO: Add Code to Open Door
+            tgt_door.GetComponent<BasicStartAnimation>().startAnimation();  // Open Door
 
             // TODO: Add Code for Lighting Success Indicator
         }
