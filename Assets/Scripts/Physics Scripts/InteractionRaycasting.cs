@@ -11,7 +11,6 @@ public class InteractionRaycasting : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
-
     public float max_distance = 10.0f;          // Distance for Raycasting
     public int excluded_layer = 8;              // Layer to Exclude from Raycasting
 
@@ -45,6 +44,10 @@ public class InteractionRaycasting : MonoBehaviour
         else if (hit_gameobject.CompareTag("Slot"))
         {
             hit_gameobject.GetComponent<ItemSlot>().ray_trig = false;
+        }
+        else if (hit_gameobject.CompareTag("KeypadButton"))
+        {
+            hit_gameobject.GetComponent<Keypad>().setKeyPressed(hit_gameobject.GetComponent<KeypadButton>().key_id);
         }
     }
 
