@@ -8,24 +8,21 @@ using System.Collections;
 public class SwitchCameras : MonoBehaviour
 {
     // ************************************************************************************
-    // Public Variables
-    // ************************************************************************************
-
-    public Camera new_camera;
-
-    // ************************************************************************************
     // Private Cameras
     // ************************************************************************************
 
     private Camera default_camera;
+    private Camera new_camera;
 
     // ************************************************************************************
     // Member Functions
     // ************************************************************************************
 
-    public void switchCamera()
+    public void switchCamera(Camera tgt_camera)
     {
         default_camera.enabled = false;     // Disable Current Camera
+
+        new_camera = tgt_camera;            // Store Camera
 
         new_camera.enabled = true;          // Enable New Camera
     }

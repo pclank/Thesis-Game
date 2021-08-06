@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 // ************************************************************************************
 // Keypad Interaction Code
@@ -16,6 +17,7 @@ public class Keypad : MonoBehaviour
     public GameObject tgt_door;                                 // Target Door to Open GameObject
     public GameObject fail_indicator;                           // Wrong Password Indicator GameObject
     public GameObject success_indicator;                        // Correct Password Indicator GameObject
+    public Camera keypad_camera;                                // Keypad Camera
 
     public float delay = 0.5f;                                  // Ray Hit Update Delay
 
@@ -55,29 +57,29 @@ public class Keypad : MonoBehaviour
     // Interact with Keypad
     private void interact()
     {
-        interaction = true;                                                     // Set Interaction Flag On
+        interaction = true;                                                         // Set Interaction Flag On
 
-        player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
-        camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
+        player_object.GetComponent<FirstPersonMovement>().stop_flag = true;         // Freeze Player Controller
+        camera_object.GetComponent<FirstPersonLook>().stop_flag = true;             // Freeze Camera Controller
 
-        player_object.GetComponent<SwitchCameras>().switchCamera();             // Switch Cameras
+        player_object.GetComponent<SwitchCameras>().switchCamera(keypad_camera);    // Switch Cameras
 
-        Cursor.lockState = CursorLockMode.None;                                 // Unlock Cursor
-        Cursor.visible = true;                                                  // Make Cursor Visible
+        Cursor.lockState = CursorLockMode.None;                                     // Unlock Cursor
+        Cursor.visible = true;                                                      // Make Cursor Visible
     }
 
     // Exit Interaction with Keypad
     private void exitInteraction()
     {
-        interaction = false;                                                    // Set Interaction Flag Off
+        interaction = false;                                                        // Set Interaction Flag Off
 
-        player_object.GetComponent<FirstPersonMovement>().stop_flag = false;    // Unfreeze Player Controller
-        camera_object.GetComponent<FirstPersonLook>().stop_flag = false;        // Unfreeze Camera Controller
+        player_object.GetComponent<FirstPersonMovement>().stop_flag = false;        // Unfreeze Player Controller
+        camera_object.GetComponent<FirstPersonLook>().stop_flag = false;            // Unfreeze Camera Controller
 
-        player_object.GetComponent<SwitchCameras>().resetDefaultCamera();       // Switch Camera
+        player_object.GetComponent<SwitchCameras>().resetDefaultCamera();           // Switch Camera
 
-        Cursor.lockState = CursorLockMode.Locked;                               // Lock Cursor to Center
-        Cursor.visible = false;                                                 // Hide Cursor
+        Cursor.lockState = CursorLockMode.Locked;                                   // Lock Cursor to Center
+        Cursor.visible = false;                                                     // Hide Cursor
     }
 
     // Process Button Press
@@ -130,7 +132,7 @@ public class Keypad : MonoBehaviour
     private void confirmSequence()
     {
         // Check Sequence
-        if (keys_in_sequence == 4 && sequence.Equals(correct_sequence))
+        if (keys_in_sequence == 4 && sequence.SequenceEqual(correct_sequence))
         {
             tgt_door.GetComponent<BasicStartAnimation>().startAnimation();      // Open Door
 
@@ -157,10 +159,22 @@ public class Keypad : MonoBehaviour
         // Key Press UI Functionality
         if (interaction && ray_trig)
         {
+            player_object.GetComponent<FirstPersonMovement>().stop_flag = true;         // Freeze Player Controller
+            camera_object.GetComponent<FirstPersonLook>().stop_flag = true;             // Freeze Camera Controller
+
             counter_on = true;
             counter_value = Time.time;
 
             press_ui.SetActive(true);
+        }
+        else if (interaction && !ray_trig)
+        {
+            player_object.GetComponent<FirstPersonMovement>().stop_flag = true;         // Freeze Player Controller
+            camera_object.GetComponent<FirstPersonLook>().stop_flag = true;             // Freeze Camera Controller
+
+            counter_on = false;
+
+            press_ui.SetActive(false);
         }
         // Keypad Interaction UI Functionality
         else if (!interaction && ray_keypad)
@@ -186,6 +200,8 @@ public class Keypad : MonoBehaviour
             if ((ray_trig || ray_keypad) && was_clicked)
             {
                 interact();             // Start Interaction
+
+                interact_ui.SetActive(false);
             }
         }
         // Check for Mouse Down and Interaction
@@ -209,6 +225,8 @@ public class Keypad : MonoBehaviour
         {
             press_ui.SetActive(false);
             interact_ui.SetActive(false);
+
+            counter_value = 0.0f;
 
             counter_on = false;
         }

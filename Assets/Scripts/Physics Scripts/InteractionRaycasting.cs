@@ -11,6 +11,8 @@ public class InteractionRaycasting : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
+    public Camera keypad_camera;                // Keypad Camera
+
     public float max_distance = 10.0f;          // Distance for Raycasting
     public int excluded_layer = 8;              // Layer to Exclude from Raycasting
 
@@ -62,6 +64,8 @@ public class InteractionRaycasting : MonoBehaviour
     {
         layer_mask = 1 << excluded_layer;           // Bit Shift to Get Layer Bitmask
         layer_mask = ~layer_mask;                   // Invert Bitmask
+
+        Cursor.visible = false;                     // Disable Cursor
     }
 
     // Update Native Player Loop
@@ -70,7 +74,7 @@ public class InteractionRaycasting : MonoBehaviour
         RaycastHit hit;
 
         // Camera Based Raycast
-        if (!Cursor.visible && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, max_distance, layer_mask, QueryTriggerInteraction.Collide))  // Generate Ray and Trigger Colliders
+        if (gameObject.CompareTag("MainCamera") && Cursor.lockState == CursorLockMode.Locked && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, max_distance, layer_mask, QueryTriggerInteraction.Collide))  // Generate Ray and Trigger Colliders
         {
             // If a Different GameObject was Hit in the Next Update, Disable the Previous GameObject's Variable
 
@@ -135,9 +139,29 @@ public class InteractionRaycasting : MonoBehaviour
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
         }
         // Cursor Based Raycast
-        else if (Cursor.visible && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, max_distance, layer_mask, QueryTriggerInteraction.Collide))
+        else if (!gameObject.CompareTag("MainCamera") && Cursor.lockState == CursorLockMode.None && Physics.Raycast(keypad_camera.ScreenPointToRay(Input.mousePosition), out hit, max_distance, layer_mask, QueryTriggerInteraction.Collide))
         {
-            // TODO: Add Functionality!
+            // If a Different GameObject was Hit in the Next Update, Disable the Previous GameObject's Variable
+
+            if (hit_flag && hit.transform.gameObject != hit_gameobject)
+            {
+                disableHit();
+
+                hit_flag = false;
+            }
+
+            if (hit.transform.gameObject.CompareTag("KeypadButton"))
+            {
+                hit_flag = true;
+
+                hit_gameobject = hit.transform.gameObject;
+
+                hit_gameobject.GetComponentInParent<Keypad>().ray_trig = true;
+
+                hit_gameobject.GetComponentInParent<Keypad>().setKeyPressed(hit_gameobject.GetComponent<KeypadButton>().key_id);
+            }
+
+            Debug.DrawRay(keypad_camera.ScreenPointToRay(Input.mousePosition).origin, hit.point, Color.yellow);
         }
         else
         {

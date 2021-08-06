@@ -28,9 +28,11 @@ public class LightEmissionFX : MonoBehaviour
     // Start Indicator FX
     public void startIndicator()
     {
-        increaseEmission();     // Turn On
+        increaseEmission();         // Turn On
 
-        timer_on = true;        // Start Timer
+        timer_on = true;            // Start Timer
+
+        timer_start = Time.time;    // Set Time
     }
 
     // Increase Emission
