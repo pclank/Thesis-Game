@@ -61,6 +61,9 @@ public class Keypad : MonoBehaviour
         camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
 
         player_object.GetComponent<SwitchCameras>().switchCamera();             // Switch Cameras
+
+        Cursor.lockState = CursorLockMode.None;                                 // Unlock Cursor
+        Cursor.visible = true;                                                  // Make Cursor Visible
     }
 
     // Exit Interaction with Keypad
@@ -72,6 +75,9 @@ public class Keypad : MonoBehaviour
         camera_object.GetComponent<FirstPersonLook>().stop_flag = false;        // Unfreeze Camera Controller
 
         player_object.GetComponent<SwitchCameras>().resetDefaultCamera();       // Switch Camera
+
+        Cursor.lockState = CursorLockMode.Locked;                               // Lock Cursor to Center
+        Cursor.visible = false;                                                 // Hide Cursor
     }
 
     // Process Button Press

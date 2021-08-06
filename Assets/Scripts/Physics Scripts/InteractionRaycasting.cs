@@ -69,7 +69,8 @@ public class InteractionRaycasting : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, max_distance, layer_mask, QueryTriggerInteraction.Collide))  // Generate Ray and Trigger Colliders
+        // Camera Based Raycast
+        if (!Cursor.visible && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, max_distance, layer_mask, QueryTriggerInteraction.Collide))  // Generate Ray and Trigger Colliders
         {
             // If a Different GameObject was Hit in the Next Update, Disable the Previous GameObject's Variable
 
@@ -132,6 +133,11 @@ public class InteractionRaycasting : MonoBehaviour
             }
 
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+        }
+        // Cursor Based Raycast
+        else if (Cursor.visible && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, max_distance, layer_mask, QueryTriggerInteraction.Collide))
+        {
+            // TODO: Add Functionality!
         }
         else
         {
