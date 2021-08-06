@@ -45,9 +45,15 @@ public class InteractionRaycasting : MonoBehaviour
         {
             hit_gameobject.GetComponent<ItemSlot>().ray_trig = false;
         }
+        else if (hit_gameobject.CompareTag("Keypad"))
+        {
+            hit_gameobject.GetComponent<Keypad>().ray_keypad = false;
+        }
         else if (hit_gameobject.CompareTag("KeypadButton"))
         {
-            hit_gameobject.GetComponent<Keypad>().setKeyPressed(hit_gameobject.GetComponent<KeypadButton>().key_id);
+            hit_gameobject.GetComponentInParent<Keypad>().ray_trig = false;
+
+            hit_gameobject.GetComponentInParent<Keypad>().setKeyPressed(-1);
         }
     }
 
@@ -105,6 +111,24 @@ public class InteractionRaycasting : MonoBehaviour
                 hit_gameobject = hit.transform.gameObject;
 
                 hit_gameobject.GetComponent<ItemSlot>().ray_trig = true;
+            }
+            else if (hit.transform.gameObject.CompareTag("Keypad"))
+            {
+                hit_flag = true;
+
+                hit_gameobject = hit.transform.gameObject;
+
+                hit_gameobject.GetComponent<Keypad>().ray_keypad = true;
+            }
+            else if (hit.transform.gameObject.CompareTag("KeypadButton"))
+            {
+                hit_flag = true;
+
+                hit_gameobject = hit.transform.gameObject;
+
+                hit_gameobject.GetComponentInParent<Keypad>().ray_trig = true;
+
+                hit_gameobject.GetComponentInParent<Keypad>().setKeyPressed(hit_gameobject.GetComponent<KeypadButton>().key_id);
             }
 
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
