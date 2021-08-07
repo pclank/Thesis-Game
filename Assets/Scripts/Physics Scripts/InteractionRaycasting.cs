@@ -16,6 +16,8 @@ public class InteractionRaycasting : MonoBehaviour
     public float max_distance = 10.0f;          // Distance for Raycasting
     public int excluded_layer = 8;              // Layer to Exclude from Raycasting
 
+    public bool cast_flag = true;               // Flag Allowing Raycasting
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
@@ -31,27 +33,30 @@ public class InteractionRaycasting : MonoBehaviour
     // Disable GameObject Hit Variable
     private void disableHit()
     {
-        if (hit_gameobject.CompareTag("Interactable"))
+        if (gameObject.CompareTag("MainCamera"))
         {
-            hit_gameobject.GetComponent<ObjectRaycastCheck>().ray_trig = false;
+            if (hit_gameobject.CompareTag("Interactable"))
+            {
+                hit_gameobject.GetComponent<ObjectRaycastCheck>().ray_trig = false;
+            }
+            else if (hit_gameobject.CompareTag("Door"))
+            {
+                hit_gameobject.GetComponent<RotateHingePhysics>().ray_trig = false;
+            }
+            else if (hit_gameobject.CompareTag("Drawer"))
+            {
+                hit_gameobject.GetComponent<MoveDrawerPhysics>().ray_trig = false;
+            }
+            else if (hit_gameobject.CompareTag("Slot"))
+            {
+                hit_gameobject.GetComponent<ItemSlot>().ray_trig = false;
+            }
+            else if (hit_gameobject.CompareTag("Keypad"))
+            {
+                hit_gameobject.GetComponent<Keypad>().ray_keypad = false;
+            }
         }
-        else if (hit_gameobject.CompareTag("Door"))
-        {
-            hit_gameobject.GetComponent<RotateHingePhysics>().ray_trig = false;
-        }
-        else if (hit_gameobject.CompareTag("Drawer"))
-        {
-            hit_gameobject.GetComponent<MoveDrawerPhysics>().ray_trig = false;
-        }
-        else if (hit_gameobject.CompareTag("Slot"))
-        {
-            hit_gameobject.GetComponent<ItemSlot>().ray_trig = false;
-        }
-        else if (hit_gameobject.CompareTag("Keypad"))
-        {
-            hit_gameobject.GetComponent<Keypad>().ray_keypad = false;
-        }
-        else if (hit_gameobject.CompareTag("KeypadButton"))
+        else if (!gameObject.CompareTag("MainCamera") && hit_gameobject.CompareTag("KeypadButton"))
         {
             hit_gameobject.GetComponentInParent<Keypad>().ray_trig = false;
 
@@ -63,6 +68,7 @@ public class InteractionRaycasting : MonoBehaviour
     void Start()
     {
         layer_mask = 1 << excluded_layer;           // Bit Shift to Get Layer Bitmask
+        layer_mask = layer_mask ^ (1 << 5);         // Exclude UI Layer
         layer_mask = ~layer_mask;                   // Invert Bitmask
 
         Cursor.visible = false;                     // Disable Cursor
@@ -74,7 +80,7 @@ public class InteractionRaycasting : MonoBehaviour
         RaycastHit hit;
 
         // Camera Based Raycast
-        if (gameObject.CompareTag("MainCamera") && Cursor.lockState == CursorLockMode.Locked && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, max_distance, layer_mask, QueryTriggerInteraction.Collide))  // Generate Ray and Trigger Colliders
+        if (gameObject.CompareTag("MainCamera") && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, max_distance, layer_mask, QueryTriggerInteraction.Collide))  // Generate Ray and Trigger Colliders
         {
             // If a Different GameObject was Hit in the Next Update, Disable the Previous GameObject's Variable
 
@@ -139,7 +145,7 @@ public class InteractionRaycasting : MonoBehaviour
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
         }
         // Cursor Based Raycast
-        else if (!gameObject.CompareTag("MainCamera") && Cursor.lockState == CursorLockMode.None && Physics.Raycast(keypad_camera.ScreenPointToRay(Input.mousePosition), out hit, max_distance, layer_mask, QueryTriggerInteraction.Collide))
+        else if (!gameObject.CompareTag("MainCamera") && cast_flag && Physics.Raycast(keypad_camera.ScreenPointToRay(Input.mousePosition), out hit, max_distance, layer_mask, QueryTriggerInteraction.Collide))
         {
             // If a Different GameObject was Hit in the Next Update, Disable the Previous GameObject's Variable
 
@@ -157,6 +163,8 @@ public class InteractionRaycasting : MonoBehaviour
                 hit_gameobject = hit.transform.gameObject;
 
                 hit_gameobject.GetComponentInParent<Keypad>().ray_trig = true;
+
+                hit_gameobject.GetComponentInParent<Keypad>().setHitObject(hit_gameobject);
 
                 hit_gameobject.GetComponentInParent<Keypad>().setKeyPressed(hit_gameobject.GetComponent<KeypadButton>().key_id);
             }

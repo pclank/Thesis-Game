@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Physics Scripts\RotatingRoomPlayerDetect.cs" />
     <Compile Include="Assets\Scripts\Light Scripts\LightChainFX.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\Jump.cs" />
+    <Compile Include="Assets\Scripts\Camera Scripts\SwitchCameras.cs" />
     <Compile Include="Assets\Scripts\Physics Scripts\InteractionRaycasting.cs" />
     <Compile Include="Assets\Scripts\Puzzle Scripts\Keypad.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\modular_volume.cs" />
@@ -98,7 +99,6 @@
     <Compile Include="Assets\Scripts\UI Scripts\ui_click_detector.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\DynamicMusic.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\Camera Scripts\SwitchCameras.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />

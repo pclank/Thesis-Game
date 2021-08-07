@@ -37,6 +37,7 @@ public class Keypad : MonoBehaviour
 
     private GameObject player_object;                           // Player GameObject
     private GameObject camera_object;                           // Main Camera GameObject
+    private GameObject hit_object;                              // Hit GameObject
 
     private AudioSource audio_source;                           // SFX Source
 
@@ -60,6 +61,13 @@ public class Keypad : MonoBehaviour
         key_pressed = key_id;
     }
 
+    // Set Hit GameObject
+
+    public void setHitObject(GameObject hit_obj)
+    {
+        hit_object = hit_obj;
+    }
+
     // Interact with Keypad
     private void interact()
     {
@@ -69,6 +77,8 @@ public class Keypad : MonoBehaviour
         camera_object.GetComponent<FirstPersonLook>().stop_flag = true;             // Freeze Camera Controller
 
         player_object.GetComponent<SwitchCameras>().switchCamera(keypad_camera);    // Switch Cameras
+
+        keypad_camera.GetComponent<InteractionRaycasting>().cast_flag = true;       // Allow Raycasting from Keypad Camera
 
         Cursor.lockState = CursorLockMode.None;                                     // Unlock Cursor
         Cursor.visible = true;                                                      // Make Cursor Visible
@@ -84,6 +94,8 @@ public class Keypad : MonoBehaviour
 
         player_object.GetComponent<SwitchCameras>().resetDefaultCamera();           // Switch Camera
 
+        keypad_camera.GetComponent<InteractionRaycasting>().cast_flag = false;      // Disallow Raycasting from Keypad Camera
+
         Cursor.lockState = CursorLockMode.Locked;                                   // Lock Cursor to Center
         Cursor.visible = false;                                                     // Hide Cursor
     }
@@ -91,6 +103,12 @@ public class Keypad : MonoBehaviour
     // Process Button Press
     private void processPress()
     {
+        // Play Animation
+        if (hit_object != null)
+        {
+            hit_object.GetComponent<BasicStartAnimation>().startAnimation();
+        }
+
         // Reset Button Pressed
         if (key_pressed == 10)
         {
