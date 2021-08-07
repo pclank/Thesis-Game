@@ -19,6 +19,10 @@ public class Keypad : MonoBehaviour
     public GameObject success_indicator;                        // Correct Password Indicator GameObject
     public Camera keypad_camera;                                // Keypad Camera
 
+    public AudioClip success_clip;                              // Success SFX
+    public AudioClip fail_clip;                                 // Failure SFX
+    public AudioClip key_clip;                                  // Key Press SFX
+
     public float delay = 0.5f;                                  // Ray Hit Update Delay
 
     public bool ray_trig = false;                               // Ray Hit Button
@@ -33,6 +37,8 @@ public class Keypad : MonoBehaviour
 
     private GameObject player_object;                           // Player GameObject
     private GameObject camera_object;                           // Main Camera GameObject
+
+    private AudioSource audio_source;                           // SFX Source
 
     private bool was_clicked = false;                           // Was Clicked Flag
     private bool counter_on = false;                            // Counter On
@@ -88,17 +94,20 @@ public class Keypad : MonoBehaviour
         // Reset Button Pressed
         if (key_pressed == 10)
         {
-            resetSequence();            // Reset Sequence
+            resetSequence();                // Reset Sequence
         }
         // Confirm Button Pressed
         else if (key_pressed == 11)
         {
-            confirmSequence();          // Confirm Sequence
+            confirmSequence();              // Confirm Sequence
         }
         // Number Button Pressed
         else if (key_pressed >= 0 && key_pressed <= 9)
         {
-            addNumber(key_pressed);     // Add Number
+            audio_source.clip = key_clip;   // Set to Success Clip
+            audio_source.Play();            // Play Audio
+
+            addNumber(key_pressed);         // Add Number
         }    
     }
 
@@ -125,6 +134,9 @@ public class Keypad : MonoBehaviour
 
         keys_in_sequence = 0;                                               // Reset Keys Pressed Counter
 
+        audio_source.clip = fail_clip;                                      // Set to Failure Clip
+        audio_source.Play();                                                // Play Audio
+
         fail_indicator.GetComponent<LightEmissionFX>().startIndicator();    // Start Indication
     }
 
@@ -135,6 +147,9 @@ public class Keypad : MonoBehaviour
         if (keys_in_sequence == 4 && sequence.SequenceEqual(correct_sequence))
         {
             tgt_door.GetComponent<BasicStartAnimation>().startAnimation();      // Open Door
+
+            audio_source.clip = success_clip;                                   // Set to Success Clip
+            audio_source.Play();                                                // Play Audio
 
             success_indicator.GetComponent<LightEmissionFX>().startIndicator(); // Start Indication
         }
@@ -151,6 +166,8 @@ public class Keypad : MonoBehaviour
     {
         player_object = GameObject.FindWithTag("Player");       // Get Player GameObject
         camera_object = GameObject.FindWithTag("MainCamera");   // Get Main Camera GameObject
+
+        audio_source = GetComponent<AudioSource>();             // Get Audio Source
     }
 
     // Update is called once per frame
