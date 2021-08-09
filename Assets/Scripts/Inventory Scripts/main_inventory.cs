@@ -163,9 +163,6 @@ public class main_inventory : MonoBehaviour
     [Tooltip("The Time the UI Element Will Stay Active.")]
     public float delay = 2.0f;                          // UI Element Active Delay
 
-    public bool background_enable = false;              // Enable Background for Item Display
-
-    public GameObject display_background;
     public GameObject display_light;
     public GameObject title_text;                       // Item Title UI GameObject
     public GameObject ui_inventory;                     // Inventory UI GameObject
@@ -177,6 +174,8 @@ public class main_inventory : MonoBehaviour
     public GameObject button_layout;                    // Button UI Layout GameObject
     public Button examine_but;                          // Examine Button UI Element
     public Button use_but;                              // Use Button UI Element
+
+    public Camera examination_camera;                   // Object Examination Camera
 
     public KeyCode inventory_key = KeyCode.I;           // Key that Opens Inventory Menu
 
@@ -375,11 +374,6 @@ public class main_inventory : MonoBehaviour
 
     private void displayItem(Item item)
     {
-        if (background_enable)
-        {
-            display_background.SetActive(true);                                                             // Enable Background
-        }
-
         // Check if Display was Started from Inventory
         if (examine_on)
         {
@@ -396,6 +390,7 @@ public class main_inventory : MonoBehaviour
 
         GameObject new_go = new GameObject("DisplayedItem");                                            // Create GameObject Object Using Constructor
 
+        new_go.layer = 7;                                                                               // Assign to UI Layer
         new_go.AddComponent<MeshFilter>(item.getMeshFilter());                                          // Add MeshFilter
         Material mat = item.getMaterial();                                                              // Get Material from Renderer
         var mr = new_go.AddComponent<MeshRenderer>(item.getMeshRenderer());                             // Add MeshRenderer
@@ -406,6 +401,9 @@ public class main_inventory : MonoBehaviour
         float scale = item.getScale();                                                                  // Get Scale
         new_go.transform.localScale = new Vector3(scale, scale, scale);                                 // Set Scale
 
+        examination_camera.clearFlags = CameraClearFlags.Depth;                                         // Set Clear Flags
+        examination_camera.enabled = true;                                                              // Enable Examination Camera
+
         displayed_object = new_go;                                                                      // Set Displayed Object
     }
 
@@ -413,7 +411,6 @@ public class main_inventory : MonoBehaviour
 
     private void exitDisplay()
     {
-        display_background.SetActive(false);                                                            // Disable Background
         display_light.SetActive(false);                                                                 // Disable Light
         title_text.SetActive(false);                                                                    // Disable Title Text
         display_on = false;                                                                             // Disable Display Flag
@@ -430,6 +427,8 @@ public class main_inventory : MonoBehaviour
 
             examine_on = false;
         }
+
+        examination_camera.enabled = false;                                                             // Disable Examination Camera
     }
 
     // Query Inventory for Item
@@ -563,7 +562,6 @@ public class main_inventory : MonoBehaviour
 
         ui_main.SetActive(false);                                       // Disable Inventory UI on Start
 
-        display_background.SetActive(false);                            // Disable Background on Start
         display_light.SetActive(false);                                 // Disable Light on Start
 
         // Check that Inventory UI GameObject has Been Assigned
