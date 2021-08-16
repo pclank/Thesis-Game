@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{B2B58FB2-4462-6B0C-A872-40DD957E5FE0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -61,6 +60,7 @@
     <Compile Include="Assets\Scripts\Physics Scripts\PortalPhysics.cs" />
     <Compile Include="Assets\Scripts\Inventory Scripts\main_inventory.cs" />
     <Compile Include="Assets\First person controller\Scripts\FirstPersonMovement.cs" />
+    <Compile Include="Assets\Scripts\Light Scripts\LightIntensityFX.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\change_room.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\Zoom.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\FirstPersonAudio.cs" />
@@ -84,9 +84,9 @@
     <Compile Include="Assets\Scripts\Physics Scripts\InteractionRaycasting.cs" />
     <Compile Include="Assets\Scripts\Puzzle Scripts\Keypad.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\modular_volume.cs" />
-    <Compile Include="Assets\Scripts\Tool Scripts\JSONReader.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\disable_on_start.cs" />
     <Compile Include="Assets\Scripts\Puzzle Scripts\MainPuzzle.cs" />
+    <Compile Include="Assets\Scripts\Tool Scripts\JSONReader.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\start_animation.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\rotate_door_physics.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\drawer_move.cs" />
@@ -101,20 +101,19 @@
     <Compile Include="Assets\Scripts\UI Scripts\ui_click_detector.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\DynamicMusic.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\Light Scripts\LightIntensityFX.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
-    <None Include="Assets\Allegorithmic\Plugins\Substance.Engine.dll" />
-    <None Include="Assets\Allegorithmic\Plugins\EULA.txt" />
-    <None Include="Assets\UnityHDRI\TreasureIsland\Info.txt" />
-    <None Include="Assets\UnityHDRI\MuirWood\Info.txt" />
-    <None Include="Assets\Allegorithmic\Plugins\Substance.Game.dll" />
-    <None Include="Assets\Allegorithmic\Plugins\substance_sse2_blend.dll" />
-    <None Include="Assets\Allegorithmic\Plugins\engine_build_info.txt" />
-    <None Include="Assets\UnityHDRI\KirbyCove\Info.txt" />
-    <None Include="Assets\UnityHDRI\Gareoult\Info.txt" />
-    <None Include="Assets\UnityHDRI\Trinitatis Church\Info.txt" />
+     <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
+     <None Include="Assets\Allegorithmic\Plugins\Substance.Engine.dll" />
+     <None Include="Assets\Allegorithmic\Plugins\EULA.txt" />
+     <None Include="Assets\UnityHDRI\TreasureIsland\Info.txt" />
+     <None Include="Assets\UnityHDRI\MuirWood\Info.txt" />
+     <None Include="Assets\Allegorithmic\Plugins\Substance.Game.dll" />
+     <None Include="Assets\Allegorithmic\Plugins\substance_sse2_blend.dll" />
+     <None Include="Assets\Allegorithmic\Plugins\engine_build_info.txt" />
+     <None Include="Assets\UnityHDRI\KirbyCove\Info.txt" />
+     <None Include="Assets\UnityHDRI\Gareoult\Info.txt" />
+     <None Include="Assets\UnityHDRI\Trinitatis Church\Info.txt" />
     <Reference Include="UnityEngine">
       <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

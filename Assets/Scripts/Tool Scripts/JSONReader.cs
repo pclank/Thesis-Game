@@ -29,7 +29,7 @@ public class JSONReader : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
-    public TextAsset json_location;                     // JSON File to Read
+    public string json_location;                        // JSON File to Read
     public float lower_limit = 10.0f;                   // Lower Limit on Certainty
 
     // ************************************************************************************
@@ -45,7 +45,9 @@ public class JSONReader : MonoBehaviour
     // Function to Read Emotion from File
     public Tuple<string, float> readEmotion()
     {
-        deserialiazed_json =  JsonUtility.FromJson<EmotionList>(json_location.text);    // Get Deserialize JSON Objects
+        string text = System.IO.File.ReadAllText(@json_location);
+
+        deserialiazed_json =  JsonUtility.FromJson<EmotionList>(text);                  // Get Deserialize JSON Objects
 
         string detected_emotion = "Unknown";                                            // Initialize Returned Emotion
         float detected_certainty = 0.0f;                                                // Initialize Returned Certainty
