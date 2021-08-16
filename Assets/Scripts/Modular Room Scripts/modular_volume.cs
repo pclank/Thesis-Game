@@ -14,23 +14,32 @@ public class modular_volume : MonoBehaviour
     public int[] anger_color = new int[3];
     public int[] happiness_color = new int[3];
     public int[] sadness_color = new int[3];
+    public int[] surprise_color = new int[3];
     public int[] default_color = { 255, 255, 255 };
 
     public float color_smoothness = 5.0f;
     public float color_interval = 0.0039f;
     public float tgt_error = 0.0039f;
+    public float delay = 2.0f;                                          // Delay for Detection
 
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
 
-    private bool player_trigger = false;                        // Player In/Out of Volume
-    private bool reverse_color = false;                         // Flag that is Set to Reverse Color, and Vice Versa
+    private GameObject player_object;                                   // Player GameObject
 
-    private Volume volume;                                      // Volume Component
-    private ColorAdjustments color_adjust;                      // Color Adjustment Object
+    private bool player_trigger = false;                                // Player In/Out of Volume
+    private bool reverse_color = false;                                 // Flag that is Set to Reverse Color, and Vice Versa
+    private bool detect_flag = true;                                    // Flag for Locking Emotion Detection
 
-    private bool[] emotion_detected = { false, false, false };  // Emotion Detected
+    private Volume volume;                                              // Volume Component
+    private ColorAdjustments color_adjust;                              // Color Adjustment Object
+
+    private bool[] emotion_detected = { false, false, false, false };   // Emotion Detected
+
+    private float timer_start = 0.0f;                                   // Timer Start Value
+
+    private string model_emotion = "Unknown";                           // Emotion Detected by Model
 
     // ************************************************************************************
     // Trigger Functions
@@ -55,6 +64,44 @@ public class modular_volume : MonoBehaviour
     // ************************************************************************************
     // Member Functions
     // ************************************************************************************
+
+    // Set Emotion Flags
+
+    private void setEmotionFlags()
+    {
+        if (String.Equals(model_emotion, "Happy"))
+        {
+            emotion_detected[1] = false;
+            emotion_detected[2] = false;
+            emotion_detected[3] = false;
+
+            emotion_detected[0] = true;
+        }
+        else if (String.Equals(model_emotion, "Sad"))
+        {
+            emotion_detected[0] = false;
+            emotion_detected[2] = false;
+            emotion_detected[3] = false;
+
+            emotion_detected[1] = true;
+        }
+        else if (String.Equals(model_emotion, "Angry"))
+        {
+            emotion_detected[0] = false;
+            emotion_detected[1] = false;
+            emotion_detected[3] = false;
+
+            emotion_detected[2] = true;
+        }
+        else if (String.Equals(model_emotion, "Surprised"))
+        {
+            emotion_detected[0] = false;
+            emotion_detected[1] = false;
+            emotion_detected[2] = false;
+
+            emotion_detected[3] = true;
+        }
+    }
 
     // Helper Function to Convert Color RGB Value to Float Value
 
@@ -161,6 +208,8 @@ public class modular_volume : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player_object = GameObject.FindWithTag("Player");   // Get Player GameObject
+
         // Get Volume Component
         volume = GetComponent<Volume>();
 
@@ -175,6 +224,12 @@ public class modular_volume : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Timer Section
+        if (!detect_flag && (Time.time - timer_start >= delay))
+        {
+            detect_flag = true;             // Allow Detection
+        }
+
         // TODO: Remove This as It's a Test Version
 
         if (Input.GetKeyDown(KeyCode.G))
@@ -199,7 +254,18 @@ public class modular_volume : MonoBehaviour
             emotion_detected[2] = true;
         }
 
-        if (emotion_detected[0])
+        if (detect_flag)
+        {
+            model_emotion = player_object.GetComponent<JSONReader>().readEmotion().Item1;   // Read Emotion from JSON
+
+            setEmotionFlags();                                                              // Set Emotion Flags
+
+            timer_start = Time.time;                                                        // Get Start Time for Timer
+
+            detect_flag = false;                                                            // Reset Flag
+        }
+
+        if (player_trigger && emotion_detected[0])
         {
             if (!reverse_color)
             {
@@ -212,7 +278,7 @@ public class modular_volume : MonoBehaviour
                 Debug.Log("Happiness Color!");
             }    
         }
-        else if (emotion_detected[1])
+        else if (player_trigger && emotion_detected[1])
         {
             if (!reverse_color)
             {
@@ -225,7 +291,7 @@ public class modular_volume : MonoBehaviour
                 Debug.Log("Sadness Color");
             }
         }
-        else if (emotion_detected[2])
+        else if (player_trigger && emotion_detected[2])
         {
             if (!reverse_color)
             {
@@ -235,7 +301,20 @@ public class modular_volume : MonoBehaviour
             else
             {
                 smoothChange(default_color);
-                Debug.Log("Sadness Color");
+                Debug.Log("Anger Color");
+            }
+        }
+        else if (player_trigger && emotion_detected[3])
+        {
+            if (!reverse_color)
+            {
+                smoothChange(surprise_color);
+                Debug.Log("Surprise Color");
+            }
+            else
+            {
+                smoothChange(default_color);
+                Debug.Log("Surprise Color");
             }
         }
     }
