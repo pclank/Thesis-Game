@@ -22,6 +22,8 @@ public class modular_volume : MonoBehaviour
     public float tgt_error = 0.0039f;
     public float delay = 2.0f;                                          // Delay for Detection
 
+    public bool color_change_on = false;                                // Color Change Flag
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
@@ -254,7 +256,7 @@ public class modular_volume : MonoBehaviour
             emotion_detected[2] = true;
         }
 
-        if (detect_flag)
+        if (color_change_on && detect_flag)
         {
             model_emotion = player_object.GetComponent<JSONReader>().readEmotion().Item1;   // Read Emotion from JSON
 
