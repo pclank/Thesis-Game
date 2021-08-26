@@ -54,9 +54,6 @@ public class InteractionRaycasting : MonoBehaviour
             else if (hit_gameobject.CompareTag("Keypad"))
             {
                 hit_gameobject.GetComponent<Keypad>().ray_keypad = false;
-            }
-            else if (hit_gameobject.CompareTag("KeypadButton"))
-            {
                 hit_gameobject.GetComponent<Keypad>().ray_trig = false;
             }
         }
