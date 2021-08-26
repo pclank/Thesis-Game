@@ -88,6 +88,8 @@ public class Keypad : MonoBehaviour
     private void exitInteraction()
     {
         interaction = false;                                                        // Set Interaction Flag Off
+        ray_trig = false;                                                           // Set Raycast Flag Off
+        ray_keypad = false;                                                         // Set Raycast Flag Off
 
         player_object.GetComponent<FirstPersonMovement>().stop_flag = false;        // Unfreeze Player Controller
         camera_object.GetComponent<FirstPersonLook>().stop_flag = false;            // Unfreeze Camera Controller
