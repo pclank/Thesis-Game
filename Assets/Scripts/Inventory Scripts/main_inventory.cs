@@ -416,6 +416,7 @@ public class main_inventory : MonoBehaviour
         display_on = false;                                                                             // Disable Display Flag
 
         player_object.GetComponent<FirstPersonMovement>().stop_flag = false;                            // UnFreeze Player Controller
+        camera_object.GetComponent<FirstPersonLook>().stop_flag = false;                                // UnFreeze Camera Controller
 
         Destroy(displayed_object);                                                                      // Destroy GameObject
         displayed_object = null;                                                                        // Reset GameObject Variable
@@ -621,6 +622,7 @@ public class main_inventory : MonoBehaviour
         {
             camera_object.transform.LookAt(displayed_object.transform);             // Look at Item
             player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
+            camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
 
             if (was_clicked)
             {
