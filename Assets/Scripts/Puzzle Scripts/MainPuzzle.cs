@@ -1,6 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MainPuzzle : MonoBehaviour
@@ -71,8 +70,10 @@ public class MainPuzzle : MonoBehaviour
         slot_list[selected_slot.GetComponent<ItemSlot>().slot_id] = item_id;                // Set Item ID to Current Slot
 
         // Check If Slots are Filled According to Solution
-        if (slot_list.Equals(solution_list))
+        if (slot_list.SequenceEqual(solution_list))
         {
+            Debug.Log("Puzzle Solved!");
+
             openAfterSolution();                        // Act
 
             solved = true;                              // Set Puzzle as Solved
