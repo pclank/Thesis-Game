@@ -9,6 +9,7 @@ public class MainPuzzle : MonoBehaviour
     // ************************************************************************************
 
     public GameObject use_ui;                                       // Use UI Element
+    public GameObject portal_gameobject;                            // Portal to Appear GameObject
 
     public int[] solution_list;                                     // List Containing Solution
     public int[] valid_list;                                        // List of Valid Items
@@ -98,7 +99,7 @@ public class MainPuzzle : MonoBehaviour
 
     private void openAfterSolution()
     {
-        // TODO: Add Code!
+        portal_gameobject.GetComponent<PortalPhysics>().activatePortal();
     }
 
     // Start is called before the first frame update

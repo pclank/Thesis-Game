@@ -15,6 +15,9 @@ public class PortalPhysics : MonoBehaviour
     [Tooltip("FX UI Element.")]
     public GameObject fx_ui;            // FX UI Element
 
+    [Tooltip("Starts Disabled.")]
+    public bool starts_disabled = false;
+
     [Tooltip("Requires Item to Go Through or Not.")]
     public bool item_required = false;  // Requires Item to Go Through or Not
 
@@ -32,12 +35,23 @@ public class PortalPhysics : MonoBehaviour
     private GameObject camera_object;   // Camera GameObject
 
     private bool locked;                // Portal is Locked or Not
+    private bool active;                // Portal is Active
+    private bool active_ran = false;    // Activation FX is Finished
     private bool engaged = false;       // Teleportation Engaged
     private bool reverse = false;       // Reverse Image Fading
+
+    private float initial_scale;        // Initial Scale of Portal
+    private float current_scale = 0.0f; // Current Scale During FX
 
     // ************************************************************************************
     // Member Functions
     // ************************************************************************************
+
+    // Activate Portal
+    public void activatePortal()
+    {
+        active = true;
+    }
 
     // Teleport Player to Target Portal
     private void teleport()
@@ -68,6 +82,8 @@ public class PortalPhysics : MonoBehaviour
         player_object = GameObject.FindWithTag("Player");       // Get Player GameObject
         camera_object = GameObject.FindWithTag("MainCamera");   // Get Camera GameObject
 
+        initial_scale = transform.localScale.x;                 // Get Local Scale
+
         // Set Locked or Not
 
         if (item_required)
@@ -85,13 +101,39 @@ public class PortalPhysics : MonoBehaviour
         {
             Debug.Log("GameObject isn't Portal!");
         }
+
+        if (starts_disabled)
+        {
+            transform.localScale = new Vector3(0, 0, 0);    // Hide Portal
+
+            active = false;
+        }
+        else
+        {
+            active = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Portal Enabling FX
+        if (active && !active_ran)
+        {
+            current_scale += 0.005f;
+
+            if (current_scale >= initial_scale)
+            {
+                current_scale = initial_scale;
+
+                active_ran = true;
+            }
+
+            transform.localScale = new Vector3(current_scale, current_scale, current_scale);
+        }
+
         // Process FX
-        if (engaged)
+        if (engaged && active)
         {
             player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
             camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
@@ -116,7 +158,7 @@ public class PortalPhysics : MonoBehaviour
                 }
             }
         }
-        else if (reverse)
+        else if (active && reverse)
         {
             if (fx_ui.GetComponent<Image>().color.a > 0.0f)
             {
