@@ -50,6 +50,8 @@ public class PortalPhysics : MonoBehaviour
     // Activate Portal
     public void activatePortal()
     {
+        GetComponent<AudioSource>().Play();
+
         active = true;
     }
 
@@ -125,6 +127,8 @@ public class PortalPhysics : MonoBehaviour
             if (current_scale >= initial_scale)
             {
                 current_scale = initial_scale;
+
+                GetComponent<AudioSource>().Stop();
 
                 active_ran = true;
             }
