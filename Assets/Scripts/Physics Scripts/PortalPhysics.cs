@@ -112,7 +112,7 @@ public class PortalPhysics : MonoBehaviour
         }
         else
         {
-            active = true;
+            activatePortal();
         }
     }
 
@@ -120,7 +120,7 @@ public class PortalPhysics : MonoBehaviour
     void Update()
     {
         // Portal Enabling FX
-        if (active && !active_ran)
+        if (starts_disabled && active && !active_ran)
         {
             current_scale += 0.005f;
 
@@ -128,7 +128,7 @@ public class PortalPhysics : MonoBehaviour
             {
                 current_scale = initial_scale;
 
-                GetComponent<AudioSource>().Stop();
+                //GetComponent<AudioSource>().Stop();
 
                 active_ran = true;
             }
