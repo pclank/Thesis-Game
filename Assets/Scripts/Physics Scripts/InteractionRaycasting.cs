@@ -24,7 +24,9 @@ public class InteractionRaycasting : MonoBehaviour
 
     private int layer_mask;                     // Layer Mask for Raycasting
     private bool hit_flag = false;              // Flag Denoting Hit in Previous Update
+
     private GameObject hit_gameobject;          // Hit GameObject
+    private GameObject player_object;           // Player GameObject
 
     // ************************************************************************************
     // Member Functions
@@ -38,6 +40,10 @@ public class InteractionRaycasting : MonoBehaviour
             if (hit_gameobject.CompareTag("Interactable"))
             {
                 hit_gameobject.GetComponent<ObjectRaycastCheck>().ray_trig = false;
+            }
+            else if (hit_gameobject.CompareTag("Examinable"))
+            {
+                player_object.GetComponent<main_inventory>().setRayTrig(false, null);
             }
             else if (hit_gameobject.CompareTag("Door"))
             {
@@ -68,11 +74,13 @@ public class InteractionRaycasting : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        layer_mask = 1 << excluded_layer;           // Bit Shift to Get Layer Bitmask
-        layer_mask = layer_mask ^ (1 << 5);         // Exclude UI Layer
-        layer_mask = ~layer_mask;                   // Invert Bitmask
+        player_object = GameObject.FindWithTag("Player");   // Get Player GameObject
 
-        Cursor.visible = false;                     // Disable Cursor
+        layer_mask = 1 << excluded_layer;                   // Bit Shift to Get Layer Bitmask
+        layer_mask = layer_mask ^ (1 << 5);                 // Exclude UI Layer
+        layer_mask = ~layer_mask;                           // Invert Bitmask
+
+        Cursor.visible = false;                             // Disable Cursor
     }
 
     // Update Native Player Loop
@@ -100,6 +108,14 @@ public class InteractionRaycasting : MonoBehaviour
 
                 hit_gameobject.GetComponent<ObjectRaycastCheck>().ray_trig = true;
             }
+            else if (hit.transform.gameObject.CompareTag("Examinable"))
+            {
+                hit_flag = true;
+
+                hit_gameobject = hit.transform.gameObject;
+
+                player_object.GetComponent<main_inventory>().setRayTrig(true, hit_gameobject);
+            }    
             else if (hit.transform.gameObject.CompareTag("Door"))
             {
                 hit_flag = true;

@@ -164,6 +164,7 @@ public class main_inventory : MonoBehaviour
     public float delay = 2.0f;                          // UI Element Active Delay
 
     public GameObject display_light;
+    public GameObject examine_ui;                       // Examine UI GameObject
     public GameObject title_text;                       // Item Title UI GameObject
     public GameObject ui_inventory;                     // Inventory UI GameObject
     public GameObject ui_main;                          // Main UI GameObject
@@ -193,6 +194,7 @@ public class main_inventory : MonoBehaviour
     private bool inventory_open = false;                // Inventory is Open/Closed
     private bool examine_on = false;                    // In Inventory Examine is On/Off
     private bool item_slot_flag = false;                // Main Camera is Pointing to Item Slot
+    private bool ray_trig = false;                      // Ray Hit Examinable GameObject
 
     private int selected_item;                          // ID of Currently Selected Item
     
@@ -202,6 +204,7 @@ public class main_inventory : MonoBehaviour
     private GameObject camera_object;                   // Camera GameObject
     private GameObject displayed_object;                // Object Being Displayed
     private GameObject selected_slot;                   // Currently Selected Slot
+    private GameObject hit_gameobject;                  // Examinable GameObject Hit by Ray
 
     private Jitem_list items_in_json;                   // Items in JSON File
 
@@ -275,6 +278,45 @@ public class main_inventory : MonoBehaviour
         {
             levelup_queue.Add(new Tuple<int, int>(i_id, target_level));     // Add Info to Level-Up Queue
         }
+    }
+
+    // Set Ray Trigger
+
+    public void setRayTrig(bool ray_state, GameObject hit_object)
+    {
+        ray_trig = ray_state;
+
+        if (ray_trig)
+        {
+            hit_gameobject = hit_object;
+
+            examine_ui.SetActive(true);                                                                     // Enable Examine UI
+        }
+        else
+        {
+            examine_ui.SetActive(false);                                                                    // Disable Examine UI
+        }
+    }
+
+    // Display Examinable Item
+
+    private void examineItem()
+    {
+        examine_ui.SetActive(false);                                                                    // Disable Examine UI
+        display_light.SetActive(true);                                                                  // Enable Light
+
+        display_on = true;                                                                              // Enable Display Flag
+
+        GameObject new_go = hit_gameobject;                                                             // Create GameObject Object Using Constructor
+
+        new_go.layer = 7;                                                                               // Assign to UI Layer
+
+        new_go.transform.position = camera_object.transform.position + transform.forward;
+
+        examination_camera.clearFlags = CameraClearFlags.Depth;                                         // Set Clear Flags
+        examination_camera.enabled = true;                                                              // Enable Examination Camera
+
+        displayed_object = new_go;                                                                      // Set Displayed Object
     }
 
     // Add Item to Inventory
@@ -608,6 +650,13 @@ public class main_inventory : MonoBehaviour
         else if (Input.GetKeyDown(inventory_key) && inventory_open)
         {
             closeInventory();
+        }
+
+        // Examinable GameObject Examine Section
+        
+        if (ray_trig && was_clicked)
+        {
+            examineItem();
         }
 
         // Disable Invalid Item UI Element
