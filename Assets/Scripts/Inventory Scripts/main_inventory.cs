@@ -317,6 +317,28 @@ public class main_inventory : MonoBehaviour
 
         new_go.transform.localScale = new Vector3(0.1333333f, 0.1333333f, 0.1333333f);                  // Scale GameObject
 
+        if (hit_gameobject.transform.childCount != 0)
+        {
+            GameObject extra_go = hit_gameobject.transform.GetChild(0).gameObject;
+
+            GameObject new_extra_go = new GameObject("Extra");
+
+            new_extra_go.AddComponent<MeshFilter>(extra_go.GetComponent<MeshFilter>());
+
+            var extra_mr = new_extra_go.AddComponent<MeshRenderer>(extra_go.GetComponent<MeshRenderer>());
+
+            Material extra_mat = extra_go.GetComponent<MeshRenderer>().material;
+            extra_mr.material = extra_mat;
+
+            new_extra_go.transform.SetParent(new_go.transform);
+
+            //new_extra_go.transform.localScale = new Vector3(1, 1, 1);
+
+            new_extra_go.layer = 7;
+
+            new_extra_go.transform.position = new Vector3(-0.018f, -0.616f, -0.044f);
+        }
+
         new_go.layer = 7;                                                                               // Assign to UI Layer
 
         new_go.transform.position = camera_object.transform.position + transform.forward;
