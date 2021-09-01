@@ -90,6 +90,9 @@ public class Keypad : MonoBehaviour
         interaction = false;                                                        // Set Interaction Flag Off
         ray_trig = false;                                                           // Set Raycast Flag Off
         ray_keypad = false;                                                         // Set Raycast Flag Off
+        counter_on = false;                                                         // Set Counter Flag Off
+
+        counter_value = 0.0f;                                                       // Reset Counter Value
 
         player_object.GetComponent<FirstPersonMovement>().stop_flag = false;        // Unfreeze Player Controller
         camera_object.GetComponent<FirstPersonLook>().stop_flag = false;            // Unfreeze Camera Controller

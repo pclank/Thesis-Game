@@ -332,11 +332,11 @@ public class main_inventory : MonoBehaviour
 
             new_extra_go.transform.SetParent(new_go.transform);
 
-            //new_extra_go.transform.localScale = new Vector3(1, 1, 1);
+            new_extra_go.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
 
             new_extra_go.layer = 7;
 
-            new_extra_go.transform.position = new Vector3(-0.018f, -0.616f, -0.044f);
+            new_extra_go.transform.position = new Vector3(0, -0.08f, 0);
         }
 
         new_go.layer = 7;                                                                               // Assign to UI Layer
