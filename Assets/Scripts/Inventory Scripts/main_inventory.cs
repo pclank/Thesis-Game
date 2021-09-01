@@ -307,7 +307,15 @@ public class main_inventory : MonoBehaviour
 
         display_on = true;                                                                              // Enable Display Flag
 
-        GameObject new_go = hit_gameobject;                                                             // Create GameObject Object Using Constructor
+        GameObject new_go = new GameObject("Examinable Object");                                        // Create GameObject Object Using Constructor
+
+        new_go.AddComponent<MeshFilter>(hit_gameobject.GetComponent<MeshFilter>());                     // Add Mesh Filter
+        var mr =  new_go.AddComponent<MeshRenderer>(hit_gameobject.GetComponent<MeshRenderer>());       // Add Mesh Renderer
+
+        Material mat = hit_gameobject.GetComponent<MeshRenderer>().material;                            // Get Material from Renderer
+        mr.material = mat;                                                                              // Assign Material
+
+        new_go.transform.localScale = new Vector3(0.1333333f, 0.1333333f, 0.1333333f);                  // Scale GameObject
 
         new_go.layer = 7;                                                                               // Assign to UI Layer
 

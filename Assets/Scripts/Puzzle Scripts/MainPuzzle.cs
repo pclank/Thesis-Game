@@ -77,6 +77,8 @@ public class MainPuzzle : MonoBehaviour
 
             openAfterSolution();                        // Act
 
+            use_ui.SetActive(false);                    // Disable UI Element
+
             solved = true;                              // Set Puzzle as Solved
         }
     }
