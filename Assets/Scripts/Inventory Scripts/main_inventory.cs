@@ -317,9 +317,13 @@ public class main_inventory : MonoBehaviour
 
         new_go.transform.localScale = new Vector3(0.1333333f, 0.1333333f, 0.1333333f);                  // Scale GameObject
 
-        if (hit_gameobject.transform.childCount != 0)
+        int child_index = 0;                                                                            // Index of Child of GameObject
+
+        int num_children = hit_gameobject.transform.childCount;                                         // Get Child Count
+
+        while (child_index < num_children)
         {
-            GameObject extra_go = hit_gameobject.transform.GetChild(0).gameObject;
+            GameObject extra_go = hit_gameobject.transform.GetChild(child_index).gameObject;
 
             GameObject new_extra_go = new GameObject("Extra");
 
@@ -337,6 +341,8 @@ public class main_inventory : MonoBehaviour
             new_extra_go.layer = 7;
 
             new_extra_go.transform.position = new Vector3(0, -0.08f, 0);
+
+            child_index++;
         }
 
         new_go.layer = 7;                                                                               // Assign to UI Layer
