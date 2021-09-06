@@ -307,11 +307,9 @@ public class main_inventory : MonoBehaviour
 
         display_on = true;                                                                              // Enable Display Flag
 
-        GameObject new_go = new GameObject("Examinable Object");                                        // Create GameObject Object Using Constructor
-
-        new_go = Instantiate(hit_gameobject.GetComponent<ExaminableItem>().getPrefab());                // Get GameObject Prefab
-        new_go.tag = "Untagged";                                                                        // Set Tag
-        new_go.layer = 7;                                                                               // Assign to UI Layer
+        displayed_object = Instantiate(hit_gameobject.GetComponent<ExaminableItem>().getPrefab());      // Get GameObject Prefab
+        displayed_object.tag = "Clone";                                                                 // Set Tag
+        displayed_object.layer = 7;                                                                     // Assign to UI Layer
 
         // Process Potential Child GameObjects
 
@@ -321,19 +319,17 @@ public class main_inventory : MonoBehaviour
 
         while (child_index < num_children)
         {
-            new_go.transform.GetChild(child_index).gameObject.layer = 7;                                    // Assign Child to UI Layer
+            displayed_object.transform.GetChild(child_index).gameObject.layer = 7;                          // Assign Child to UI Layer
 
             child_index++;                                                                                  // Increment Index
         }
 
-        new_go.transform.position = camera_object.transform.position + transform.forward;               // Transform In Front of Camera
+        displayed_object.transform.position = camera_object.transform.position + transform.forward;     // Transform In Front of Camera
 
         float new_scale = hit_gameobject.GetComponent<ExaminableItem>().scale_factor;                   // Get Scale
 
         examination_camera.clearFlags = CameraClearFlags.Depth;                                         // Set Clear Flags
         examination_camera.enabled = true;                                                              // Enable Examination Camera
-
-        displayed_object = new_go;                                                                      // Set Displayed Object
 
         displayed_object.transform.localScale = new Vector3(new_scale, new_scale, new_scale);           // Scale GmaeObject
     }
@@ -472,6 +468,8 @@ public class main_inventory : MonoBehaviour
 
     private void exitDisplay()
     {
+        Destroy(GameObject.FindWithTag("Clone"));                                                       // Black Magic Issue Fix
+
         display_light.SetActive(false);                                                                 // Disable Light
         title_text.SetActive(false);                                                                    // Disable Title Text
         display_on = false;                                                                             // Disable Display Flag
@@ -673,7 +671,7 @@ public class main_inventory : MonoBehaviour
 
         // Examinable GameObject Examine Section
         
-        if (ray_trig && was_clicked)
+        if (!examine_on && ray_trig && was_clicked)
         {
             examineItem();
         }
