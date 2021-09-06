@@ -328,10 +328,14 @@ public class main_inventory : MonoBehaviour
 
         new_go.transform.position = camera_object.transform.position + transform.forward;               // Transform In Front of Camera
 
+        float new_scale = hit_gameobject.GetComponent<ExaminableItem>().scale_factor;                   // Get Scale
+
         examination_camera.clearFlags = CameraClearFlags.Depth;                                         // Set Clear Flags
         examination_camera.enabled = true;                                                              // Enable Examination Camera
 
         displayed_object = new_go;                                                                      // Set Displayed Object
+
+        displayed_object.transform.localScale = new Vector3(new_scale, new_scale, new_scale);           // Scale GmaeObject
     }
 
     // Add Item to Inventory
