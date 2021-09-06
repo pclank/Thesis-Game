@@ -309,13 +309,11 @@ public class main_inventory : MonoBehaviour
 
         GameObject new_go = new GameObject("Examinable Object");                                        // Create GameObject Object Using Constructor
 
-        new_go.AddComponent<MeshFilter>(hit_gameobject.GetComponent<MeshFilter>());                     // Add Mesh Filter
-        var mr =  new_go.AddComponent<MeshRenderer>(hit_gameobject.GetComponent<MeshRenderer>());       // Add Mesh Renderer
+        new_go = Instantiate(hit_gameobject.GetComponent<ExaminableItem>().getPrefab());                // Get GameObject Prefab
+        new_go.tag = "Untagged";                                                                        // Set Tag
+        new_go.layer = 7;                                                                               // Assign to UI Layer
 
-        Material mat = hit_gameobject.GetComponent<MeshRenderer>().material;                            // Get Material from Renderer
-        mr.material = mat;                                                                              // Assign Material
-
-        new_go.transform.localScale = new Vector3(0.1333333f, 0.1333333f, 0.1333333f);                  // Scale GameObject
+        // Process Potential Child GameObjects
 
         int child_index = 0;                                                                            // Index of Child of GameObject
 
@@ -323,31 +321,12 @@ public class main_inventory : MonoBehaviour
 
         while (child_index < num_children)
         {
-            GameObject extra_go = hit_gameobject.transform.GetChild(child_index).gameObject;
+            new_go.transform.GetChild(child_index).gameObject.layer = 7;                                    // Assign Child to UI Layer
 
-            GameObject new_extra_go = new GameObject("Extra");
-
-            new_extra_go.AddComponent<MeshFilter>(extra_go.GetComponent<MeshFilter>());
-
-            var extra_mr = new_extra_go.AddComponent<MeshRenderer>(extra_go.GetComponent<MeshRenderer>());
-
-            Material extra_mat = extra_go.GetComponent<MeshRenderer>().material;
-            extra_mr.material = extra_mat;
-
-            new_extra_go.transform.SetParent(new_go.transform);
-
-            new_extra_go.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
-
-            new_extra_go.layer = 7;
-
-            new_extra_go.transform.position = new Vector3(0, -0.08f, 0);
-
-            child_index++;
+            child_index++;                                                                                  // Increment Index
         }
 
-        new_go.layer = 7;                                                                               // Assign to UI Layer
-
-        new_go.transform.position = camera_object.transform.position + transform.forward;
+        new_go.transform.position = camera_object.transform.position + transform.forward;               // Transform In Front of Camera
 
         examination_camera.clearFlags = CameraClearFlags.Depth;                                         // Set Clear Flags
         examination_camera.enabled = true;                                                              // Enable Examination Camera
