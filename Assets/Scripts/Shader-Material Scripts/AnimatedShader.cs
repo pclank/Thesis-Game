@@ -40,7 +40,7 @@ public class AnimatedShader : MonoBehaviour
             }
         }
 
-        else if (!forwards && current_state > 0.0f)
+        else if (!forwards && next_state > 0.0f)
         {
             next_state -= transition_speed;
 
