@@ -11,6 +11,9 @@ public class modular_volume : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
+    [Tooltip("GameObjects to be Disabled upon Entering Volume.")]
+    public GameObject lod_to_disable;                                   // GameObject Parent LOD to Disable
+
     public int[] anger_color = new int[3];
     public int[] happiness_color = new int[3];
     public int[] sadness_color = new int[3];
@@ -51,6 +54,8 @@ public class modular_volume : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            lod_to_disable.SetActive(false);            // Disable GameObjects
+
             player_trigger = true;
         }
     }
