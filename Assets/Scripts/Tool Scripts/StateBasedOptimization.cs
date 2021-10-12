@@ -36,4 +36,21 @@ public class StateBasedOptimization : MonoBehaviour
             has_run = true;
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (has_run && other.CompareTag("Player"))
+        {
+            target_object.SetActive(!enable);
+
+            has_run = false;
+        }
+    }
+
+    // Only First Frame
+
+    void Start()
+    {
+        target_object.SetActive(!enable);               // Initialize State of GameObject
+    }
 }

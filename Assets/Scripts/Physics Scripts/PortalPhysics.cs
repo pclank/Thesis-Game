@@ -12,11 +12,17 @@ public class PortalPhysics : MonoBehaviour
     [Tooltip("Target Portal for Teleportation.")]
     public GameObject target_portal;    // Target Portal for Teleport
 
+    [Tooltip("GameObject to Enable, if enable_gameobject is True.")]
+    public GameObject target_gameobject;
+
     [Tooltip("FX UI Element.")]
     public GameObject fx_ui;            // FX UI Element
 
     [Tooltip("Starts Disabled.")]
     public bool starts_disabled = false;
+
+    [Tooltip("Enables a GameObject upon Entering Portal.")]
+    public bool enable_gameobject = false;
 
     [Tooltip("Requires Item to Go Through or Not.")]
     public bool item_required = false;  // Requires Item to Go Through or Not
@@ -58,6 +64,12 @@ public class PortalPhysics : MonoBehaviour
     // Teleport Player to Target Portal
     private void teleport()
     {
+        // If Set, Enable GameObject on Teleport
+        if (enable_gameobject)
+        {
+            target_gameobject.SetActive(true);
+        }
+
         Vector3 target_location = target_portal.transform.position + extend;    // Calculate New Position Coordinates
 
         player_object.transform.position = target_location;                     // Teleport Player
@@ -85,6 +97,12 @@ public class PortalPhysics : MonoBehaviour
         camera_object = GameObject.FindWithTag("MainCamera");   // Get Camera GameObject
 
         initial_scale = transform.localScale.x;                 // Get Local Scale
+
+        // If Set, Initialize GameObject State as Disabled
+        if (enable_gameobject)
+        {
+            target_gameobject.SetActive(false);
+        }
 
         // Set Locked or Not
 

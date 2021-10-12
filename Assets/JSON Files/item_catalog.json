@@ -154,6 +154,24 @@
           "description": "A weathered note. It reads: In Ancient Athens, various animals symbolized specific Character Traits. Athena, the Goddess of Wisdom, was often portrayed by an Owl. This kind of Symbology has been found in many forms of art, including plates, vases, and coins."
         }
       ]
-    }
+    },
+	
+	{
+		"id": 8,
+		"dev_title": "Public Restroom Key",
+		"knowledge": [
+        {
+          "level": 0,
+          "title": "Key",
+          "description": "A basic key. It was found on a sink."
+        },
+		
+		{
+		  "level": 1,
+          "title": "Public Restroom Door Key",
+          "description": "A basic key for the Restroom Door. It was found on the sink."
+		}
+      ]
+	}
   ]
 }
