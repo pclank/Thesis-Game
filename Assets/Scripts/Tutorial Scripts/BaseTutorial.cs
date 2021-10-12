@@ -57,6 +57,12 @@ public class BaseTutorial : MonoBehaviour
     // ************************************************************************************
     // Member Functions
     // ************************************************************************************
+
+    // Start Tutorial from External Script
+    public void initiateStart(uint tut_index)
+    {
+        startTutorial(tut_index);
+    }
     
     // Start Tutorial
     private void startTutorial(uint tut_index)
