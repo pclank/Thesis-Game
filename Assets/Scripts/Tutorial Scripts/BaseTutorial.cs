@@ -13,11 +13,19 @@ public class BaseTutorial : MonoBehaviour
 
     public GameObject main_camera;
 
+    public GameObject ui_background;
+
     [Tooltip("Array of UI Elements to be Used by Tutorial.")]
     public GameObject[] ui_elements = new GameObject[4];
 
+    [Tooltip("Whether Tutorials are Displayed for the Delay Value, rather than exiting on a button press.")]
+    public bool use_timer = false;
+
     [Tooltip("Amount of Seconds to Run Each Tutorial.")]
     public float[] delay = new float[4];
+
+    [Tooltip("Keybind to Exit Tutorial.")]
+    public KeyCode exit_key = KeyCode.Return;
 
     // ************************************************************************************
     // Private Variables
@@ -59,9 +67,21 @@ public class BaseTutorial : MonoBehaviour
 
         freezePlayer();                                     // Freeze Player Controller
 
+        ui_background.SetActive(true);                      // Enable Background
         ui_elements[tutorial_index].SetActive(true);        // Display UI Element
 
         timer_value = Time.time;                            // Set Timer Value
+    }
+
+    // Exit Tutorial
+    private void exitTutorial()
+    {
+        ui_background.SetActive(false);                     // Disable Background
+        ui_elements[tutorial_index].SetActive(false);       // Disable UI Element
+
+        unfreezePlayer();                                   // Unfreeze Player
+
+        tutorial_active = false;
     }
 
     // Freeze Player
@@ -87,14 +107,18 @@ public class BaseTutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Input Check Section
+
+        if (Input.GetKeyUp(exit_key))
+        {
+            exitTutorial();
+        }
+
         // Timer Section
 
-        if (tutorial_active && (Time.time - timer_value) >= delay[tutorial_index])
+        if (use_timer && tutorial_active && (Time.time - timer_value) >= delay[tutorial_index])
         {
-            ui_elements[tutorial_index].SetActive(false);           // Disable UI Element
-            unfreezePlayer();                                       // Unfreeze Player
-
-            tutorial_active = false;
+            exitTutorial();
         }
     }
 }
