@@ -22,7 +22,7 @@ public class BaseTutorial : MonoBehaviour
     public bool use_timer = false;
 
     [Tooltip("Amount of Seconds to Run Each Tutorial.")]
-    public float[] delay = new float[4];
+    public float[] delay = {5.0f, 5.0f, 5.0f, 5.0f};
 
     [Tooltip("Keybind to Exit Tutorial.")]
     public KeyCode exit_key = KeyCode.Return;
@@ -36,7 +36,7 @@ public class BaseTutorial : MonoBehaviour
     private float timer_value = 0.0f;                                   // Timer Value
 
     private bool tutorial_active = false;                               // Whether a Tutorial is Currently Running
-    private bool first_tutorial_ran = false;                            // Whether First Tutorial Has Ran
+    private bool first_tutorial_run = false;                            // Whether First Tutorial Has Run
 
     private uint tutorial_index = 0;                                    // Index of Tutorial Running, Zero-Based
 
@@ -46,9 +46,9 @@ public class BaseTutorial : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!first_tutorial_ran && other.CompareTag("Player"))
+        if (!first_tutorial_run && other.CompareTag("Player"))
         {
-            first_tutorial_ran = true;
+            first_tutorial_run = true;
 
             startTutorial(0);
         }

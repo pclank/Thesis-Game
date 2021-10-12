@@ -105,6 +105,7 @@
     <Compile Include="Assets\Scripts\Modular Room Scripts\DynamicMusic.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
     <Compile Include="Assets\Scripts\Tutorial Scripts\BaseTutorial.cs" />
+    <Compile Include="Assets\Scripts\Tool Scripts\StateBasedOptimization.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
