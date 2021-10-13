@@ -18,6 +18,8 @@ public class BaseTutorial : MonoBehaviour
     [Tooltip("Array of UI Elements to be Used by Tutorial.")]
     public GameObject[] ui_elements = new GameObject[4];
 
+    public GameObject key_object;
+
     [Tooltip("Whether Tutorials are Displayed for the Delay Value, rather than exiting on a button press.")]
     public bool use_timer = false;
 
@@ -39,6 +41,7 @@ public class BaseTutorial : MonoBehaviour
     private bool first_tutorial_run = false;                            // Whether First Tutorial Has Run
 
     private uint tutorial_index = 0;                                    // Index of Tutorial Running, Zero-Based
+    private uint tutorials_completed = 0;                               // Number of Tutorials Completed
 
     // ************************************************************************************
     // Trigger Functions
@@ -59,9 +62,19 @@ public class BaseTutorial : MonoBehaviour
     // ************************************************************************************
 
     // Start Tutorial from External Script
-    public void initiateStart(uint tut_index)
+    public bool initiateStart(uint tut_index)
     {
-        startTutorial(tut_index);
+        // Check if Tutorial is Queued to Run
+        if (tut_index == tutorials_completed)
+        {
+            startTutorial(tut_index);
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     // Start Tutorial
@@ -87,7 +100,15 @@ public class BaseTutorial : MonoBehaviour
 
         unfreezePlayer();                                   // Unfreeze Player
 
+        tutorials_completed++;
+
         tutorial_active = false;
+
+        // Key Enable Section
+        if (tutorials_completed == 2)
+        {
+            key_object.SetActive(true);
+        }
     }
 
     // Freeze Player
@@ -108,6 +129,8 @@ public class BaseTutorial : MonoBehaviour
     void Start()
     {
         player_object = GameObject.FindWithTag("Player");
+
+        key_object.SetActive(false);                                                            // Disable Key GameObject on Start
     }
 
     // Update is called once per frame
@@ -115,7 +138,7 @@ public class BaseTutorial : MonoBehaviour
     {
         // Input Check Section
 
-        if (Input.GetKeyUp(exit_key))
+        if (tutorial_active && Input.GetKeyUp(exit_key))
         {
             exitTutorial();
         }
@@ -125,6 +148,13 @@ public class BaseTutorial : MonoBehaviour
         if (use_timer && tutorial_active && (Time.time - timer_value) >= delay[tutorial_index])
         {
             exitTutorial();
+        }
+
+        // Check for Third Tutorial
+
+        if (!tutorial_active && tutorials_completed == 3 && player_object.GetComponent<main_inventory>().startQuery(8))
+        {
+            startTutorial(3);
         }
     }
 }

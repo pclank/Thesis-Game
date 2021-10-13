@@ -11,9 +11,13 @@ public class ExternalTutorialTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            base_tutorial_object.GetComponent<BaseTutorial>().initiateStart(tut_index);
+            bool result = base_tutorial_object.GetComponent<BaseTutorial>().initiateStart(tut_index);
 
-            Destroy(gameObject);
+            // If Successful, Destroy This GameObject
+            if (result)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
