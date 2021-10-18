@@ -16,7 +16,7 @@ public class BaseTutorial : MonoBehaviour
     public GameObject ui_background;
 
     [Tooltip("Array of UI Elements to be Used by Tutorial.")]
-    public GameObject[] ui_elements = new GameObject[4];
+    public GameObject[] ui_elements = new GameObject[5];
 
     public GameObject key_object;
 
@@ -24,7 +24,7 @@ public class BaseTutorial : MonoBehaviour
     public bool use_timer = false;
 
     [Tooltip("Amount of Seconds to Run Each Tutorial.")]
-    public float[] delay = {5.0f, 5.0f, 5.0f, 5.0f};
+    public float[] delay = {5.0f, 5.0f, 5.0f, 5.0f, 5.0f};
 
     [Tooltip("Keybind to Exit Tutorial.")]
     public KeyCode exit_key = KeyCode.Return;
