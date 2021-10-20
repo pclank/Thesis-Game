@@ -156,44 +156,66 @@
       ]
     },
 	
-	{
-		"id": 8,
-		"dev_title": "Public Restroom Key",
-		"knowledge": [
+  	{
+  		"id": 8,
+  		"dev_title": "Public Restroom Key",
+  		"knowledge": [
+          {
+            "level": 0,
+            "title": "Key",
+            "description": "A basic key. It was found on a sink."
+          },
+  		
+  		{
+  		  "level": 1,
+            "title": "Public Restroom Door Key",
+            "description": "A basic key for the Restroom Door. It was found on the sink."
+  		}
+        ]
+  	},
+    {
+      "id": 9,
+      "dev_title": "Byzantine Book",
+      "knowledge": [
         {
           "level": 0,
-          "title": "Key",
-          "description": "A basic key. It was found on a sink."
-        },
-		
-		{
-		  "level": 1,
-          "title": "Public Restroom Door Key",
-          "description": "A basic key for the Restroom Door. It was found on the sink."
-		}
+          "title": "Byzantine Book",
+          "description": "An old book. Seems to refer to the Byzantine Empire."
+        }
       ]
-	},
-  {
-    "id": 9,
-    "dev_title": "Byzantine Book",
-    "knowledge": [
-      {
-        "level": 0,
-        "title": "Byzantine Book",
-        "description": "An old book. Seems to refer to the Byzantine Empire."
-      }
-    ]
-  },
-  {
-    "id": 10,
-    "dev_title": "Roman Note",
-    "knowledge": [
-      {
-        "level": 0,
-        "title": "Roman Note",
-        "description": "A note on Roman Period coins. It reads: Roman Empire coinage included inscriptions of Grant Figures of the Period, with Latin adorning the other side. Major examples are from around 69 - 96 CE."
-      }
-    ]
-  }
+    },
+    {
+      "id": 10,
+      "dev_title": "Roman Note",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Roman Note",
+          "description": "A note on Roman Period coins. It reads: Roman Empire coinage included inscriptions of Grant Figures of the Period, with Latin adorning the other side. Major examples are from around 69 - 96 CE."
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "dev_title": "Old Chinese Book",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Chinese Three Kingdoms Book",
+          "description": "A book on the Three Kingdoms Period of Ancient China. Includes small references to the coinage of the period, with a description of designs of Ban Liang in the early years of 300 - 220 BCE."
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "dev_title": "Ancient Greece Scroll",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Scroll of Ancient Greek History",
+          "description": "This scroll -though weathered- mentions the monetary system of the broader region of Ancient Greece. Mostly describes coins of the period around 450 BCE."
+        }
+      ]
+    }
   ]
 }
