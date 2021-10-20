@@ -172,6 +172,28 @@
           "description": "A basic key for the Restroom Door. It was found on the sink."
 		}
       ]
-	}
+	},
+  {
+    "id": 9,
+    "dev_title": "Byzantine Book",
+    "knowledge": [
+      {
+        "level": 0,
+        "title": "Byzantine Book",
+        "description": "An old book. Seems to refer to the Byzantine Empire."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "dev_title": "Roman Note",
+    "knowledge": [
+      {
+        "level": 0,
+        "title": "Roman Note",
+        "description": "A note on Roman Period coins. It reads: Roman Empire coinage included inscriptions of Grant Figures of the Period, with Latin adorning the other side. Major examples are from around 69 - 96 CE."
+      }
+    ]
+  }
   ]
 }

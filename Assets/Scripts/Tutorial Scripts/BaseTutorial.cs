@@ -16,7 +16,7 @@ public class BaseTutorial : MonoBehaviour
     public GameObject ui_background;
 
     [Tooltip("Array of UI Elements to be Used by Tutorial.")]
-    public GameObject[] ui_elements = new GameObject[5];
+    public GameObject[] ui_elements = new GameObject[6];
 
     public GameObject key_object;
 
@@ -25,6 +25,9 @@ public class BaseTutorial : MonoBehaviour
 
     [Tooltip("Amount of Seconds to Run Each Tutorial.")]
     public float[] delay = {5.0f, 5.0f, 5.0f, 5.0f, 5.0f};
+
+    [Tooltip("Item IDs of Knowledge Giving Objects.")]
+    public int[] knowledge_items = new int[5];
 
     [Tooltip("Keybind to Exit Tutorial.")]
     public KeyCode exit_key = KeyCode.Return;
@@ -155,6 +158,13 @@ public class BaseTutorial : MonoBehaviour
         if (!tutorial_active && tutorials_completed == 3 && player_object.GetComponent<main_inventory>().startQuery(8))
         {
             startTutorial(3);
+        }
+
+        // Check for Knowledge Object Tutorial
+
+        if (!tutorial_active && tutorials_completed == 5 && player_object.GetComponent<main_inventory>().startQuery(knowledge_items))
+        {
+            startTutorial(5);
         }
     }
 }

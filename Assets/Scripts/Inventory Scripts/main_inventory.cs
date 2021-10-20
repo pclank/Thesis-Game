@@ -228,6 +228,21 @@ public class main_inventory : MonoBehaviour
         return queryInventory(q_id);
     }
 
+    // Overload for Above Function
+
+    public bool startQuery(int[] q_ids)
+    {
+        for (int i = 0; i < q_ids.Length; i++)
+        {
+            if (queryInventory(q_ids[i]))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // Set Item Description in UI && item as Selected
 
     public void setDescription(int it_id)
