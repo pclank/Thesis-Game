@@ -20,13 +20,6 @@ public class FirstPersonMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // TODO: Potentially Change this!
-        // Quit Application 
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-
         // Move.
         IsRunning = canRun && Input.GetKey(runningKey);
         float movingSpeed = IsRunning ? runSpeed : speed;
