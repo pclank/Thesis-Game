@@ -18,6 +18,7 @@ public class PauseMenu : MonoBehaviour
     public Button exit_button;
 
     public GameObject camera_object;
+    public GameObject menu_ui;
 
     // ************************************************************************************
     // Private Variables
@@ -32,6 +33,9 @@ public class PauseMenu : MonoBehaviour
     {
         // Get Player GameObject
         player_object = GameObject.FindWithTag("Player");
+
+        // Disable Pause Menu on Start
+        menu_ui.SetActive(false);
 
         // Add Button Listeners
 
@@ -51,6 +55,11 @@ public class PauseMenu : MonoBehaviour
             player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
             camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
 
+            Cursor.lockState = CursorLockMode.None;                                 // Unlock Cursor
+            Cursor.visible = true;                                                  // Make Cursor Visible
+
+            menu_ui.SetActive(true);                                                // Enable Pause Menu GameObject
+
             menu_enabled = true;                                                    // Set Menu as Enabled
         }
 
@@ -60,6 +69,11 @@ public class PauseMenu : MonoBehaviour
         {
             player_object.GetComponent<FirstPersonMovement>().stop_flag = false;    // Unfreeze Player Controller
             camera_object.GetComponent<FirstPersonLook>().stop_flag = false;        // Unfreeze Camera Controller
+
+            Cursor.lockState = CursorLockMode.Locked;                               // Lock Cursor to Center
+            Cursor.visible = false;                                                 // Hide Cursor
+
+            menu_ui.SetActive(false);                                               // Disable Pause Menu GameObject
 
             menu_enabled = false;                                                   // Set Menu as Disabled
         }
@@ -72,19 +86,24 @@ public class PauseMenu : MonoBehaviour
         // Resume Button Pressed
         if (but_pressed == resume_button)
         {
-            
+            Cursor.lockState = CursorLockMode.Locked;                               // Lock Cursor to Center
+            Cursor.visible = false;                                                 // Hide Cursor
+
+            menu_ui.SetActive(false);                                               // Disable Pause Menu GameObject
+
+            menu_enabled = false;                                                   // Set Menu as Disabled
         }
 
         // Show Tutorials Button Pressed
         else if (but_pressed == show_tutorials_button)
         {
-            
+            // TODO: Add Functionality!
         }
 
         // Settings Button Pressed
         else if (but_pressed == settings_button)
         {
-
+            // TODO: Add Functionality!
         }
 
         // Exit Game Button Pressed
