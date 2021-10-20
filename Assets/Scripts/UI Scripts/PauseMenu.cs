@@ -77,6 +77,14 @@ public class PauseMenu : MonoBehaviour
 
             menu_enabled = false;                                                   // Set Menu as Disabled
         }
+
+        // Weird Mouse Click Bug Magic Fix
+
+        if (menu_enabled)
+        {
+            player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
+            camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
+        }
     }
 
     // Button CallBack Function
