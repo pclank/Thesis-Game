@@ -42,6 +42,7 @@ public class BaseTutorial : MonoBehaviour
 
     private bool tutorial_active = false;                               // Whether a Tutorial is Currently Running
     private bool first_tutorial_run = false;                            // Whether First Tutorial Has Run
+    private bool started_from_menu = false;                             // Whether Tutorial was Started from Tutorials Menu
 
     private uint tutorial_index = 0;                                    // Index of Tutorial Running, Zero-Based
     private uint tutorials_completed = 0;                               // Number of Tutorials Completed
@@ -79,7 +80,21 @@ public class BaseTutorial : MonoBehaviour
             return false;
         }
     }
-    
+
+    // Start Tutorial from Menu Script
+    public void initiateStartfromMenu(uint tut_index)
+    {
+        started_from_menu = true;                           // Set Started From Menu
+
+        startTutorial(tut_index);                           // Start Tutorial
+    }
+
+    // Get Number of Tutorials Completed
+    public uint getTutorialsCompleted()
+    {
+        return tutorials_completed;
+    }
+
     // Start Tutorial
     private void startTutorial(uint tut_index)
     {
@@ -87,7 +102,11 @@ public class BaseTutorial : MonoBehaviour
 
         tutorial_index = tut_index;
 
-        freezePlayer();                                     // Freeze Player Controller
+        // Check Whether Startup was from Menu
+        if (!started_from_menu)
+        {
+            freezePlayer();                                     // Freeze Player Controller
+        }
 
         ui_background.SetActive(true);                      // Enable Background
         ui_elements[tutorial_index].SetActive(true);        // Display UI Element
@@ -101,11 +120,17 @@ public class BaseTutorial : MonoBehaviour
         ui_background.SetActive(false);                     // Disable Background
         ui_elements[tutorial_index].SetActive(false);       // Disable UI Element
 
-        unfreezePlayer();                                   // Unfreeze Player
+        // Check Whether Startup was from Menu
+        if (!started_from_menu)
+        {
+            unfreezePlayer();                                   // Unfreeze Player
 
-        tutorials_completed++;
+            tutorials_completed++;
+        }
 
         tutorial_active = false;
+
+        started_from_menu = false;                          // Reset Flag
 
         // Key Enable Section
         if (tutorials_completed == 2)

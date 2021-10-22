@@ -16,9 +16,11 @@ public class PauseMenu : MonoBehaviour
     public Button show_tutorials_button;
     public Button settings_button;
     public Button exit_button;
-    public Button close_sub_menu_button;                        // Button to Close This Sub-Menu
+    public Button close_tutorials_menu_button;                  // Button to Close Tutorials Menu
+    public Button close_settings_menu_button;                   // Button to Close Settings Menu
 
     public GameObject camera_object;
+    public GameObject base_tutorial_object;                     // Base Tutorial Object
     public GameObject menu_ui;
     public GameObject settings_ui;
     public GameObject tutorials_ui;                             // Tutorials Menu GameObject
@@ -40,6 +42,7 @@ public class PauseMenu : MonoBehaviour
 
         menu_ui.SetActive(false);
         settings_ui.SetActive(false);
+        tutorials_ui.SetActive(false);
 
         // Add Button Listeners
 
@@ -47,7 +50,8 @@ public class PauseMenu : MonoBehaviour
         show_tutorials_button.onClick.AddListener(() => buttonCallBack(show_tutorials_button));
         settings_button.onClick.AddListener(() => buttonCallBack(settings_button));
         exit_button.onClick.AddListener(() => buttonCallBack(exit_button));
-        close_sub_menu_button.onClick.AddListener(() => buttonCallBack(close_sub_menu_button));
+        close_tutorials_menu_button.onClick.AddListener(() => buttonCallBack(close_tutorials_menu_button));
+        close_settings_menu_button.onClick.AddListener(() => buttonCallBack(close_settings_menu_button));
     }
 
     // Update is called once per frame
@@ -113,6 +117,8 @@ public class PauseMenu : MonoBehaviour
         else if (but_pressed == show_tutorials_button)
         {
             tutorials_ui.SetActive(true);
+
+            gameObject.GetComponent<TutorialsMenu>().buildTutorialPage(base_tutorial_object.GetComponent<BaseTutorial>().getTutorialsCompleted());      // Build Tutorial Page Based on Tutorials Completed
         }
 
         // Settings Button Pressed
@@ -128,7 +134,7 @@ public class PauseMenu : MonoBehaviour
         }
 
         // Sub-Menu Close Button
-        else if (but_pressed == close_sub_menu_button)
+        else if (but_pressed == close_tutorials_menu_button || but_pressed == close_settings_menu_button)
         {
             tutorials_ui.SetActive(false);                                          // Disable Tutorials Menu
             settings_ui.SetActive(false);                                           // Disable Settings Menu
