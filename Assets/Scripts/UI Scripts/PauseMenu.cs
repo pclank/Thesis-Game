@@ -16,6 +16,7 @@ public class PauseMenu : MonoBehaviour
     public Button show_tutorials_button;
     public Button settings_button;
     public Button exit_button;
+    public Button close_sub_menu_button;                        // Button to Close This Sub-Menu
 
     public GameObject camera_object;
     public GameObject menu_ui;
@@ -45,6 +46,7 @@ public class PauseMenu : MonoBehaviour
         show_tutorials_button.onClick.AddListener(() => buttonCallBack(show_tutorials_button));
         settings_button.onClick.AddListener(() => buttonCallBack(settings_button));
         exit_button.onClick.AddListener(() => buttonCallBack(exit_button));
+        close_sub_menu_button.onClick.AddListener(() => buttonCallBack(close_sub_menu_button));
     }
 
     // Update is called once per frame
@@ -122,6 +124,13 @@ public class PauseMenu : MonoBehaviour
         else if (but_pressed == exit_button)
         {
             Application.Quit();                                                     // Quit Application
+        }
+
+        // Sub-Menu Close Button
+        else if (but_pressed == close_sub_menu_button)
+        {
+            settings_ui.SetActive(false);                                           // Disable Settings Menu
+            // TODO: Add Tutorial UI Related Code!
         }
     }
 }

@@ -17,10 +17,8 @@ public class SettingsMenu : MonoBehaviour
     public Toggle motionblur_toggle;                                    // Motion Blur Toggle
     public Toggle vsync_toggle;                                         // V-Sync Toggle
 
-    public Button close_button;                                         // Button to Close This Sub-Menu
-
     [Tooltip("Array of Volumes.")]
-    public GameObject[] volume_objects = new GameObject[3];
+    public Volume[] volume_objects = new Volume[3];
 
     // ************************************************************************************
     // Private Variables
@@ -36,28 +34,20 @@ public class SettingsMenu : MonoBehaviour
     private void processMotionblurChange()
     {
         // Iterate Through All Volumes to Process
-        foreach (GameObject volume in volume_objects)
+        foreach (Volume volume in volume_objects)
         {
             // Null Check
             if (volume)
             {
-                Volume volume_comp = volume.GetComponent<Volume>();         // Get Volume Component
-
                 MotionBlur mb;                                              // Declare Motion Blur Variable
 
                 // Get Motion Blur Component
-                if (volume_comp.profile.TryGet(out mb))
+                if (volume.profile.TryGet(out mb))
                 {
                     mb.active = motionblur_toggle.isOn;                         // Toggle Motion Blur
                 }
             }
         }
-    }
-
-    // Close This Sub-Menu
-    private void closeMenu()
-    {
-        gameObject.SetActive(false);
     }
 
     // Process V-Sync Toggle
@@ -80,8 +70,5 @@ public class SettingsMenu : MonoBehaviour
         {
             processVsyncChange();
         });
-
-        // Add Listener to Button
-        close_button.onClick.AddListener(() => closeMenu());
     }
 }
