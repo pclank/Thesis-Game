@@ -21,6 +21,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject camera_object;
     public GameObject menu_ui;
     public GameObject settings_ui;
+    public GameObject tutorials_ui;                             // Tutorials Menu GameObject
 
     // ************************************************************************************
     // Private Variables
@@ -77,7 +78,7 @@ public class PauseMenu : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;                               // Lock Cursor to Center
             Cursor.visible = false;                                                 // Hide Cursor
 
-            // TODO: Add Tutorial UI Related Code!
+            tutorials_ui.SetActive(false);                                          // Disable Tutorials Menu GameObject
             settings_ui.SetActive(false);                                           // Disable Settings Menu GameObject
             menu_ui.SetActive(false);                                               // Disable Pause Menu GameObject
 
@@ -111,7 +112,7 @@ public class PauseMenu : MonoBehaviour
         // Show Tutorials Button Pressed
         else if (but_pressed == show_tutorials_button)
         {
-            // TODO: Add Functionality!
+            tutorials_ui.SetActive(true);
         }
 
         // Settings Button Pressed
@@ -129,8 +130,8 @@ public class PauseMenu : MonoBehaviour
         // Sub-Menu Close Button
         else if (but_pressed == close_sub_menu_button)
         {
+            tutorials_ui.SetActive(false);                                          // Disable Tutorials Menu
             settings_ui.SetActive(false);                                           // Disable Settings Menu
-            // TODO: Add Tutorial UI Related Code!
         }
     }
 }
