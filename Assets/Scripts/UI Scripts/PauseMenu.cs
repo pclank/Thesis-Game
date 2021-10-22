@@ -19,6 +19,8 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject camera_object;
     public GameObject menu_ui;
+    [Tooltip("Settings Menu GameObject.")]
+    public GameObject settings_object;
 
     // ************************************************************************************
     // Private Variables
