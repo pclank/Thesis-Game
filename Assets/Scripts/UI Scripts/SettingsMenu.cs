@@ -14,33 +14,23 @@ public class SettingsMenu : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
-    public Toggle motionblur_toggle;
-    public Toggle vsync_toggle;
+    public Toggle motionblur_toggle;                                    // Motion Blur Toggle
+    public Toggle vsync_toggle;                                         // V-Sync Toggle
+
+    public Button close_button;                                         // Button to Close This Sub-Menu
 
     [Tooltip("Array of Volumes.")]
     public GameObject[] volume_objects = new GameObject[3];
-
-    public GameObject menu_ui;
-
-    public Camera main_camera;
 
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
 
-    private bool menu_enabled = false;                          // Whether Pause Menu is Enabled
+    
 
     // ************************************************************************************
     // Member Functions
     // ************************************************************************************
-
-    // Open Settings Menu from other Script
-    public void openSettingsMenu()
-    {
-        menu_ui.SetActive(true);
-
-        menu_enabled = true;
-    }
 
     // Process Motion Blur Toggle
     private void processMotionblurChange()
@@ -48,16 +38,26 @@ public class SettingsMenu : MonoBehaviour
         // Iterate Through All Volumes to Process
         foreach (GameObject volume in volume_objects)
         {
-            Volume volume_comp = volume.GetComponent<Volume>();         // Get Volume Component
-
-            MotionBlur mb;                                              // Declare Motion Blur Variable
-
-            // Get Motion Blur Component
-            if (volume_comp.profile.TryGet(out mb))
+            // Null Check
+            if (volume)
             {
-                mb.active = motionblur_toggle.isOn;                         // Toggle Motion Blur
+                Volume volume_comp = volume.GetComponent<Volume>();         // Get Volume Component
+
+                MotionBlur mb;                                              // Declare Motion Blur Variable
+
+                // Get Motion Blur Component
+                if (volume_comp.profile.TryGet(out mb))
+                {
+                    mb.active = motionblur_toggle.isOn;                         // Toggle Motion Blur
+                }
             }
         }
+    }
+
+    // Close This Sub-Menu
+    private void closeMenu()
+    {
+        gameObject.SetActive(false);
     }
 
     // Process V-Sync Toggle
@@ -80,5 +80,8 @@ public class SettingsMenu : MonoBehaviour
         {
             processVsyncChange();
         });
+
+        // Add Listener to Button
+        close_button.onClick.AddListener(() => closeMenu());
     }
 }

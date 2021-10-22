@@ -19,8 +19,7 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject camera_object;
     public GameObject menu_ui;
-    [Tooltip("Settings Menu GameObject.")]
-    public GameObject settings_object;
+    public GameObject settings_ui;
 
     // ************************************************************************************
     // Private Variables
@@ -33,11 +32,12 @@ public class PauseMenu : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        // Get Player GameObject
-        player_object = GameObject.FindWithTag("Player");
+        player_object = GameObject.FindWithTag("Player");           // Get Player GameObject
 
-        // Disable Pause Menu on Start
+        // Disable Menus on Start
+
         menu_ui.SetActive(false);
+        settings_ui.SetActive(false);
 
         // Add Button Listeners
 
@@ -75,6 +75,8 @@ public class PauseMenu : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;                               // Lock Cursor to Center
             Cursor.visible = false;                                                 // Hide Cursor
 
+            // TODO: Add Tutorial UI Related Code!
+            settings_ui.SetActive(false);                                           // Disable Settings Menu GameObject
             menu_ui.SetActive(false);                                               // Disable Pause Menu GameObject
 
             menu_enabled = false;                                                   // Set Menu as Disabled
@@ -113,7 +115,7 @@ public class PauseMenu : MonoBehaviour
         // Settings Button Pressed
         else if (but_pressed == settings_button)
         {
-            // TODO: Add Functionality!
+            settings_ui.SetActive(true);
         }
 
         // Exit Game Button Pressed
