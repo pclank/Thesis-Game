@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\Audio Scripts\audio_play.cs" />
     <Compile Include="Assets\Scripts\Physics Scripts\PortalPhysics.cs" />
     <Compile Include="Assets\Scripts\Inventory Scripts\main_inventory.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\TutorialsMenu.cs" />
     <Compile Include="Assets\First person controller\Scripts\FirstPersonMovement.cs" />
     <Compile Include="Assets\Scripts\Light Scripts\LightIntensityFX.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\change_room.cs" />
@@ -110,7 +111,7 @@
     <Compile Include="Assets\Scripts\UI Scripts\ui_click_detector.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\DynamicMusic.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\UI Scripts\TutorialsMenu.cs" />
+    <Compile Include="Assets\Editor Scripts\Tools\PlayerPositionTool.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
