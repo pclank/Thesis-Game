@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Substance.EditorHelper", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Substance.Platform", "Substance.Platform.csproj", "{A75FE409-09A2-2C43-88C3-DCA35A5337F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{5A0769DA-25DA-A68D-BA58-6ED404CB536B}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TexturePacker.Editor", "TexturePacker.Editor.csproj", "{BA119C58-F229-3A8F-C012-1342BDF6ED7F}"
 EndProject
 Global
@@ -33,6 +35,10 @@ Global
 		{A75FE409-09A2-2C43-88C3-DCA35A5337F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A75FE409-09A2-2C43-88C3-DCA35A5337F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A75FE409-09A2-2C43-88C3-DCA35A5337F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A0769DA-25DA-A68D-BA58-6ED404CB536B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A0769DA-25DA-A68D-BA58-6ED404CB536B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A0769DA-25DA-A68D-BA58-6ED404CB536B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A0769DA-25DA-A68D-BA58-6ED404CB536B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BA119C58-F229-3A8F-C012-1342BDF6ED7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BA119C58-F229-3A8F-C012-1342BDF6ED7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA119C58-F229-3A8F-C012-1342BDF6ED7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
