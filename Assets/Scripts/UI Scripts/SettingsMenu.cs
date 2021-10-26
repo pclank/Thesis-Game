@@ -14,6 +14,7 @@ public class SettingsMenu : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
+    public Toggle examine_on_pickup_toggle;                             // Examine On Pickup Toggle
     public Toggle motionblur_toggle;                                    // Motion Blur Toggle
     public Toggle vsync_toggle;                                         // V-Sync Toggle
 
@@ -29,6 +30,12 @@ public class SettingsMenu : MonoBehaviour
     // ************************************************************************************
     // Member Functions
     // ************************************************************************************
+
+    // Process Examine On Pickup Toggle
+    private void processExamineOnPickupChange()
+    {
+        GameObject.FindWithTag("Player").GetComponent<main_inventory>().display_on_pickup = examine_on_pickup_toggle.isOn;  // Toggle Display On Pickup
+    }
 
     // Process Motion Blur Toggle
     private void processMotionblurChange()
@@ -60,6 +67,11 @@ public class SettingsMenu : MonoBehaviour
     void Start()
     {
         // Set Value Change Listener for Toggle UI Elements
+
+        examine_on_pickup_toggle.onValueChanged.AddListener(delegate
+        {
+            processExamineOnPickupChange();
+        });
 
         motionblur_toggle.onValueChanged.AddListener(delegate
         {

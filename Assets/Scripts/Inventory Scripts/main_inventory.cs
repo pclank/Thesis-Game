@@ -284,6 +284,9 @@ public class main_inventory : MonoBehaviour
 
         if (display_on_pickup)
         {
+            new_item.setLevel(1);                                                       // Set Level to 1
+            new_item.setExamined(true);                                                 // Set As Examined
+
             displayItem(new_item);                                                      // Display Item
         }
     }
