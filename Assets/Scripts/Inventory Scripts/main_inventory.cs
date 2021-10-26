@@ -81,7 +81,11 @@ public class Item
 {
     // Public Variables
 
+    // ************************************************************************************
     // Private Variables
+    // ************************************************************************************
+
+    private bool was_examined = false;              // Whether Item has been Examined
 
     //private string name;                            // Holds Item Name-Title
     private int knowledge_level = 0;                // Holds Item Level of Knowledge
@@ -101,8 +105,19 @@ public class Item
         mesh_renderer = mesh_r;
     }
 
-    // Get Item ID
+    // Get Examined Flag
+    public bool wasExamined()
+    {
+        return this.was_examined;
+    }
 
+    // Set Examined Flag
+    public void setExamined(bool flag)
+    {
+        this.was_examined = flag;
+    }
+
+    // Get Item ID
     public int getID()
     {
         return this.id;
@@ -156,6 +171,9 @@ public class main_inventory : MonoBehaviour
     // ************************************************************************************
     // Public Variables
     // ************************************************************************************
+
+    [Tooltip("Whether to Display Item On Pickup.")]
+    public bool display_on_pickup = false;              // Whether to Display Item on Pickup
 
     public float display_distance = 0.5f;               // Distance from Camera to Display Item
     public float rotation_speed = 100.0f;               // Speed of Rotation for Item Display
@@ -264,7 +282,10 @@ public class main_inventory : MonoBehaviour
 
         addItem(new_item);                                                          // Add to Inventory
 
-        displayItem(new_item);                                                      // Display Item
+        if (display_on_pickup)
+        {
+            displayItem(new_item);                                                      // Display Item
+        }
     }
 
     // Increase Knowledge Level of Item
@@ -761,6 +782,17 @@ public class main_inventory : MonoBehaviour
                     break;
                 }
             }
+
+            // Check for Knowledge Update on First Item Examination
+
+            if (!selected_it.wasExamined())
+            {
+                selected_it.setLevel(1);                    // Set Level to 1
+                selected_it.setExamined(true);              // Set Item as Already Examined
+            }
+
+            // Debug Section to Show Current Item Knowledge Level
+            Debug.Log("Knowledge Level: " + selected_it.getLevel());
 
             examine_on = true;
 

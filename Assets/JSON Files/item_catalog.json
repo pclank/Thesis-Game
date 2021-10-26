@@ -25,7 +25,7 @@
         {
           "level": 3,
           "title": "Ancient Greek Coin",
-          "description": "A damaged coin, from an older period. Looks to Present the Greek God Apollo with a musical instrument. Occured around 450 BCE in Ancient Greece."
+          "description": "A damaged coin, from an older period. Looks to Present the Greek God Apollo with a musical instrument. Occurred around 450 BCE in Ancient Greece."
         }
       ]
     },
@@ -121,13 +121,13 @@
         {
           "level": 1,
           "title": "Owl Ancient Coin",
-          "description": "A coin depecting an owl. In some cultures, owls where a sign of wisdom."
+          "description": "A coin depicting an owl. In some cultures, owls where a sign of wisdom."
         },
 
         {
           "level": 2,
           "title": "Ancient Athenian Coin",
-          "description": "A coin depecting an owl. In Ancient Athens culture, owls where a sign of wisdom. Coins of this type appeared around 454 - 404 BCE."
+          "description": "A coin depicting an owl. In Ancient Athens culture, owls where a sign of wisdom. Coins of this type appeared around 454 - 404 BCE."
         }
       ]
     },
@@ -140,6 +140,11 @@
           "level": 0,
           "title": "Bronze Key",
           "description": "A key made of bronze. It was found in a filing cabinet drawer."
+        },
+        {
+          "level": 1,
+          "title": "Bronze Key",
+          "description": "A key made of bronze. It was found in a filing cabinet drawer."
         }
       ]
     },
@@ -150,6 +155,11 @@
       "knowledge": [
         {
           "level": 0,
+          "title": "Dusty Note",
+          "description": "A weathered note."
+        },
+        {
+          "level": 1,
           "title": "Ancient Athens Note",
           "description": "A weathered note. It reads: In Ancient Athens, various animals symbolized specific Character Traits. Athena, the Goddess of Wisdom, was often portrayed by an Owl. This kind of Symbology has been found in many forms of art, including plates, vases, and coins."
         }
@@ -160,18 +170,18 @@
   		"id": 8,
   		"dev_title": "Public Restroom Key",
   		"knowledge": [
-          {
-            "level": 0,
-            "title": "Key",
-            "description": "A basic key. It was found on a sink."
-          },
+        {
+          "level": 0,
+          "title": "Key",
+          "description": "A basic key. It was found on a sink."
+        },
   		
-  		{
-  		  "level": 1,
-            "title": "Public Restroom Door Key",
-            "description": "A basic key for the Restroom Door. It was found on the sink."
-  		}
-        ]
+  		  {
+  		    "level": 1,
+          "title": "Public Restroom Door Key",
+          "description": "A basic key for the Restroom Door. It was found on the sink."
+  		  }
+      ]
   	},
     {
       "id": 9,
@@ -179,6 +189,11 @@
       "knowledge": [
         {
           "level": 0,
+          "title": "Weathered Book",
+          "description": "An old book."
+        },
+        {
+          "level": 1,
           "title": "Byzantine Book",
           "description": "An old book. Seems to refer to the Byzantine Empire."
         }
@@ -190,6 +205,11 @@
       "knowledge": [
         {
           "level": 0,
+          "title": "Old Note",
+          "description": "A weathered note."
+        },
+        {
+          "level": 1,
           "title": "Roman Note",
           "description": "A note on Roman Period coins. It reads: Roman Empire coinage included inscriptions of Grant Figures of the Period, with Latin adorning the other side. Major examples are from around 69 - 96 CE."
         }
@@ -201,6 +221,11 @@
       "knowledge": [
         {
           "level": 0,
+          "title": "Worn Book",
+          "description": "A worn book."
+        },
+        {
+          "level": 1,
           "title": "Chinese Three Kingdoms Book",
           "description": "A book on the Three Kingdoms Period of Ancient China. Includes small references to the coinage of the period, with a description of designs of Ban Liang in the early years of 300 - 220 BCE."
         }
@@ -212,6 +237,11 @@
       "knowledge": [
         {
           "level": 0,
+          "title": "Old Scroll",
+          "description": "An old scroll."
+        },
+        {
+          "level": 1,
           "title": "Scroll of Ancient Greek History",
           "description": "This scroll -though weathered- mentions the monetary system of the broader region of Ancient Greece. Mostly describes coins of the period around 450 BCE."
         }
