@@ -31,8 +31,6 @@ public class ScrollUIItems : MonoBehaviour
     {
         item_list.padding.top = -(int)(smoothness * scrollbar_value * 1000);        // Calculate and Set New Padding
         item_list.SetLayoutVertical();                                              // Force-Update Layout
-
-        // TODO: (LOW PRIORITY) Check whether Static Spacing is Possible.
     }
 
     // Use this for initialization
