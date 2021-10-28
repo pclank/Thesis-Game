@@ -53,7 +53,6 @@ public class Jitem
     public string dev_title;
     public Jitem_knowledge[] knowledge;
     public bool is_story;
-    // TODO: #7 @pclank Add Functionality for Exceptions to Knowledge System!
 }
 
 // ************************************************************************************
