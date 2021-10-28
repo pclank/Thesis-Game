@@ -52,6 +52,7 @@ public class Jitem
     public int id;
     public string dev_title;
     public Jitem_knowledge[] knowledge;
+    public bool is_story;
     // TODO: #7 @pclank Add Functionality for Exceptions to Knowledge System!
 }
 
@@ -91,16 +92,31 @@ public class Item
     //private string name;                            // Holds Item Name-Title
     private int knowledge_level = 0;                // Holds Item Level of Knowledge
     private int id;                                 // Holds Item ID
+
+    private bool is_story;                          // Whether Item is a Story Item
+
     private float scale;                            // Holds Item Scale
 
     private MeshFilter mesh_filter;                 // Holds Mesh of Item
     private MeshRenderer mesh_renderer;             // Holds Material of Item
 
+    // ************************************************************************************
     // Member Functions
+    // ************************************************************************************
 
-    public Item(int item_id, MeshFilter mesh_f, MeshRenderer mesh_r, float item_scale)    // Item Constructor
+    // Item Constructor
+    public Item(int item_id, MeshFilter mesh_f, MeshRenderer mesh_r, float item_scale)
     {
         id = item_id;
+
+        is_story = isStory(item_id);                // Set is_story Flag
+        
+        // Set Story Item as Examined to Keep it at Knowledge Level 0
+        if (is_story)
+        {
+            was_examined = true;
+        }
+
         scale = item_scale;
         mesh_filter = mesh_f;
         mesh_renderer = mesh_r;
@@ -371,7 +387,7 @@ public class main_inventory : MonoBehaviour
         examination_camera.clearFlags = CameraClearFlags.Depth;                                         // Set Clear Flags
         examination_camera.enabled = true;                                                              // Enable Examination Camera
 
-        displayed_object.transform.localScale = new Vector3(new_scale, new_scale, new_scale);           // Scale GmaeObject
+        displayed_object.transform.localScale = new Vector3(new_scale, new_scale, new_scale);           // Scale GameObject
     }
 
     // Add Item to Inventory
@@ -570,6 +586,13 @@ public class main_inventory : MonoBehaviour
         }
 
         return new Tuple<string, string>(i_title, i_description);
+    }
+
+    // Get Whether Item is Story Item
+    private bool isStory(int i_id)
+    {   
+        // TODO: #8 @pclank Set Exception Catching Here
+        return items_in_json.items[i_id - 1].is_story;
     }
 
     // Open Item Inventory

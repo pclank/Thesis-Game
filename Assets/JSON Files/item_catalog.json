@@ -27,7 +27,8 @@
           "title": "Ancient Greek Coin",
           "description": "A damaged coin, from an older period. Looks to Present the Greek God Apollo with a musical instrument. Occurred around 450 BCE in Ancient Greece."
         }
-      ]
+      ],
+      "is_story": "false"
     },
 
     {
@@ -57,7 +58,8 @@
           "title": "Ancient Roman Coin",
           "description": "A damaged coin, from an older period. Includes inscriptions in Latin and Grant Figures from the Ancient Roman Period. It existed around 69 - 96 CE."
         }
-      ]
+      ],
+      "is_story": "false"
     },
 
     {
@@ -81,7 +83,8 @@
           "title": "Byzantine Coin",
           "description": "A damaged coin, from an older period. Seems to follow a christian design, common in the Byzantine Empire of 491 CE."
         }
-      ]
+      ],
+      "is_story": "false"
     },
 
     {
@@ -105,7 +108,8 @@
           "title": "Ancient Chinese Coin",
           "description": "A curious coin, with a square cut in the center. Chinese Characters are present. Design appears around 300 - 220 BCE."
         }
-      ]
+      ],
+      "is_story": "false"
     },
 
     {
@@ -129,7 +133,8 @@
           "title": "Ancient Athenian Coin",
           "description": "A coin depicting an owl. In Ancient Athens culture, owls where a sign of wisdom. Coins of this type appeared around 454 - 404 BCE."
         }
-      ]
+      ],
+      "is_story": "false"
     },
 
     {
@@ -146,7 +151,8 @@
           "title": "Bronze Key",
           "description": "A key made of bronze. It was found in a filing cabinet drawer."
         }
-      ]
+      ],
+      "is_story": "false"
     },
 
     {
@@ -163,7 +169,8 @@
           "title": "Ancient Athens Note",
           "description": "A weathered note. It reads: In Ancient Athens, various animals symbolized specific Character Traits. Athena, the Goddess of Wisdom, was often portrayed by an Owl. This kind of Symbology has been found in many forms of art, including plates, vases, and coins."
         }
-      ]
+      ],
+      "is_story": "false"
     },
 	
   	{
@@ -181,7 +188,8 @@
           "title": "Public Restroom Door Key",
           "description": "A basic key for the Restroom Door. It was found on the sink."
   		  }
-      ]
+      ],
+      "is_story": "false"
   	},
     {
       "id": 9,
@@ -197,7 +205,8 @@
           "title": "Byzantine Book",
           "description": "An old book. Seems to refer to the Byzantine Empire."
         }
-      ]
+      ],
+      "is_story": "false"
     },
     {
       "id": 10,
@@ -213,7 +222,8 @@
           "title": "Roman Note",
           "description": "A note on Roman Period coins. It reads: Roman Empire coinage included inscriptions of Grant Figures of the Period, with Latin adorning the other side. Major examples are from around 69 - 96 CE."
         }
-      ]
+      ],
+      "is_story": "false"
     },
     {
       "id": 11,
@@ -229,7 +239,8 @@
           "title": "Chinese Three Kingdoms Book",
           "description": "A book on the Three Kingdoms Period of Ancient China. Includes small references to the coinage of the period, with a description of designs of Ban Liang in the early years of 300 - 220 BCE."
         }
-      ]
+      ],
+      "is_story": "false"
     },
     {
       "id": 12,
@@ -245,7 +256,8 @@
           "title": "Scroll of Ancient Greek History",
           "description": "This scroll -though weathered- mentions the monetary system of the broader region of Ancient Greece. Mostly describes coins of the period around 450 BCE."
         }
-      ]
+      ],
+      "is_story": "false"
     },
     {
       "id": 13,
@@ -261,7 +273,8 @@
           "title": "Story Note 1",
           "description": "James seems to be adamant about those... \"hallucinations\". I'll have to consider a new way of keeping a record at this point. I'll relay my findings to my collegues."
         }
-      ]
+      ],
+      "is_story": "true"
     }
   ]
 }
