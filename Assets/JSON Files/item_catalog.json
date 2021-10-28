@@ -246,6 +246,22 @@
           "description": "This scroll -though weathered- mentions the monetary system of the broader region of Ancient Greece. Mostly describes coins of the period around 450 BCE."
         }
       ]
+    },
+    {
+      "id": 13,
+      "dev_title": "Initial Story Note",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Story Note 1",
+          "description": "James seems to be adamant about those... \"hallucinations\". I'll have to consider a new way of keeping a record at this point. I'll relay my findings to my collegues."
+        },
+        {
+          "level": 1,
+          "title": "Story Note 1",
+          "description": "James seems to be adamant about those... \"hallucinations\". I'll have to consider a new way of keeping a record at this point. I'll relay my findings to my collegues."
+        }
+      ]
     }
   ]
 }
