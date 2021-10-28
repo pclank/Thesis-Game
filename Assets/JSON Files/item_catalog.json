@@ -267,11 +267,18 @@
           "level": 0,
           "title": "Story Note 1",
           "description": "James seems to be adamant about those... \"hallucinations\". I'll have to consider a new way of keeping a record at this point. I'll relay my findings to my collegues."
-        },
+        }
+      ],
+      "is_story": "true"
+    },
+    {
+      "id": 14,
+      "dev_title": "Story Note 2",
+      "knowledge": [
         {
-          "level": 1,
-          "title": "Story Note 1",
-          "description": "James seems to be adamant about those... \"hallucinations\". I'll have to consider a new way of keeping a record at this point. I'll relay my findings to my collegues."
+          "level": 0,
+          "title": "Story Note 2",
+          "description": "New Information has arisen. Dr. Maxwell has assured me that the patient's visions are more than just hallucinations."
         }
       ],
       "is_story": "true"
