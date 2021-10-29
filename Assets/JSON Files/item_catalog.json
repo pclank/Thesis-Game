@@ -282,6 +282,18 @@
         }
       ],
       "is_story": "true"
+    },
+    {
+      "id": 15,
+      "dev_title": "Story Note 3",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Story Note 3",
+          "description":"My collegues are lost for words. The girl appears to be exhibiting Hyper Activity in multiple parts of the brain. Now, at age 14, she seems capable of changing her surroundings based on her mood. Will conduct more tests."
+        }
+      ],
+      "is_story": "true"
     }
   ]
 }
