@@ -108,13 +108,7 @@ public class Item
     {
         id = item_id;
 
-        is_story = isStory(item_id);                // Set is_story Flag
-        
-        // Set Story Item as Examined to Keep it at Knowledge Level 0
-        if (is_story)
-        {
-            was_examined = true;
-        }
+        is_story = false;                // Initialize is_story Flag
 
         scale = item_scale;
         mesh_filter = mesh_f;
@@ -125,6 +119,18 @@ public class Item
     public bool wasExamined()
     {
         return this.was_examined;
+    }
+
+    // Get is_story Flag
+    public bool getIsStory()
+    {
+        return this.is_story;
+    }
+
+    // Set is_story Flag
+    public void setIsStory(bool flag)
+    {
+        this.is_story = flag;
     }
 
     // Set Examined Flag
@@ -295,6 +301,14 @@ public class main_inventory : MonoBehaviour
     public void buildItem(int item_id, MeshFilter mesh_f, MeshRenderer mesh_r, float item_scale)
     {
         Item new_item = new Item(item_id, mesh_f, mesh_r, item_scale);              // Build Item
+
+        new_item.setIsStory(isStory(item_id));                                      // Set Whether Item is Story Item
+
+        // Set Story Item as Examined to Keep it at Knowledge Level 0
+        if (new_item.getIsStory())
+        {
+            new_item.setExamined(true);
+        }
 
         addItem(new_item);                                                          // Add to Inventory
 
