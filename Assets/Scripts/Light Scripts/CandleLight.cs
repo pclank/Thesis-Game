@@ -27,6 +27,22 @@ public class CandleLight : MonoBehaviour
     [Tooltip("Enable Range FX.")]
     public bool range_enabled = false;
 
+    [Tooltip("Synchronize Intensity with Movement.")]
+    public bool sync = false;
+
+    [Tooltip("Number of Movement Cycles Before Delay.")]
+    public uint cycles = 1;
+
+    [Tooltip("Movement Delay.")]
+    public float movement_delay = 2.0f;
+    [Tooltip("Intensity Delay.")]
+    public float intensity_delay = 2.0f;
+    [Tooltip("Range Delay.")]
+    public float range_delay = 2.0f;
+
+    [Tooltip("Center Position Error.")]
+    public float center_error = 0.01f;
+
     public float max_movement = 1.0f;
     public float movement_speed = 0.1f;
     public float min_intensity = 1.0f;
@@ -43,11 +59,20 @@ public class CandleLight : MonoBehaviour
     private bool intensity_decreasing = true;                           // Whether Intensity is Decreasing
     private bool range_decreasing = true;                               // Whether Range is Decreasing
     private bool position_decreasing = true;                            // Whether Position is Decreasing
+    private bool movement_t_on = false;                                 // Whether Movement Timer is On
+    private bool intensity_t_on = false;                                // Whether Intensity Timer is On
+    private bool range_t_on = false;                                    // Whether Range Timer is On
 
     private float initial_intensity;                                    // Initial Intensity
     private float initial_range;                                        // Initial Range
     private float lower_position;                                       // Lower Position Bound
     private float upper_position;                                       // Upper Position Bound
+
+    private float movement_t = 0.0f;                                    // Movement Timer Value
+    private float intensity_t = 0.0f;                                   // Intensity Timer Value
+    private float range_t = 0.0f;                                       // Range Timer Value
+
+    private uint movement_state = 0;                                    // Used to Count State of Movement Cycle
 
     // Use this for initialization
     void Start()
@@ -75,12 +100,12 @@ public class CandleLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // TODO: Add Delay Functionality
-
         // Process Intensity
-        if (intensity_enabled)
+        if (intensity_enabled && (!intensity_t_on || (intensity_t_on && (Time.time - intensity_t >= intensity_delay))))
         {
             float new_intensity = 0.0f;
+
+            intensity_t_on = false;                                                             // Reset Flag
 
             // Decreasing Intensity
             if (intensity_decreasing)
@@ -110,6 +135,9 @@ public class CandleLight : MonoBehaviour
                     GetComponent<HDAdditionalLightData>().intensity = initial_intensity;
 
                     intensity_decreasing = true;                                                        // Update Direction Flag
+                    intensity_t_on = true;                                                              // Enable Delay
+
+                    intensity_t = Time.time;                                                            // Get Timer Value
                 }
                 else
                 {
@@ -119,9 +147,11 @@ public class CandleLight : MonoBehaviour
         }
 
         // Process Range
-        if (range_enabled)
+        if (range_enabled && (!range_t_on || (range_t_on && (Time.time - range_t >= range_delay))))
         {
             float new_range = 0.0f;
+
+            range_t_on = false;                                                                 // Reset Flag
 
             // Decreasing Range
             if (range_decreasing)
@@ -151,6 +181,9 @@ public class CandleLight : MonoBehaviour
                     GetComponent<HDAdditionalLightData>().range = initial_range;                        // Update Range
 
                     range_decreasing = true;                                                            // Update Direction Flag
+                    range_t_on = true;                                                                  // Enable Delay
+
+                    range_t = Time.time;                                                                // Get Timer Value
                 }
                 else
                 {
@@ -160,8 +193,16 @@ public class CandleLight : MonoBehaviour
         }
 
         // Process Movement
-        if (movement_enabled)
+        if (movement_enabled && (!movement_t_on || (movement_t_on && (Time.time - movement_t >= movement_delay))))
         {
+            movement_t_on = false;                                                              // Reset Flag
+
+            // Check for Intensity - Movement Synchronization Mode
+            if (sync)
+            {
+                GetComponent<HDAdditionalLightData>().intensity = min_intensity;
+            }
+
             // Process X-Axis
             if (x_enabled)
             {
@@ -172,10 +213,29 @@ public class CandleLight : MonoBehaviour
                 {
                     new_position = transform.position.x - movement_speed;
 
+                    // Center Case
+                    if (movement_state == (cycles * 2) && new_position <= (initial_position.x + center_error))
+                    {
+                        transform.position = initial_position;                                                          // Update Position
+
+                        // Check for Intensity - Movement Synchronization Mode
+                        if (sync)
+                        {
+                            GetComponent<HDAdditionalLightData>().intensity = initial_intensity;
+                        }
+
+                        movement_state = 0;                                                                             // Reset State
+
+                        movement_t_on = true;                                                                           // Enable Delay
+
+                        movement_t = Time.time;                                                                         // Get Timer Value
+                    }
                     // Edge Case
-                    if (new_position <= lower_position)
+                    else if (new_position <= lower_position)
                     {
                         transform.position = new Vector3(lower_position, transform.position.y, transform.position.z);   // Update Position
+
+                        movement_state++;                                                                               // Update State
 
                         position_decreasing = false;                                                                    // Update Direction Flag
                     }
@@ -193,6 +253,8 @@ public class CandleLight : MonoBehaviour
                     if (new_position >= upper_position)
                     {
                         transform.position = new Vector3(upper_position, transform.position.y, transform.position.z);   // Update Position
+
+                        movement_state++;                                                                               // Update State
 
                         position_decreasing = true;                                                                     // Update Direction Flag
                     }
@@ -213,10 +275,23 @@ public class CandleLight : MonoBehaviour
                 {
                     new_position = transform.position.z - movement_speed;
 
+                    // Center Case
+                    if (movement_state == (cycles * 2) && new_position <= (initial_position.z + center_error))
+                    {
+                        transform.position = initial_position;                                                          // Update Position
+
+                        movement_state = 0;                                                                             // Reset State
+
+                        movement_t_on = true;                                                                           // Enable Delay
+
+                        movement_t = Time.time;                                                                         // Get Timer Value
+                    }
                     // Edge Case
-                    if (new_position <= lower_position)
+                    else if (new_position <= lower_position)
                     {
                         transform.position = new Vector3(transform.position.x, transform.position.y, lower_position);   // Update Position
+
+                        movement_state++;                                                                               // Update State
 
                         position_decreasing = false;                                                                    // Update Direction Flag
                     }
@@ -234,6 +309,8 @@ public class CandleLight : MonoBehaviour
                     if (new_position >= upper_position)
                     {
                         transform.position = new Vector3(transform.position.x, transform.position.y, upper_position);   // Update Position
+
+                        movement_state++;                                                                               // Update State
 
                         position_decreasing = true;                                                                     // Update Direction Flag
                     }
