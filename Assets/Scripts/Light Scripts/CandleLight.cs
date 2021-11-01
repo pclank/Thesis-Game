@@ -12,6 +12,9 @@ public class CandleLight : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
+    [Tooltip("Flame GameObject.")]
+    public GameObject flame_object;
+
     [Tooltip("Enable Movement FX.")]
     public bool movement_enabled = true;
 
@@ -54,6 +57,8 @@ public class CandleLight : MonoBehaviour
     // Private Variables
     // ************************************************************************************
 
+    private Material new_flame;                                         // New Material for Flame
+
     private Vector3 initial_position;                                   // Initial Worldspace Position
 
     private bool intensity_decreasing = true;                           // Whether Intensity is Decreasing
@@ -62,6 +67,7 @@ public class CandleLight : MonoBehaviour
     private bool movement_t_on = false;                                 // Whether Movement Timer is On
     private bool intensity_t_on = false;                                // Whether Intensity Timer is On
     private bool range_t_on = false;                                    // Whether Range Timer is On
+    private bool sync_done = false;                                     // Whether Synchronized Intensity Processing was Performed in Previous Frame
 
     private float initial_intensity;                                    // Initial Intensity
     private float initial_range;                                        // Initial Range
@@ -73,6 +79,17 @@ public class CandleLight : MonoBehaviour
     private float range_t = 0.0f;                                       // Range Timer Value
 
     private uint movement_state = 0;                                    // Used to Count State of Movement Cycle
+
+    // ************************************************************************************
+    // Member Functions
+    // ************************************************************************************
+
+    // Change Flame Transparency
+    private void changeFlameTransparency(float new_alpha)
+    {
+        new_flame = flame_object.GetComponent<MeshRenderer>().material;
+        new_flame.color = new Color(new_flame.color.r, new_flame.color.g, new_flame.color.b, new_alpha);
+    }
 
     // Use this for initialization
     void Start()
@@ -198,9 +215,12 @@ public class CandleLight : MonoBehaviour
             movement_t_on = false;                                                              // Reset Flag
 
             // Check for Intensity - Movement Synchronization Mode
-            if (sync)
+            if (sync && !sync_done)
             {
+                changeFlameTransparency(0.2f);
                 GetComponent<HDAdditionalLightData>().intensity = min_intensity;
+
+                sync_done = true;
             }
 
             // Process X-Axis
@@ -221,7 +241,10 @@ public class CandleLight : MonoBehaviour
                         // Check for Intensity - Movement Synchronization Mode
                         if (sync)
                         {
+                            changeFlameTransparency(1.0f);
                             GetComponent<HDAdditionalLightData>().intensity = initial_intensity;
+
+                            sync_done = false;
                         }
 
                         movement_state = 0;                                                                             // Reset State
