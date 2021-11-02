@@ -21,6 +21,9 @@ public class CandleLight : MonoBehaviour
     [Tooltip("Enable Movement FX.")]
     public bool movement_enabled = true;
 
+    [Tooltip("Enable Randomness in FX Speed.")]
+    public bool fx_randomness_on = true;
+
     [Tooltip("Enable Movement on X-Axis.")]
     public bool x_enabled = false;
 
@@ -125,6 +128,14 @@ public class CandleLight : MonoBehaviour
             movement_t_on = true;
 
             random_delayed_start = Random.value * 10.0f;            // Extend Value
+        }
+
+        // Set Randomness in FX Speeds
+        if (fx_randomness_on)
+        {
+            movement_speed = movement_speed * Random.value;
+            intensity_speed = intensity_speed * Random.value;
+            range_speed = range_speed * Random.value;
         }
     }
 
