@@ -15,6 +15,9 @@ public class CandleLight : MonoBehaviour
     [Tooltip("Flame GameObject.")]
     public GameObject flame_object;
 
+    [Tooltip("Enable Random Startup Delay.")]
+    public bool rand_delay_on = true;
+
     [Tooltip("Enable Movement FX.")]
     public bool movement_enabled = true;
 
@@ -78,6 +81,8 @@ public class CandleLight : MonoBehaviour
     private float intensity_t = 0.0f;                                   // Intensity Timer Value
     private float range_t = 0.0f;                                       // Range Timer Value
 
+    private float random_delayed_start;                                 // Random Delayed Start
+
     private uint movement_state = 0;                                    // Used to Count State of Movement Cycle
 
     // ************************************************************************************
@@ -111,6 +116,15 @@ public class CandleLight : MonoBehaviour
         {
             lower_position = initial_position.z - max_movement;
             upper_position = initial_position.z + max_movement;
+        }
+
+        // Setup Startup Delay Parameters
+        if (rand_delay_on)
+        {
+            movement_t = Time.time;
+            movement_t_on = true;
+
+            random_delayed_start = Random.value * 10.0f;            // Extend Value
         }
     }
 
@@ -210,8 +224,14 @@ public class CandleLight : MonoBehaviour
         }
 
         // Process Movement
-        if (movement_enabled && (!movement_t_on || (movement_t_on && (Time.time - movement_t >= movement_delay))))
+        if (movement_enabled && (!movement_t_on || (movement_t_on && (Time.time - movement_t >= movement_delay)) || (rand_delay_on && (Time.time - movement_t >= random_delayed_start))))
         {
+            // Disable Startup Delay on First Run
+            if (rand_delay_on)
+            {
+                rand_delay_on = false;
+            }
+
             movement_t_on = false;                                                              // Reset Flag
 
             // Check for Intensity - Movement Synchronization Mode
