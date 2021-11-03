@@ -26,12 +26,26 @@ public class PlayerPositionTool : ScriptableObject
     [MenuItem("Tools/Player Position Tool/Set Player at Coin Puzzle")]
     static void setAtCoinPuzzle()
     {
-        Vector3 target_position = new Vector3(-61.38f, 9.302f, 14.675f);                            // Game Target Position
+        Vector3 target_position = new Vector3(-61.38f, 9.302f, 14.675f);                            // Target Position
 
         GameObject player_object = GameObject.FindWithTag("Player");                                // Get Player GameObject
 
         player_object.transform.position = target_position;                                         // Transform Player
 
         EditorUtility.DisplayDialog("Player Position Tool", "Player Set at Coin Puzzle!", "OK", "");    // Display Result
-    }    
+    }
+
+    // Add Third Menu Option
+
+    [MenuItem("Tools/Player Position Tool/Set Player at Modular Corridor")]
+    static void setAtCorridor()
+    {
+        Vector3 target_position = new Vector3(-71.75f, 9.302f, 19.6f);                              // Target Position
+
+        GameObject player_object = GameObject.FindWithTag("Player");                                // Get Player GameObject
+
+        player_object.transform.position = target_position;                                         // Transform Player
+
+        EditorUtility.DisplayDialog("Player Position Tool", "Player Set at Modular Corridor!", "OK", "");   // Display Result
+    }
 }
