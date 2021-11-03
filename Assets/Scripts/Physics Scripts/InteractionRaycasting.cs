@@ -62,6 +62,10 @@ public class InteractionRaycasting : MonoBehaviour
                 hit_gameobject.GetComponent<Keypad>().ray_keypad = false;
                 hit_gameobject.GetComponent<Keypad>().ray_trig = false;
             }
+            else if (hit_gameobject.CompareTag("TriggerWall"))
+            {
+                hit_gameobject.GetComponentInParent<ModularCorridor>().setRayTrigger(false);
+            }
         }
         else if (!gameObject.CompareTag("MainCamera") && hit_gameobject.CompareTag("KeypadButton"))
         {
@@ -157,6 +161,14 @@ public class InteractionRaycasting : MonoBehaviour
                 hit_gameobject.GetComponentInParent<Keypad>().ray_trig = true;
 
                 hit_gameobject.GetComponentInParent<Keypad>().setKeyPressed(hit_gameobject.GetComponent<KeypadButton>().key_id);
+            }
+            else if (hit.transform.gameObject.CompareTag("TriggerWall"))
+            {
+                hit_flag = true;
+
+                hit_gameobject = hit.transform.gameObject;
+
+                hit_gameobject.GetComponentInParent<ModularCorridor>().setRayTrigger(true);
             }
 
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
