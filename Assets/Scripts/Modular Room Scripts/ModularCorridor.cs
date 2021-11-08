@@ -134,5 +134,15 @@ public class ModularCorridor : MonoBehaviour
             new_position.x -= (trigger_distance * 2);
             end_trigger_object.transform.position = new_position;
         }
+
+        // Make Endwall Follow Player
+        if (state == 1)
+        {
+            Vector3 wall_position = end_wall_object.transform.position;                 // Set to Initial Position
+
+            wall_position.x = player_object.transform.position.x - end_wall_distance;   // Set Further from Player
+
+            end_wall_object.transform.position = wall_position;                         // Set Position
+        }
     }
 }
