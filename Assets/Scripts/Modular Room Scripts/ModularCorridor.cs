@@ -20,6 +20,9 @@ public class ModularCorridor : MonoBehaviour
     [Tooltip("Puzzle GameObjects.")]
     public GameObject puzzle_objects;
 
+    public GameObject right_lights;                             // Right Lights GameObject
+    public GameObject left_lights;                              // Left Lights GameObject
+
     [Tooltip("Puzzle Initial Position.")]
     public Vector3 puzzle_gb_initial_position;
 
@@ -90,6 +93,11 @@ public class ModularCorridor : MonoBehaviour
     // Spawn Puzzle GameObjects
     private void spawnPuzzle()
     {
+        // Destroy Candle Lights
+
+        Destroy(right_lights);
+        Destroy(left_lights);
+
         GameObject gb = Instantiate(puzzle_objects);                    // Instantiate Puzzle Objects
 
         gb.transform.position = new Vector3 (player_object.transform.position.x - (end_wall_distance / 2), puzzle_gb_initial_position.y, puzzle_gb_initial_position.z);             // Set Position
