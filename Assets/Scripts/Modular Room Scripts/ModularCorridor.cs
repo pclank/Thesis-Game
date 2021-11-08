@@ -17,6 +17,12 @@ public class ModularCorridor : MonoBehaviour
     public GameObject door_trigger_object;                      // Door Trigger GameObject
     public GameObject end_trigger_object;                       // End Trigger GameObject
 
+    [Tooltip("Puzzle GameObjects.")]
+    public GameObject puzzle_objects;
+
+    [Tooltip("Puzzle Initial Position.")]
+    public Vector3 puzzle_gb_initial_position;
+
     [Tooltip("Minimun Distance Player Must Traverse into Corridor.")]
     public float player_min_distance = 1.0f;
 
@@ -81,6 +87,14 @@ public class ModularCorridor : MonoBehaviour
         state++;                                                                    // Increment State
     }
 
+    // Spawn Puzzle GameObjects
+    private void spawnPuzzle()
+    {
+        GameObject gb = Instantiate(puzzle_objects);                    // Instantiate Puzzle Objects
+
+        gb.transform.position = new Vector3 (player_object.transform.position.x - (end_wall_distance / 2), puzzle_gb_initial_position.y, puzzle_gb_initial_position.z);             // Set Position
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -105,9 +119,11 @@ public class ModularCorridor : MonoBehaviour
                 door_trigger_object.SetActive(true);
             }
         }
-        // Check State to Destroy Control Script
+        // Check State to Spawn Puzzle GameObjects and Destroy Control Script
         else if (state == 2)
         {
+            spawnPuzzle();
+
             Destroy(this);
         }
         // Check if Player is Triggering a Wall
