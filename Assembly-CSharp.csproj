@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Physics Scripts\InteractionRaycasting.cs" />
     <Compile Include="Assets\Scripts\Puzzle Scripts\Keypad.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\modular_volume.cs" />
+    <Compile Include="Assets\Scripts\Modular Room Scripts\ModularCorridor.cs" />
     <Compile Include="Assets\Scripts\Shader-Material Scripts\OverlayBreathing.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\disable_on_start.cs" />
     <Compile Include="Assets\Scripts\Light Scripts\CandleLight.cs" />
@@ -114,19 +115,21 @@
     <Compile Include="Assets\Scripts\UI Scripts\ui_click_detector.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\DynamicMusic.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\Modular Room Scripts\ModularCorridor.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
      <None Include="Assets\Allegorithmic\Plugins\Substance.Engine.dll" />
      <None Include="Assets\Allegorithmic\Plugins\EULA.txt" />
      <None Include="Assets\UnityHDRI\TreasureIsland\Info.txt" />
+     <None Include="Assets\StreamingAssets\desc.txt" />
      <None Include="Assets\UnityHDRI\MuirWood\Info.txt" />
+     <None Include="Assets\WwiseSettings.xml" />
      <None Include="Assets\Allegorithmic\Plugins\Substance.Game.dll" />
      <None Include="Assets\Allegorithmic\Plugins\substance_sse2_blend.dll" />
      <None Include="Assets\Allegorithmic\Plugins\engine_build_info.txt" />
      <None Include="Assets\UnityHDRI\KirbyCove\Info.txt" />
      <None Include="Assets\UnityHDRI\Gareoult\Info.txt" />
+     <None Include="Assets\Wwise\Version.txt" />
      <None Include="Assets\UnityHDRI\Trinitatis Church\Info.txt" />
     <Reference Include="UnityEngine">
       <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -731,11 +734,11 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIElementsInputSystemModule">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UIElementsInputSystemModule.dll</HintPath>
@@ -778,6 +781,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="AK.Wwise.Unity.MonoBehaviour.Editor.csproj">
+      <Project>{57D502C9-D3C6-6374-664F-D347135F849F}</Project>
+      <Name>AK.Wwise.Unity.MonoBehaviour.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="AK.Wwise.Unity.MonoBehaviour.csproj">
+      <Project>{4B5E18C1-A01E-37B9-1C01-8ACE372EC1F8}</Project>
+      <Name>AK.Wwise.Unity.MonoBehaviour</Name>
+    </ProjectReference>
+    <ProjectReference Include="AK.Wwise.Unity.API.WwiseTypes.csproj">
+      <Project>{51FC8B07-F516-6569-1917-35CAB84AA5ED}</Project>
+      <Name>AK.Wwise.Unity.API.WwiseTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="Substance.EditorHelper.csproj">
       <Project>{AB49E210-982A-F714-13DD-1A2BA2F10BBF}</Project>
       <Name>Substance.EditorHelper</Name>
@@ -786,13 +801,33 @@
       <Project>{5201C92C-487A-29FD-9C74-7D8DEF3B5E2A}</Project>
       <Name>TexturePacker.Runtime</Name>
     </ProjectReference>
+    <ProjectReference Include="AK.Wwise.Unity.API.Editor.csproj">
+      <Project>{AA4EAA3C-A09A-5C34-6482-BE97E5E60105}</Project>
+      <Name>AK.Wwise.Unity.API.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="AK.Wwise.Unity.Timeline.csproj">
+      <Project>{6DB50198-76AA-7C5F-970A-CD492E35C879}</Project>
+      <Name>AK.Wwise.Unity.Timeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="Ak.Wwise.Api.WAAPI.csproj">
+      <Project>{CBC82703-1723-01F2-95C4-59D3EAF6536F}</Project>
+      <Name>Ak.Wwise.Api.WAAPI</Name>
+    </ProjectReference>
     <ProjectReference Include="Substance.Platform.csproj">
       <Project>{A75FE409-09A2-2C43-88C3-DCA35A5337F8}</Project>
       <Name>Substance.Platform</Name>
     </ProjectReference>
+    <ProjectReference Include="AK.Wwise.Unity.Timeline.Editor.csproj">
+      <Project>{D36C4163-3827-3678-8083-E7D37A34E07D}</Project>
+      <Name>AK.Wwise.Unity.Timeline.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="TexturePacker.Editor.csproj">
       <Project>{BA119C58-F229-3A8F-C012-1342BDF6ED7F}</Project>
       <Name>TexturePacker.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="AK.Wwise.Unity.API.csproj">
+      <Project>{4DFD94BF-5B0B-A04F-CD68-F22617A32785}</Project>
+      <Name>AK.Wwise.Unity.API</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

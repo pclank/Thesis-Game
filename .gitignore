@@ -367,3 +367,20 @@ healthchecksdb
 /Assets/Sounds/Looping Sound FX
 /Assets/Samples/Shader Graph/10.3.2/My Shaders
 /Assets/Samples/Shader Graph/10.3.2/Procedural Patterns
+/Assets/StreamingAssets
+/Assets/Wwise
+/New Unity Project_WwiseProject
+/Ak.Wwise.Api.WAAPI.csproj
+/AK.Wwise.Unity.API.csproj
+/AK.Wwise.Unity.API.Editor.csproj
+/AK.Wwise.Unity.API.WwiseTypes.csproj
+/AK.Wwise.Unity.MonoBehaviour.csproj
+/AK.Wwise.Unity.MonoBehaviour.Editor.csproj
+/AK.Wwise.Unity.Timeline.Editor.csproj
+/AK.Wwise.Unity.Timeline.csproj
+/logRunSetup.txt
+/WwiseUnityIntegration_iOS_Src.zip
+/WwiseUnityIntegration_tvOS_Src.zip
+/WwiseUnityIntegration_Mac_Src.zip
+/WwiseUnityIntegration_Windows_Src.zip
+/WwiseUnityIntegration_WindowsStore_Src.zip
