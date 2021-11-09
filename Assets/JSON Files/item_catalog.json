@@ -294,7 +294,7 @@
         }
       ],
       "is_story": "true"
-    }
+    },
     {
       "id": 16,
       "dev_title": "Power Box Key",
@@ -332,7 +332,7 @@
           "description": "An old cassette tape. It reads \"Interesting Refractions\" on the cover. Can be used in a cassette player."
         }
       ],
-      "is_story": "true"
+      "is_story": "false"
     }
   ]
 }
