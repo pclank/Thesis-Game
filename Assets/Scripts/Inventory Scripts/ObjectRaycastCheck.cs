@@ -14,6 +14,9 @@ public class ObjectRaycastCheck : MonoBehaviour
     // Interaction Icon GameObject Variable
     public GameObject icon_object;
 
+    [Tooltip("Automatically Assign UI References.")]
+    public bool auto_ui = false;
+
     // Camera Pointing to Trigger Flag
     public bool ray_trig = false;
 
@@ -52,12 +55,19 @@ public class ObjectRaycastCheck : MonoBehaviour
         camera_object = GameObject.FindWithTag("MainCamera");
 
         // Get Icon GameObject
-        if (icon_object == null)
+        if (!auto_ui && icon_object == null)
         {
-            icon_object = GameObject.Find("Pick Up - Text");
+            icon_object = GameObject.FindWithTag("PickupUI");
         }
 
-        icon_object.SetActive(false);
+        if (auto_ui)
+        {
+            player_object.GetComponent<AuxiliaryUI>().controlUI(false);
+        }
+        else
+        {
+            icon_object.SetActive(false);
+        }
 
         // Check if Player wasn't Found
         if (player_object == null)
@@ -76,7 +86,7 @@ public class ObjectRaycastCheck : MonoBehaviour
         }
 
         // Check if Icon wasn't Found
-        if (icon_object == null)
+        if (!auto_ui && icon_object == null)
         {
             Debug.Log("No Icon Object Found!");
 
@@ -113,7 +123,14 @@ public class ObjectRaycastCheck : MonoBehaviour
             counter_on = true;
             counter_value = Time.time;
 
-            icon_object.SetActive(true);
+            if (auto_ui)
+            {
+                player_object.GetComponent<AuxiliaryUI>().controlUI(true);
+            }
+            else
+            {
+                icon_object.SetActive(true);
+            }
         }
 
         // Reset in the Next Frame
@@ -131,7 +148,14 @@ public class ObjectRaycastCheck : MonoBehaviour
             if (ray_trig && was_clicked)
             {
                 // Disable UI Icon
-                icon_object.SetActive(false);
+                if (auto_ui)
+                {
+                    player_object.GetComponent<AuxiliaryUI>().controlUI(false);
+                }
+                else
+                {
+                    icon_object.SetActive(false);
+                }
 
                 // Build Item in Inventory
                 player_object.GetComponent<main_inventory>().buildItem(item_id, mesh_f, mesh_r, item_scale);
@@ -146,7 +170,14 @@ public class ObjectRaycastCheck : MonoBehaviour
 
         if (counter_on && Time.time - counter_value >= delay)
         {
-            icon_object.SetActive(false);
+            if (auto_ui)
+            {
+                player_object.GetComponent<AuxiliaryUI>().controlUI(false);
+            }
+            else
+            {
+                icon_object.SetActive(false);
+            }
 
             counter_on = false;
         }
