@@ -118,6 +118,7 @@
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\AuxiliaryUI.cs" />
     <Compile Include="Assets\Scripts\Light Scripts\LanternFX.cs" />
+    <Compile Include="Assets\Scripts\Puzzle Scripts\CassettePlayer.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
