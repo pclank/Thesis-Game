@@ -282,6 +282,57 @@
         }
       ],
       "is_story": "true"
+    },
+    {
+      "id": 15,
+      "dev_title": "Story Note 3",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Story Note 3",
+          "description":"My collegues are lost for words. The girl appears to be exhibiting Hyper Activity in multiple parts of the brain. Now, at age 14, she seems capable of changing her surroundings based on her mood. Will conduct more tests."
+        }
+      ],
+      "is_story": "true"
+    }
+    {
+      "id": 16,
+      "dev_title": "Power Box Key",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Weird Key",
+          "description": "Some sort of weirdly shaped key."
+        },
+        {
+          "level": 1,
+          "title": "Weirdly Shaped Key",
+          "description": "A Circular Key. There's a Keychain depicting a power symbol on it."
+        }
+      ],
+      "is_story": "false"
+    },
+    {
+      "id": 17,
+      "dev_title": "Cassette Tape - Refraction",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Cassette Tape",
+          "description": "An old cassette tape."
+        },
+        {
+          "level": 1,
+          "title": "Cassette Tape",
+          "description": "An old cassette tape. It reads \"Interesting Refractions\" on the cover."
+        },
+        {
+          "level": 2,
+          "title": "Cassette Tape",
+          "description": "An old cassette tape. It reads \"Interesting Refractions\" on the cover. Can be used in a cassette player."
+        }
+      ],
+      "is_story": "true"
     }
   ]
 }
