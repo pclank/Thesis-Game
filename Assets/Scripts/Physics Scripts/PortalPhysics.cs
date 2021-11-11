@@ -9,6 +9,9 @@ public class PortalPhysics : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
+    [Tooltip("Portal SFX Wwise Event.")]
+    public AK.Wwise.Event portal_sfx;
+
     [Tooltip("Target Portal for Teleportation.")]
     public GameObject target_portal;    // Target Portal for Teleport
 
@@ -56,7 +59,8 @@ public class PortalPhysics : MonoBehaviour
     // Activate Portal
     public void activatePortal()
     {
-        GetComponent<AudioSource>().Play();
+        //GetComponent<AudioSource>().Play();
+        portal_sfx.Post(gameObject);
 
         active = true;
     }

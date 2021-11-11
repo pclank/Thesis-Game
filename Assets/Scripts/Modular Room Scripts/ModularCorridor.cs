@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 
@@ -23,6 +24,8 @@ public class ModularCorridor : MonoBehaviour
     public GameObject right_lights;                             // Right Lights GameObject
     public GameObject left_lights;                              // Left Lights GameObject
 
+    public GameObject fx_ui;
+
     [Tooltip("Puzzle Initial Position.")]
     public Vector3 puzzle_gb_initial_position;
 
@@ -46,6 +49,8 @@ public class ModularCorridor : MonoBehaviour
 
     private bool ray_trig = false;                              // Raycast Hit Flag
     private bool passed_min_distance = false;                   // Whether Player Has Passed Minimun Distance
+    private bool reverse = false;                               // Reverse Image Fading
+    private bool fx_active = false;                             // Whether Puzzle Spawn FX is Active
 
     private uint state = 0;                                     // Current State of System
 
@@ -127,11 +132,16 @@ public class ModularCorridor : MonoBehaviour
                 door_trigger_object.SetActive(true);
             }
         }
-        // Check State to Spawn Puzzle GameObjects and Destroy Control Script
-        else if (passed_min_distance && state == 2)
+        // Check State to Activate Spawn FX
+        else if (passed_min_distance && state == 2 && !fx_active)
         {
-            spawnPuzzle();
+            fx_ui.SetActive(true);
 
+            fx_active = true;
+        }
+        // Check State to Destroy Control Script
+        else if (passed_min_distance && state == 3)
+        {
             Destroy(this);
         }
         // Check if Player is Triggering a Wall
@@ -167,6 +177,54 @@ public class ModularCorridor : MonoBehaviour
             wall_position.x = player_object.transform.position.x - end_wall_distance;   // Set Further from Player
 
             end_wall_object.transform.position = wall_position;                         // Set Position
+        }
+    }
+
+    // Once per frame
+    void Update()
+    {
+        // Process FX
+        if (fx_active && !reverse)
+        {
+            if (fx_ui.GetComponent<Image>().color.a < 1.0f)
+            {
+                float temp_alpha = fx_ui.GetComponent<Image>().color.a + 0.1f;
+
+                if (temp_alpha > 1.0f)
+                {
+                    temp_alpha = 1.0f;
+
+                    spawnPuzzle();          // Spawn Puzzle
+
+                    reverse = true;         // Set for Reversal
+                }
+
+                fx_ui.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, temp_alpha);
+            }
+        }
+        else if (fx_active && reverse)
+        {
+            if (fx_ui.GetComponent<Image>().color.a > 0.0f)
+            {
+                float temp_alpha = fx_ui.GetComponent<Image>().color.a - 0.1f;
+
+                if (temp_alpha < 0.0f)
+                {
+                    temp_alpha = 0.0f;
+
+                    reverse = false;        // Set for Reversal
+                    fx_active = false;
+
+                    state++;
+                }
+
+                fx_ui.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, temp_alpha);
+
+                if (!reverse)
+                {
+                    fx_ui.SetActive(false); // Disable UI Element
+                }
+            }
         }
     }
 }
