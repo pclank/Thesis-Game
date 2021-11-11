@@ -66,6 +66,10 @@ public class InteractionRaycasting : MonoBehaviour
             {
                 hit_gameobject.GetComponentInParent<ModularCorridor>().setRayTrigger(false);
             }
+            else if (hit_gameobject.CompareTag("CassettePlayer"))
+            {
+                hit_gameobject.GetComponent<CassettePlayer>().setRaycast(false);
+            }
         }
         else if (!gameObject.CompareTag("MainCamera") && hit_gameobject.CompareTag("KeypadButton"))
         {
@@ -169,6 +173,14 @@ public class InteractionRaycasting : MonoBehaviour
                 hit_gameobject = hit.transform.gameObject;
 
                 hit_gameobject.GetComponentInParent<ModularCorridor>().setRayTrigger(true);
+            }
+            else if (hit.transform.gameObject.CompareTag("CassettePlayer"))
+            {
+                hit_flag = true;
+
+                hit_gameobject = hit.transform.gameObject;
+
+                hit_gameobject.GetComponent<CassettePlayer>().setRaycast(true);
             }
 
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);

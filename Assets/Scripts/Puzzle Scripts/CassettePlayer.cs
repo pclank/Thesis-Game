@@ -11,13 +11,8 @@ public class CassettePlayer : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
-    // TODO: Add Wwise Object for Tape Audio Clip
-
-    [Tooltip("Play Tape UI GameObject.")]
-    public GameObject play_ui;
-
-    [Tooltip("\"No Tape Placed\" UI GameObject.")]
-    public GameObject no_tape_ui;
+    [Tooltip("Wwise Event to Trigger.")]
+    public AK.Wwise.Event play_event;
 
     [Tooltip("Timer Delay for UI Messages.")]
     public float delay = 2.0f;
@@ -30,6 +25,7 @@ public class CassettePlayer : MonoBehaviour
     // ************************************************************************************
 
     private bool tape_in = false;                                                   // Whether a Tape is Placed in Player
+    private bool tape_playing = false;                                              // Whether a Tape is Playing
     private bool ray_trig = false;                                                  // Raycast Trigger Flag
     private bool timer_on = false;                                                  // Timer On Flag
 
@@ -40,11 +36,15 @@ public class CassettePlayer : MonoBehaviour
     // ************************************************************************************
 
     // Call Externally, and Place Tape in Player
-    public bool placeInPlayer()
+    public bool placeInPlayer(Item item)
     {
-        if (!tape_in)
+        if (!tape_in && item.getID() == item_id)
         {
             tape_in = true;
+
+            ray_trig = false;
+
+            GameObject.FindWithTag("Player").GetComponent<AuxiliaryUI>().controlUI(1, false);
 
             return true;
         }
@@ -58,6 +58,17 @@ public class CassettePlayer : MonoBehaviour
     public void setRaycast(bool flag)
     {
         ray_trig = flag;
+
+        if (!tape_playing)
+        {
+            GameObject.FindWithTag("Player").GetComponent<AuxiliaryUI>().controlUI(1, flag);
+        }
+    }
+
+    // Get Raycast Trigger Flag
+    public bool getRaycast()
+    {
+        return ray_trig;
     }
 
     // Play Tape Audio Clip
@@ -66,11 +77,13 @@ public class CassettePlayer : MonoBehaviour
         // Check Whether a Tape is Placed
         if (tape_in)
         {
-            // TODO: Play Wwise Audio
+            play_event.Post(gameObject);
+
+            tape_playing = true;
         }
         else
         {
-            no_tape_ui.SetActive(true);
+            GameObject.FindWithTag("Player").GetComponent<AuxiliaryUI>().controlUI(2, true);
 
             timer_value = Time.time;
             timer_on = true;
@@ -80,7 +93,7 @@ public class CassettePlayer : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -89,9 +102,15 @@ public class CassettePlayer : MonoBehaviour
         // Timer Section
         if (timer_on && (Time.time - timer_value >= delay))
         {
-            no_tape_ui.SetActive(false);
+            GameObject.FindWithTag("Player").GetComponent<AuxiliaryUI>().controlUI(2, false);
 
             timer_on = false;
+        }
+
+        // Click Section
+        if (ray_trig && Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            playTape();
         }
     }
 }

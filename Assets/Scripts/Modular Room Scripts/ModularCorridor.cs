@@ -128,7 +128,7 @@ public class ModularCorridor : MonoBehaviour
             }
         }
         // Check State to Spawn Puzzle GameObjects and Destroy Control Script
-        else if (state == 2)
+        else if (passed_min_distance && state == 2)
         {
             spawnPuzzle();
 
@@ -160,7 +160,7 @@ public class ModularCorridor : MonoBehaviour
         }
 
         // Make Endwall Follow Player
-        if (state == 1)
+        if (passed_min_distance && state == 1)
         {
             Vector3 wall_position = end_wall_object.transform.position;                 // Set to Initial Position
 

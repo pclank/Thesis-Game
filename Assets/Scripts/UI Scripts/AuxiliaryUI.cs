@@ -7,10 +7,10 @@ using System.Collections;
 
 public class AuxiliaryUI : MonoBehaviour
 {
-    public GameObject ui_object;
+    public GameObject[] ui_objects;
 
-    public void controlUI(bool flag)
+    public void controlUI(int index, bool flag)
     {
-        ui_object.SetActive(flag);
+        ui_objects[index].SetActive(flag);
     }
 }

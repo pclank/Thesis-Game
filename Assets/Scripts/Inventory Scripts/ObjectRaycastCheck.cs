@@ -14,8 +14,13 @@ public class ObjectRaycastCheck : MonoBehaviour
     // Interaction Icon GameObject Variable
     public GameObject icon_object;
 
+    [Header("Auxiliary UI Control Section")]
+
     [Tooltip("Automatically Assign UI References.")]
     public bool auto_ui = false;
+
+    [Tooltip("UI Element Index.")]
+    public int ui_index = 0;
 
     // Camera Pointing to Trigger Flag
     public bool ray_trig = false;
@@ -62,7 +67,7 @@ public class ObjectRaycastCheck : MonoBehaviour
 
         if (auto_ui)
         {
-            player_object.GetComponent<AuxiliaryUI>().controlUI(false);
+            player_object.GetComponent<AuxiliaryUI>().controlUI(ui_index, false);
         }
         else
         {
@@ -125,7 +130,7 @@ public class ObjectRaycastCheck : MonoBehaviour
 
             if (auto_ui)
             {
-                player_object.GetComponent<AuxiliaryUI>().controlUI(true);
+                player_object.GetComponent<AuxiliaryUI>().controlUI(ui_index, true);
             }
             else
             {
@@ -150,7 +155,7 @@ public class ObjectRaycastCheck : MonoBehaviour
                 // Disable UI Icon
                 if (auto_ui)
                 {
-                    player_object.GetComponent<AuxiliaryUI>().controlUI(false);
+                    player_object.GetComponent<AuxiliaryUI>().controlUI(ui_index, false);
                 }
                 else
                 {
@@ -172,7 +177,7 @@ public class ObjectRaycastCheck : MonoBehaviour
         {
             if (auto_ui)
             {
-                player_object.GetComponent<AuxiliaryUI>().controlUI(false);
+                player_object.GetComponent<AuxiliaryUI>().controlUI(ui_index, false);
             }
             else
             {

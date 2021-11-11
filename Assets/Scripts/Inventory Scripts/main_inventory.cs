@@ -682,6 +682,23 @@ public class main_inventory : MonoBehaviour
                 invalid_ui.SetActive(true);         // Enable Element
             }
         }
+        // Check Pointing at Cassette Player
+        else if (GameObject.FindWithTag("CassettePlayer").GetComponent<CassettePlayer>().getRaycast())
+        {
+            bool validation = GameObject.FindWithTag("CassettePlayer").GetComponent<CassettePlayer>().placeInPlayer(item_used);     // Place Cassette in Tape
+
+            // If Validation is True
+            if (validation)
+            {
+                closeInventory();                   // Close Inventory
+
+                removeItem(item_used);              // Remove Item from Inventory
+            }
+            else
+            {
+                invalid_ui.SetActive(true);         // Enable Element
+            }
+        }
     }
 
     // ************************************************************************************
