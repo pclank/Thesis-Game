@@ -95,6 +95,7 @@ public class Item
     private bool is_story;                          // Whether Item is a Story Item
 
     private float scale;                            // Holds Item Scale
+    private float pickup_time;                      // Time Item was Picked Up. Changes for every Knowledge Increase
 
     private MeshFilter mesh_filter;                 // Holds Mesh of Item
     private MeshRenderer mesh_renderer;             // Holds Material of Item
@@ -113,6 +114,18 @@ public class Item
         scale = item_scale;
         mesh_filter = mesh_f;
         mesh_renderer = mesh_r;
+    }
+
+    // Get Pickup Time
+    public float getPickupTime()
+    {
+        return this.pickup_time;
+    }
+
+    // Update Pickup Time
+    public void updatePickupTime()
+    {
+        this.pickup_time = Time.time;
     }
 
     // Get Examined Flag
@@ -156,6 +169,8 @@ public class Item
     public void setLevel(int target_level)
     {
         this.knowledge_level = target_level;
+
+        this.updatePickupTime();
     }
 
     // Get Item Scale
