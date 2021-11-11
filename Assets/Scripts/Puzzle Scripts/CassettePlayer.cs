@@ -59,10 +59,12 @@ public class CassettePlayer : MonoBehaviour
     {
         ray_trig = flag;
 
-        if (!tape_playing)
-        {
-            GameObject.FindWithTag("Player").GetComponent<AuxiliaryUI>().controlUI(1, flag);
-        }
+        GameObject.FindWithTag("Player").GetComponent<AuxiliaryUI>().controlUI(1, flag);
+
+        //if (!tape_playing)
+        //{
+        //    GameObject.FindWithTag("Player").GetComponent<AuxiliaryUI>().controlUI(1, flag);
+        //}
     }
 
     // Get Raycast Trigger Flag
@@ -88,12 +90,6 @@ public class CassettePlayer : MonoBehaviour
             timer_value = Time.time;
             timer_on = true;
         }
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame

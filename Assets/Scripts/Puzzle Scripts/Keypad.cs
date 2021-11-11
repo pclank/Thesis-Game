@@ -19,9 +19,14 @@ public class Keypad : MonoBehaviour
     public GameObject success_indicator;                        // Correct Password Indicator GameObject
     public Camera keypad_camera;                                // Keypad Camera
 
-    public AudioClip success_clip;                              // Success SFX
-    public AudioClip fail_clip;                                 // Failure SFX
-    public AudioClip key_clip;                                  // Key Press SFX
+    //public AudioClip success_clip;                              // Success SFX
+    //public AudioClip fail_clip;                                 // Failure SFX
+    //public AudioClip key_clip;                                  // Key Press SFX
+
+    [Header("Wwise Audio Events")]
+    public AK.Wwise.Event success_clip;                         // Success SFX
+    public AK.Wwise.Event fail_clip;                            // Failure SFX
+    public AK.Wwise.Event key_clip;                             // Key Press SFX
 
     public float delay = 0.5f;                                  // Ray Hit Update Delay
 
@@ -127,8 +132,10 @@ public class Keypad : MonoBehaviour
         // Number Button Pressed
         else if (key_pressed >= 0 && key_pressed <= 9)
         {
-            audio_source.clip = key_clip;   // Set to Success Clip
-            audio_source.Play();            // Play Audio
+            //audio_source.clip = key_clip;   // Set to Success Clip
+            //audio_source.Play();            // Play Audio
+
+            key_clip.Post(gameObject);
 
             addNumber(key_pressed);         // Add Number
         }    
@@ -157,8 +164,10 @@ public class Keypad : MonoBehaviour
 
         keys_in_sequence = 0;                                               // Reset Keys Pressed Counter
 
-        audio_source.clip = fail_clip;                                      // Set to Failure Clip
-        audio_source.Play();                                                // Play Audio
+        //audio_source.clip = fail_clip;                                      // Set to Failure Clip
+        //audio_source.Play();                                                // Play Audio
+
+        fail_clip.Post(gameObject);
 
         fail_indicator.GetComponent<LightEmissionFX>().startIndicator();    // Start Indication
     }
@@ -171,8 +180,10 @@ public class Keypad : MonoBehaviour
         {
             tgt_door.GetComponent<BasicStartAnimation>().startAnimation();      // Open Door
 
-            audio_source.clip = success_clip;                                   // Set to Success Clip
-            audio_source.Play();                                                // Play Audio
+            //audio_source.clip = success_clip;                                   // Set to Success Clip
+            //audio_source.Play();                                                // Play Audio
+
+            success_clip.Post(gameObject);
 
             success_indicator.GetComponent<LightEmissionFX>().startIndicator(); // Start Indication
         }

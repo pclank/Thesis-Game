@@ -70,6 +70,10 @@ public class InteractionRaycasting : MonoBehaviour
             {
                 hit_gameobject.GetComponent<CassettePlayer>().setRaycast(false);
             }
+            else if (hit_gameobject.CompareTag("MirrorPuzzle"))
+            {
+                hit_gameobject.GetComponent<MirrorPuzzle>().setRaycast(false);
+            }
         }
         else if (!gameObject.CompareTag("MainCamera") && hit_gameobject.CompareTag("KeypadButton"))
         {
@@ -181,6 +185,14 @@ public class InteractionRaycasting : MonoBehaviour
                 hit_gameobject = hit.transform.gameObject;
 
                 hit_gameobject.GetComponent<CassettePlayer>().setRaycast(true);
+            }
+            else if (hit.transform.gameObject.CompareTag("MirrorPuzzle"))
+            {
+                hit_flag = true;
+
+                hit_gameobject = hit.transform.gameObject;
+
+                hit_gameobject.GetComponent<MirrorPuzzle>().setRaycast(true);
             }
 
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
