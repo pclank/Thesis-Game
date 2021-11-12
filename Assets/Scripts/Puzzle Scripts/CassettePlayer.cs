@@ -92,6 +92,14 @@ public class CassettePlayer : MonoBehaviour
         }
     }
 
+    // Stop Tape Audio Clip
+    private void stopTape()
+    {
+        play_event.Stop(gameObject);
+
+        tape_playing = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -106,7 +114,10 @@ public class CassettePlayer : MonoBehaviour
         // Click Section
         if (ray_trig && Input.GetKeyUp(KeyCode.Mouse0))
         {
-            playTape();
+            if (!tape_playing)
+                playTape();
+            else
+                stopTape();
         }
     }
 }

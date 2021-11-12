@@ -7,6 +7,9 @@ public class RotateHingePhysics : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
+    public AK.Wwise.Event locked_event;                     // Wwise Event for Locked Door
+    public AK.Wwise.Event unlock_event;                     // Wwise Event for Unlocking Door
+
     public GameObject icon_object;
     public GameObject handle;
     public GameObject ui_missing;                           // UI Item Missing Text GameObject
@@ -154,6 +157,8 @@ public class RotateHingePhysics : MonoBehaviour
                 {
                     locked = false;                                 // Unlock Object
 
+                    unlock_event.Post(gameObject);                  // Play Unlock Sound
+
                     ui_unlocked.SetActive(true);                    // Show Unlocked Text
                 }
 
@@ -161,6 +166,8 @@ public class RotateHingePhysics : MonoBehaviour
             }
             else if (requires_item && !has_item && !missing_ui_on)
             {
+                locked_event.Post(gameObject);                  // Play Locked Door Sound
+
                 ui_missing.SetActive(true);                     // Display UI Text that Item is Missing
 
                 missing_ui_on = true;
