@@ -10,11 +10,15 @@ public class MirrorPuzzle : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
+    [Tooltip("Touch UI GameObject.")]
+    public GameObject touch_ui;
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
 
     private bool ray_trig = false;
+    private bool tape_is_played = false;                                                // Whether Tape Has Been Played
 
     // ************************************************************************************
     // Member Functions
@@ -24,6 +28,14 @@ public class MirrorPuzzle : MonoBehaviour
     public void setRaycast(bool flag)
     {
         ray_trig = flag;
+
+        touch_ui.SetActive(flag);
+    }
+
+    // Set Tape Has Been Played
+    public void setTapeIsPlayed()
+    {
+        tape_is_played = true;
     }
 
     // Use this for initialization
