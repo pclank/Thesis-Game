@@ -7,7 +7,10 @@ public class AnimatedShader : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
+    [Header("Transition Settings")]
     public float transition_speed = 0.2f;                       // Speed of Transition
+    public float lower_bound = 0.0f;
+    public float upper_bound = 1.0f;
 
     // ************************************************************************************
     // Private Variables
@@ -28,25 +31,25 @@ public class AnimatedShader : MonoBehaviour
     {
         float next_state = gameObject.GetComponent<MeshRenderer>().material.GetFloat("BlendOpacity");
 
-        if (forwards && next_state < 1.0f)
+        if (forwards && next_state < upper_bound)
         {
             next_state += transition_speed;
 
-            if (next_state >= 1.0f)
+            if (next_state >= upper_bound)
             {
-                next_state = 1.0f;
+                next_state = upper_bound;
 
                 forwards = false;
             }
         }
 
-        else if (!forwards && next_state > 0.0f)
+        else if (!forwards && next_state > lower_bound)
         {
             next_state -= transition_speed;
 
-            if (next_state <= 0.0f)
+            if (next_state <= lower_bound)
             {
-                next_state = 0.0f;
+                next_state = lower_bound;
 
                 forwards = true;
             }
