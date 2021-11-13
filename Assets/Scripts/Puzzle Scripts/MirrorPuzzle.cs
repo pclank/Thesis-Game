@@ -30,6 +30,9 @@ public class MirrorPuzzle : MonoBehaviour
     [Tooltip("Time Needed to Point Before Portal Appears in Mirror.")]
     public float time_needed = 3.0f;
 
+    [Tooltip("Activation Speed.")]
+    public float activation_speed = 0.005f;
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
@@ -164,7 +167,7 @@ public class MirrorPuzzle : MonoBehaviour
         // Portal Enabling FX
         if (starts_disabled && active && !active_ran)
         {
-            current_scale += 0.005f;
+            current_scale += activation_speed;
 
             if (current_scale >= initial_scale)
             {
