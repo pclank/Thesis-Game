@@ -59,7 +59,6 @@ public class PortalPhysics : MonoBehaviour
     // Activate Portal
     public void activatePortal()
     {
-        //GetComponent<AudioSource>().Play();
         portal_sfx.Post(gameObject);
 
         active = true;
