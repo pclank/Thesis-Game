@@ -14,6 +14,9 @@ public class CassettePlayer : MonoBehaviour
     [Tooltip("Wwise Event to Trigger.")]
     public AK.Wwise.Event play_event;
 
+    [Tooltip("Target Puzzle GameObject to Send \"Tape Played\" Message to.")]
+    public GameObject target_puzzle;
+
     [Tooltip("Timer Delay for UI Messages.")]
     public float delay = 2.0f;
 
@@ -80,6 +83,8 @@ public class CassettePlayer : MonoBehaviour
         if (tape_in)
         {
             play_event.Post(gameObject);
+
+            target_puzzle.GetComponent<MirrorPuzzle>().setTapeIsPlayed();   // Send Message to Puzzle
 
             tape_playing = true;
         }

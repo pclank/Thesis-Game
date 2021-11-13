@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 // ************************************************************************************
@@ -17,17 +18,8 @@ public class MirrorPuzzle : MonoBehaviour
     public AK.Wwise.Event touch_sfx_event;
 
     [Header("Various")]
-    [Tooltip("Touch UI GameObject.")]
-    public GameObject touch_ui;
-
-    [Tooltip("Target Portal for Teleportation.")]
-    public GameObject target_portal;    // Target Portal for Teleport
-
     [Tooltip("GameObject to Enable, if enable_gameobject is True.")]
     public GameObject target_gameobject;
-
-    [Tooltip("FX UI Element.")]
-    public GameObject fx_ui;            // FX UI Element
 
     [Tooltip("Starts Disabled.")]
     public bool starts_disabled = false;
@@ -44,6 +36,8 @@ public class MirrorPuzzle : MonoBehaviour
 
     private GameObject player_object;       // Player GameObject
     private GameObject camera_object;       // Camera GameObject
+    private GameObject fx_ui;               // FX UI Element
+    private GameObject target_portal;       // Target Portal for Teleport
 
     private bool ray_trig = false;
     private bool tape_is_played = false;    // Whether Tape Has Been Played
@@ -67,7 +61,7 @@ public class MirrorPuzzle : MonoBehaviour
         ray_trig = flag;
 
         // Control Timer
-        if (flag && !active && !timer_enabled)
+        if (flag && tape_is_played && !active && !timer_enabled)
         {
             timer_value = Time.time;
             
@@ -81,7 +75,7 @@ public class MirrorPuzzle : MonoBehaviour
         // Control UI
         if (active_ran)
         {
-            touch_ui.SetActive(flag);
+            player_object.GetComponent<AuxiliaryUI>().controlUI(3, flag);
         }
     }
 
@@ -120,6 +114,9 @@ public class MirrorPuzzle : MonoBehaviour
 
         initial_scale = transform.localScale.x;                 // Get Local Scale
 
+        fx_ui = player_object.GetComponent<AuxiliaryUI>().ui_objects[4];    // Get FX UI GameObject
+        target_portal = GameObject.FindWithTag("MirrorPortal");             // Get Target Portal GameObject
+
         // If Set, Initialize GameObject State as Disabled
         if (enable_gameobject)
         {
@@ -128,7 +125,7 @@ public class MirrorPuzzle : MonoBehaviour
 
         // Check that Target GameObject is a Portal
 
-        if (!target_portal.CompareTag("Portal"))
+        if (!target_portal.CompareTag("MirrorPortal"))
         {
             Debug.Log("GameObject isn't Portal!");
         }
@@ -157,7 +154,7 @@ public class MirrorPuzzle : MonoBehaviour
         }
 
         // Mouse Click - Touch Detection
-        if (active && Input.GetKeyUp(KeyCode.Mouse0))
+        if (active && ray_trig && Input.GetKeyUp(KeyCode.Mouse0))
         {
             engaged = true;
 
