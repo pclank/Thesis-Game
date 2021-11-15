@@ -21,7 +21,6 @@ public class FirstPersonAudioWwise : MonoBehaviour
 
     [Header("Landing")]
     public AK.Wwise.Event landingAudio;
-    public AudioClip[] landingSFX;
 
     [Header("Jump")]
     public Jump jump;
