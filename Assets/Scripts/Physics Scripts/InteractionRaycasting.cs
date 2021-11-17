@@ -33,7 +33,7 @@ public class InteractionRaycasting : MonoBehaviour
     // ************************************************************************************
 
     // Disable GameObject Hit Variable
-    private void disableHit()
+    public void disableHit()
     {
         if (gameObject.CompareTag("MainCamera"))
         {
@@ -73,6 +73,10 @@ public class InteractionRaycasting : MonoBehaviour
             else if (hit_gameobject.CompareTag("MirrorPuzzle"))
             {
                 hit_gameobject.GetComponentInChildren<MirrorPuzzle>().setRaycast(false);
+            }
+            else if (hit_gameobject.CompareTag("PadLock"))
+            {
+                hit_gameobject.GetComponent<PadLock>().setRaycast(false);
             }
         }
         else if (!gameObject.CompareTag("MainCamera") && hit_gameobject.CompareTag("KeypadButton"))
@@ -193,6 +197,14 @@ public class InteractionRaycasting : MonoBehaviour
                 hit_gameobject = hit.transform.gameObject;
 
                 hit_gameobject.GetComponentInChildren<MirrorPuzzle>().setRaycast(true);
+            }
+            else if (hit.transform.gameObject.CompareTag("PadLock"))
+            {
+                hit_flag = true;
+
+                hit_gameobject = hit.transform.gameObject;
+
+                hit_gameobject.GetComponent<PadLock>().setRaycast(true);
             }
 
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
