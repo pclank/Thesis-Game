@@ -20,6 +20,9 @@ public class CassettePlayer : MonoBehaviour
     [Tooltip("Timer Delay for UI Messages.")]
     public float delay = 2.0f;
 
+    [Tooltip("Cassette Player ID.")]
+    public int player_id = 0;
+
     [Tooltip("Item ID of Expected Tape.")]
     public int item_id = -1;
 
@@ -60,14 +63,10 @@ public class CassettePlayer : MonoBehaviour
     // Function to Externally Set the Raycast Trigger Flag
     public void setRaycast(bool flag)
     {
+        if (!GameObject.FindWithTag("Player").GetComponent<main_inventory>().isInventoryOpen())
         ray_trig = flag;
 
         GameObject.FindWithTag("Player").GetComponent<AuxiliaryUI>().controlUI(1, flag);
-
-        //if (!tape_playing)
-        //{
-        //    GameObject.FindWithTag("Player").GetComponent<AuxiliaryUI>().controlUI(1, flag);
-        //}
     }
 
     // Get Raycast Trigger Flag
@@ -117,7 +116,7 @@ public class CassettePlayer : MonoBehaviour
         }
 
         // Click Section
-        if (ray_trig && Input.GetKeyUp(KeyCode.Mouse0))
+        if (ray_trig && Input.GetKeyUp(KeyCode.Mouse0) && !GameObject.FindWithTag("Player").GetComponent<main_inventory>().isInventoryOpen())
         {
             if (!tape_playing)
                 playTape();

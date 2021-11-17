@@ -267,6 +267,12 @@ public class main_inventory : MonoBehaviour
     // Member Functions
     // ************************************************************************************
 
+    // Get Whether Inventory is Open
+    public bool isInventoryOpen()
+    {
+        return inventory_open;
+    }
+
     // Item Slot Set
 
     public void setSlotFlag(bool slot_flag, GameObject slot)
@@ -680,6 +686,8 @@ public class main_inventory : MonoBehaviour
 
     private void useItem(Item item_used)
     {
+        bool cp = GameObject.FindWithTag("CassettePlayer").GetComponent<CassettePlayer>().getRaycast();
+
         // Check if User can Interact with Slot
         if (item_slot_flag)
         {
@@ -698,7 +706,7 @@ public class main_inventory : MonoBehaviour
             }
         }
         // Check Pointing at Cassette Player
-        else if (GameObject.FindWithTag("CassettePlayer").GetComponent<CassettePlayer>().getRaycast())
+        else if (cp)
         {
             bool validation = GameObject.FindWithTag("CassettePlayer").GetComponent<CassettePlayer>().placeInPlayer(item_used);     // Place Cassette in Tape
 
