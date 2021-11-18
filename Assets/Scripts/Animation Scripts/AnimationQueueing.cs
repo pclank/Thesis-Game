@@ -45,7 +45,7 @@ public class AnimationQueueing : MonoBehaviour
         animation_objects[animation_index].GetComponent<Animator>().Play("Base Layer.Main");
 
 
-        if (animation_index < animation_objects.Length)
+        if (animation_index < animation_intervals.Length)
         {
             timer_value = Time.time;
 
