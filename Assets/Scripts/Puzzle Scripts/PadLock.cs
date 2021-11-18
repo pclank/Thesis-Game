@@ -23,6 +23,12 @@ public class PadLock : MonoBehaviour
     [Tooltip("Input UI GameObject.")]
     public GameObject input_ui;
 
+    [Tooltip("Tick SFX.")]
+    public AK.Wwise.Event tick_sfx_event;
+
+    [Tooltip("Get Animated GameObject")]
+    public GameObject lock_object;
+
     [Tooltip("Camera for Padlock Interaction.")]
     public Camera padlock_camera;
 
@@ -99,6 +105,8 @@ public class PadLock : MonoBehaviour
     // Rotate Clockwise
     private void rotateClockwise()
     {
+        tick_sfx_event.Post(gameObject);                                            // Trigger SFX Event
+
         gameObject.transform.Rotate(0.0f, base_rotation, 0.0f);
 
         int prev_value = current_value;                                             // Store Previous Value
@@ -141,6 +149,8 @@ public class PadLock : MonoBehaviour
     // Rotate Counter-Clockwise
     private void rotateCounterClockwise()
     {
+        tick_sfx_event.Post(gameObject);                                            // Trigger SFX Event
+
         gameObject.transform.Rotate(0.0f, -base_rotation, 0.0f);
 
         int prev_value = current_value;                                             // Store Previous Value
@@ -200,7 +210,7 @@ public class PadLock : MonoBehaviour
     // Unlock Box
     private void unlockBox()
     {
-        // TODO: Write Code!
+        lock_object.GetComponent<BasicStartAnimation>().startAnimation();
     }
 
     // Use this for initialization

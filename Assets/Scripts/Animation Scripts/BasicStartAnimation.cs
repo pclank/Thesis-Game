@@ -12,12 +12,14 @@ public class BasicStartAnimation : MonoBehaviour
     [Tooltip("Whether to Play Audio or Not.")]
     public bool play_audio = true;                      // SFX Flag
 
+    [Tooltip("Wwise Event to Play.")]
+    public AK.Wwise.Event event_to_play;
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
 
     private Animator anim;                              // Animator Variable
-    private AudioSource audio_source;                   // Audio Source Component
 
     // ************************************************************************************
     // Member Functions
@@ -30,7 +32,7 @@ public class BasicStartAnimation : MonoBehaviour
 
         if (play_audio)
         {
-            audio_source.Play();                            // Play AudioFX
+            event_to_play.Post(gameObject);                 // Play AudioFX
         }
 
         //Destroy(this);                                  // Destroy Script Component
@@ -39,12 +41,10 @@ public class BasicStartAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponentInChildren<Animator>();              // Get Animator Component
-
-        if (play_audio)
-        {
-            audio_source = GetComponentInChildren<AudioSource>();
-        }
+        if (GetComponent<Animator>() == null)
+            anim = GetComponentInChildren<Animator>();              // Get Animator Component
+        else
+            anim = GetComponent<Animator>();                        // Get Animator Component
 
         if (anim == null)                                       // Check Animator Isn't Null
         {
