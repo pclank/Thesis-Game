@@ -12,10 +12,10 @@ public class AnimationQueueing : MonoBehaviour
     // ************************************************************************************
 
     [Tooltip("Array of GameObjects Containing Animators.")]
-    public GameObject[] animation_objects = new GameObject[3];
+    public GameObject[] animation_objects = new GameObject[2];
 
     [Tooltip("Intervals between Animations.")]
-    public float[] animation_intervals = new float[2];
+    public float[] animation_intervals = new float[1];
 
     // ************************************************************************************
     // Private Variables
@@ -69,7 +69,6 @@ public class AnimationQueueing : MonoBehaviour
     void Update()
     {
         // Timer Section
-
         if (timer_on && (Time.time - timer_value >= animation_intervals[animation_index]))
         {
             animation_index++;

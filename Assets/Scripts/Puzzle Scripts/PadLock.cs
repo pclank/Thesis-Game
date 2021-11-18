@@ -210,7 +210,7 @@ public class PadLock : MonoBehaviour
     // Unlock Box
     private void unlockBox()
     {
-        lock_object.GetComponent<BasicStartAnimation>().startAnimation();
+        GetComponent<AnimationQueueing>().startQueue();         // Start Animation Queue
     }
 
     // Use this for initialization
