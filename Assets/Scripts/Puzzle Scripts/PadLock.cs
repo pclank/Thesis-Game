@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Linq;
 
@@ -22,6 +23,9 @@ public class PadLock : MonoBehaviour
     [Header("Misc Options")]
     [Tooltip("Input UI GameObject.")]
     public GameObject input_ui;
+
+    [Tooltip("Current Value UI GameObject")]
+    public GameObject value_ui;
 
     [Tooltip("Tick SFX.")]
     public AK.Wwise.Event tick_sfx_event;
@@ -67,13 +71,23 @@ public class PadLock : MonoBehaviour
         if (!player_object.GetComponent<main_inventory>().isInventoryOpen())
             ray_trig = flag;
 
-        player_object.GetComponent<AuxiliaryUI>().controlUI(1, flag);
+        if (!interaction)
+            player_object.GetComponent<AuxiliaryUI>().controlUI(1, flag);
+        else
+            player_object.GetComponent<AuxiliaryUI>().controlUI(1, false);
     }
 
     // Get Raycast Trigger Flag
     public bool getRaycast()
     {
         return ray_trig;
+    }
+
+    // Disable Code
+    public void disableCode()
+    {
+
+        Destroy(this);
     }
 
     // Interact with Padlock
@@ -87,6 +101,7 @@ public class PadLock : MonoBehaviour
         player_object.GetComponent<SwitchCameras>().switchCamera(padlock_camera);   // Switch Cameras
 
         input_ui.SetActive(true);                                                   // Enable UI
+        value_ui.SetActive(true);                                                   // Enable UI
     }
 
     // Exit Interaction with Keypad
@@ -100,6 +115,7 @@ public class PadLock : MonoBehaviour
         player_object.GetComponent<SwitchCameras>().resetDefaultCamera();           // Switch Camera
 
         input_ui.SetActive(false);                                                  // Disable UI
+        value_ui.SetActive(false);                                                  // Disable UI
     }
 
     // Rotate Clockwise
@@ -142,6 +158,8 @@ public class PadLock : MonoBehaviour
         }
 
         last_was_clockwise = true;
+
+        value_ui.GetComponent<Text>().text = current_value.ToString();      // Update UI Value
 
         Debug.Log(string.Join(".", code_inputs));
     }
@@ -187,6 +205,8 @@ public class PadLock : MonoBehaviour
 
         last_was_clockwise = false;
 
+        value_ui.GetComponent<Text>().text = current_value.ToString();      // Update UI Value
+
         Debug.Log(string.Join(".", code_inputs));
     }
 
@@ -202,15 +222,13 @@ public class PadLock : MonoBehaviour
             unlockBox();
 
             exitInteraction();
-
-            //Destroy(this);
         }
     }
 
     // Unlock Box
     private void unlockBox()
     {
-        GetComponent<AnimationQueueing>().startQueue();         // Start Animation Queue
+        GetComponent<AnimationQueueing>().startQueue(gameObject);   // Start Animation Queue
     }
 
     // Use this for initialization

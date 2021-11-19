@@ -21,6 +21,8 @@ public class AnimationQueueing : MonoBehaviour
     // Private Variables
     // ************************************************************************************
 
+    private GameObject source_object;                                   // GameObject that Started Animation Queue
+
     private float timer_value = 0.0f;                                   // Starting Value of Timer
 
     private bool timer_on = false;                                      // Timer Flag
@@ -32,8 +34,10 @@ public class AnimationQueueing : MonoBehaviour
     // ************************************************************************************
 
     // Start Animation Queue
-    public void startQueue()
+    public void startQueue(GameObject source_object)
     {
+        this.source_object = source_object;
+
         animation_index = 0;
 
         playAnimation();
@@ -52,7 +56,15 @@ public class AnimationQueueing : MonoBehaviour
             timer_on = true;
         }
         else
-            Destroy(this);
+            sendQueueFinished();
+    }
+
+    // Send Message that Animation Queue is Finished
+    private void sendQueueFinished()
+    {
+        source_object.GetComponent<PadLock>().disableCode();
+
+        Destroy(this);
     }
 
     // Use this for initialization
