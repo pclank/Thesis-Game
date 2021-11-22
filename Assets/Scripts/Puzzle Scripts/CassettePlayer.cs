@@ -26,6 +26,9 @@ public class CassettePlayer : MonoBehaviour
     [Tooltip("Item ID of Expected Tape.")]
     public int item_id = -1;
 
+    [Tooltip("Audio ID for Subtitles System.")]
+    public uint audio_id = 0;
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
@@ -83,7 +86,9 @@ public class CassettePlayer : MonoBehaviour
         {
             play_event.Post(gameObject);
 
-            target_puzzle.GetComponent<MirrorPuzzle>().setTapeIsPlayed();   // Send Message to Puzzle
+            target_puzzle.GetComponent<MirrorPuzzle>().setTapeIsPlayed();                               // Send Message to Puzzle
+
+            GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().startSubtitles(audio_id);  // Start Subtitles
 
             tape_playing = true;
         }
