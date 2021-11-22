@@ -14,6 +14,13 @@ public class ObjectRaycastCheck : MonoBehaviour
     // Interaction Icon GameObject Variable
     public GameObject icon_object;
 
+    [Header("Prefab Item Section")]
+    [Tooltip("Is Item with Reference to Prefab.")]
+    public bool uses_prefab = false;
+
+    [Tooltip("Item Prefab.")]
+    public GameObject item_prefab;
+
     [Header("Auxiliary UI Control Section")]
 
     [Tooltip("Automatically Assign UI References.")]
@@ -108,15 +115,18 @@ public class ObjectRaycastCheck : MonoBehaviour
 
         // Get Item GameObject MeshFilter and Mesh Renderer Components
 
-        mesh_f = this.GetComponent(typeof(MeshFilter)) as MeshFilter;
-        mesh_r = this.GetComponent(typeof(MeshRenderer)) as MeshRenderer;
-
-        // Check Above Components are Set
-        if (mesh_f == null || mesh_r == null)
+        if (!uses_prefab)
         {
-            Debug.Log("Item Components Not Retrieved!");
+            mesh_f = this.GetComponent(typeof(MeshFilter)) as MeshFilter;
+            mesh_r = this.GetComponent(typeof(MeshRenderer)) as MeshRenderer;
 
-            // TODO: Add Exception Here!
+            // Check Above Components are Set
+            if (mesh_f == null || mesh_r == null)
+            {
+                Debug.Log("Item Components Not Retrieved!");
+
+                // TODO: Add Exception Here!
+            }
         }
     }
 
@@ -163,7 +173,11 @@ public class ObjectRaycastCheck : MonoBehaviour
                 }
 
                 // Build Item in Inventory
-                player_object.GetComponent<main_inventory>().buildItem(item_id, mesh_f, mesh_r, item_scale);
+
+                if (!uses_prefab)
+                    player_object.GetComponent<main_inventory>().buildItem(item_id, mesh_f, mesh_r, item_scale);
+                else if (uses_prefab && item_prefab != null)
+                    player_object.GetComponent<main_inventory>().buildItem(item_id, item_prefab, item_scale);
 
                 // Call Knowledge Update Function from KnowledgeOnPickup Script
                 this.gameObject.GetComponent<KnowledgeOnPickup>().increaseKnowledge();

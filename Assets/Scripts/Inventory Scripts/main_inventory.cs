@@ -80,8 +80,6 @@ public class Jitem_knowledge
 // ************************************************************************************
 public class Item
 {
-    // Public Variables
-
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
@@ -93,9 +91,12 @@ public class Item
     private int id;                                 // Holds Item ID
 
     private bool is_story;                          // Whether Item is a Story Item
+    private bool uses_prefab;                       // Whether Item References a Prefab
 
     private float scale;                            // Holds Item Scale
     private float pickup_time;                      // Time Item was Picked Up. Changes for every Knowledge Increase
+
+    private GameObject item_prefab;                 // Item Prefab GameObject
 
     private MeshFilter mesh_filter;                 // Holds Mesh of Item
     private MeshRenderer mesh_renderer;             // Holds Material of Item
@@ -111,9 +112,46 @@ public class Item
 
         is_story = false;                // Initialize is_story Flag
 
+        uses_prefab = false;
+
         scale = item_scale;
         mesh_filter = mesh_f;
         mesh_renderer = mesh_r;
+    }
+
+    // Prefab Item Constructor
+    public Item(int item_id, GameObject prefab, float item_scale)
+    {
+        id = item_id;
+
+        is_story = false;               // Initialize is_story Flag
+
+        scale = item_scale;
+
+        uses_prefab = true;
+
+        item_prefab = prefab;           // Set Prefab Reference
+    }
+
+    // Get Uses Prefab
+    public bool isUsingPrefab()
+    {
+        return this.uses_prefab;
+    }
+
+    // Get Prefab
+    public GameObject getPrefab()
+    {
+        try
+        {
+            return this.item_prefab;
+        }
+        catch (Exception)
+        {
+            Debug.LogError("No Prefab is Set.");
+
+            return null;
+        }
     }
 
     // Get Pickup Time
@@ -218,7 +256,7 @@ public class main_inventory : MonoBehaviour
     [Tooltip("The Time the UI Element Will Stay Active.")]
     public float delay = 2.0f;                          // UI Element Active Delay
 
-    public GameObject display_light;
+    public GameObject display_light;                    // Extra Light for Item Display
     public GameObject examine_ui;                       // Examine UI GameObject
     public GameObject title_text;                       // Item Title UI GameObject
     public GameObject ui_inventory;                     // Inventory UI GameObject
@@ -318,10 +356,33 @@ public class main_inventory : MonoBehaviour
     }
 
     // Build Item
-
     public void buildItem(int item_id, MeshFilter mesh_f, MeshRenderer mesh_r, float item_scale)
     {
         Item new_item = new Item(item_id, mesh_f, mesh_r, item_scale);              // Build Item
+
+        new_item.setIsStory(isStory(item_id));                                      // Set Whether Item is Story Item
+
+        // Set Story Item as Examined to Keep it at Knowledge Level 0
+        if (new_item.getIsStory())
+        {
+            new_item.setExamined(true);
+        }
+
+        addItem(new_item);                                                          // Add to Inventory
+
+        if (display_on_pickup)
+        {
+            new_item.setLevel(1);                                                       // Set Level to 1
+            new_item.setExamined(true);                                                 // Set As Examined
+
+            displayItem(new_item);                                                      // Display Item
+        }
+    }
+
+    // Build Item Overload with Prefab Reference
+    public void buildItem(int item_id, GameObject prefab, float item_scale)
+    {
+        Item new_item = new Item(item_id, prefab, item_scale);                      // Build Item
 
         new_item.setIsStory(isStory(item_id));                                      // Set Whether Item is Story Item
 
@@ -538,6 +599,7 @@ public class main_inventory : MonoBehaviour
         GameObject new_go = new GameObject("DisplayedItem");                                            // Create GameObject Object Using Constructor
 
         new_go.layer = 7;                                                                               // Assign to UI Layer
+
         new_go.AddComponent<MeshFilter>(item.getMeshFilter());                                          // Add MeshFilter
         Material mat = item.getMaterial();                                                              // Get Material from Renderer
         var mr = new_go.AddComponent<MeshRenderer>(item.getMeshRenderer());                             // Add MeshRenderer
@@ -552,6 +614,50 @@ public class main_inventory : MonoBehaviour
         examination_camera.enabled = true;                                                              // Enable Examination Camera
 
         displayed_object = new_go;                                                                      // Set Displayed Object
+    }
+
+    // Display Prefab Item
+    private void displayPrefabItem(Item item)
+    {
+        // Check if Display was Started from Inventory
+        if (examine_on)
+        {
+            closeInventory();
+        }
+
+        title_text.GetComponent<Text>().text = getKnowledge(item.getID(), item.getLevel()).Item1;       // Change Text to Item's Name
+
+        title_text.SetActive(true);                                                                     // Enable Title Text
+
+        display_light.SetActive(true);                                                                  // Enable Light
+
+        display_on = true;                                                                              // Enable Display Flag
+
+        displayed_object = Instantiate(item.getPrefab());                                               // Get GameObject Prefab
+        displayed_object.tag = "Clone";                                                                 // Set Tag
+        displayed_object.layer = 7;                                                                     // Assign to UI Layer
+
+        // Process Potential Child GameObjects
+
+        int child_index = 0;                                                                            // Index of Child of GameObject
+
+        int num_children = displayed_object.transform.childCount;                                       // Get Child Count
+
+        while (child_index < num_children)
+        {
+            displayed_object.transform.GetChild(child_index).gameObject.layer = 7;                          // Assign Child to UI Layer
+
+            child_index++;                                                                                  // Increment Index
+        }
+
+        displayed_object.transform.position = camera_object.transform.position + transform.forward;     // Transform In Front of Camera
+
+        float new_scale = item.getScale();                                                              // Get Scale
+
+        examination_camera.clearFlags = CameraClearFlags.Depth;                                         // Set Clear Flags
+        examination_camera.enabled = true;                                                              // Enable Examination Camera
+
+        displayed_object.transform.localScale = new Vector3(new_scale, new_scale, new_scale);           // Scale GameObject
     }
 
     // Exit Item Display
@@ -876,7 +982,10 @@ public class main_inventory : MonoBehaviour
 
             examine_on = true;
 
-            displayItem(selected_it);                   // Display Item
+            if (selected_it.isUsingPrefab())
+                displayPrefabItem(selected_it);             // Display Prefab Item
+            else
+                displayItem(selected_it);                   // Display Item
         }
 
         // Use Button Pressed

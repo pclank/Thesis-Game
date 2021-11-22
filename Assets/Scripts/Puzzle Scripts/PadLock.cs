@@ -72,9 +72,9 @@ public class PadLock : MonoBehaviour
             ray_trig = flag;
 
         if (!interaction)
-            player_object.GetComponent<AuxiliaryUI>().controlUI(1, flag);
+            player_object.GetComponent<AuxiliaryUI>().controlUI(5, flag);
         else
-            player_object.GetComponent<AuxiliaryUI>().controlUI(1, false);
+            player_object.GetComponent<AuxiliaryUI>().controlUI(5, false);
     }
 
     // Get Raycast Trigger Flag
