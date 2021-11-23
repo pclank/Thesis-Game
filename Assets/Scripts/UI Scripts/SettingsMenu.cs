@@ -17,9 +17,10 @@ public class SettingsMenu : MonoBehaviour
     public Toggle examine_on_pickup_toggle;                             // Examine On Pickup Toggle
     public Toggle motionblur_toggle;                                    // Motion Blur Toggle
     public Toggle vsync_toggle;                                         // V-Sync Toggle
+    public Toggle subtitle_toggle;                                      // Subtitle Toggle
 
     [Tooltip("Array of Volumes.")]
-    public Volume[] volume_objects = new Volume[3];
+    public Volume[] volume_objects = new Volume[4];
 
     // ************************************************************************************
     // Private Variables
@@ -63,6 +64,12 @@ public class SettingsMenu : MonoBehaviour
         // TODO: Add Functionality?!
     }
 
+    // Process Subtitle Toggle
+    private void processSubtitleChange()
+    {
+        GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().changeSubtitlesOn(subtitle_toggle.isOn);
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -81,6 +88,11 @@ public class SettingsMenu : MonoBehaviour
         vsync_toggle.onValueChanged.AddListener(delegate
         {
             processVsyncChange();
+        });
+
+        subtitle_toggle.onValueChanged.AddListener(delegate
+        {
+            processSubtitleChange();
         });
     }
 }

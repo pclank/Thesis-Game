@@ -79,31 +79,42 @@ public class SubtitleControl : MonoBehaviour
     private float line_duration;                                        // Duration of Current Line
     private float line_start_time;                                      // Start Time of Current Line
 
-    private bool subtitles_on = false;                                  // Whether a Subtitle List is Running
+    private bool subtitles_on = true;                                   // Whether Subtitle System is On. Controlled by SettingsMenu
+    private bool subtitles_running = false;                             // Whether a Subtitle List is Running
     private bool timer_on = false;                                      // Whether Timer is On
 
     // ************************************************************************************
     // Member Functions
     // ************************************************************************************
 
+    // Change Subtitles On from SettingsMenu
+    public void changeSubtitlesOn(bool flag)
+    {
+        subtitles_on = flag;
+    }
+
     // Select and Start Subtitles
     public bool startSubtitles(uint audio_id)
     {
-        // Get Subtitles from List
-        foreach (Jsubtitles j_sub in subtitle_list.subtitles_list)
+        // Check Settings Menu Option
+        if (subtitles_on)
         {
-            // Compare Audio IDs
-            if (j_sub.getAudioId() == audio_id)
+            // Get Subtitles from List
+            foreach (Jsubtitles j_sub in subtitle_list.subtitles_list)
             {
-                selected_subtitles = j_sub;                 // Set Selected Subtitles
+                // Compare Audio IDs
+                if (j_sub.getAudioId() == audio_id)
+                {
+                    selected_subtitles = j_sub;                 // Set Selected Subtitles
 
-                line_index = 0;                             // Reset Line Index to Start
+                    line_index = 0;                             // Reset Line Index to Start
 
-                audio_start_time = Time.time;
+                    audio_start_time = Time.time;
 
-                subtitles_on = true;
+                    subtitles_running = true;
 
-                return true;
+                    return true;
+                }
             }
         }
 
@@ -138,7 +149,7 @@ public class SubtitleControl : MonoBehaviour
 
         // Check Whether Line List is Over
         if (line_index + 1 == selected_subtitles.getLineCount())
-            subtitles_on = false;
+            subtitles_running = false;
         else
             line_index++;
     }
@@ -167,7 +178,7 @@ public class SubtitleControl : MonoBehaviour
             hideSubtitles();
         }
         // Timestamp Check
-        else if (subtitles_on && !timer_on && checkTimestamp())
+        else if (subtitles_running && !timer_on && checkTimestamp())
         {
             showSubtitles();
         }
