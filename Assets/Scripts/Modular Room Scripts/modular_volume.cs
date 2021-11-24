@@ -11,8 +11,20 @@ public class modular_volume : MonoBehaviour
     // Public Variables
     // ************************************************************************************
 
+    [Header("GameObjects Control Section")]
     [Tooltip("GameObjects to be Disabled upon Entering Volume.")]
     public GameObject lod_to_disable;                                   // GameObject Parent LOD to Disable
+
+    [Tooltip("GameObjects to Enable upon Entering Volume.")]
+    public GameObject lod_to_enable;
+
+    [Tooltip("HDRISky GameObject.")]
+    public Volume sky_object;
+
+    [Tooltip("HDRISky Night Lighting Value.")]
+    public float night_sky_lighting_value = 0.0f;
+
+    [Header("Emotion Recognition Response Section")]
 
     public int[] anger_color = new int[3];
     public int[] happiness_color = new int[3];
@@ -54,7 +66,10 @@ public class modular_volume : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            enableHDRILighting();                       // Enable HDRI Lighting
+
             lod_to_disable.SetActive(false);            // Disable GameObjects
+            //lod_to_enable.SetActive(true);              // Enable GameObjects
 
             player_trigger = true;
         }
@@ -65,6 +80,8 @@ public class modular_volume : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             player_trigger = false;
+
+            disableHDRILighting();                      // Disable HDRI Lighting
         }
     }
 
@@ -212,6 +229,34 @@ public class modular_volume : MonoBehaviour
         }
     }
 
+    // Enable HDRI Lighting
+    private void enableHDRILighting()
+    {
+        HDRISky temp_sky;
+
+        if (sky_object.profile.TryGet(out temp_sky))
+        {
+            temp_sky.desiredLuxValue.Override(night_sky_lighting_value);
+        }
+    }
+
+    // Disable HDRI Lighting
+    private void disableHDRILighting()
+    {
+        HDRISky temp_sky;
+        Exposure temp_exposure;
+
+        if (sky_object.profile.TryGet(out temp_sky))
+        {
+            temp_sky.desiredLuxValue.Override(0.0f);
+        }
+
+        if (sky_object.profile.TryGet(out temp_exposure))
+        {
+            temp_exposure.active = false;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -219,6 +264,8 @@ public class modular_volume : MonoBehaviour
 
         // Get Volume Component
         volume = GetComponent<Volume>();
+
+        //lod_to_enable.SetActive(false);                     // Initially Disable GameObjects
 
         // Get Color Adjustments Component
         
