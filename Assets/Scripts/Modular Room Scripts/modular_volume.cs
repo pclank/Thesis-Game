@@ -233,10 +233,16 @@ public class modular_volume : MonoBehaviour
     private void enableHDRILighting()
     {
         HDRISky temp_sky;
+        ColorAdjustments temp_color_adjustments;
 
         if (sky_object.profile.TryGet(out temp_sky))
         {
             temp_sky.desiredLuxValue.Override(night_sky_lighting_value);
+        }
+
+        if (sky_object.profile.TryGet(out temp_color_adjustments))
+        {
+            temp_color_adjustments.active = true;
         }
     }
 
@@ -244,16 +250,16 @@ public class modular_volume : MonoBehaviour
     private void disableHDRILighting()
     {
         HDRISky temp_sky;
-        Exposure temp_exposure;
+        ColorAdjustments temp_color_adjustments;
 
         if (sky_object.profile.TryGet(out temp_sky))
         {
             temp_sky.desiredLuxValue.Override(0.0f);
         }
 
-        if (sky_object.profile.TryGet(out temp_exposure))
+        if (sky_object.profile.TryGet(out temp_color_adjustments))
         {
-            temp_exposure.active = false;
+            temp_color_adjustments.active = false;
         }
     }
 
