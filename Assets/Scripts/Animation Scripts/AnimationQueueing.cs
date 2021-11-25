@@ -81,7 +81,9 @@ public class AnimationQueueing : MonoBehaviour
     void Update()
     {
         // Timer Section
-        if (timer_on && (Time.time - timer_value >= animation_intervals[animation_index]))
+        if (animation_index >= animation_intervals.Length)
+            sendQueueFinished();
+        else if (timer_on && (Time.time - timer_value >= animation_intervals[animation_index]))
         {
             animation_index++;
 

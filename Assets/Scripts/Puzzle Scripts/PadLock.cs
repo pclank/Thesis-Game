@@ -24,14 +24,17 @@ public class PadLock : MonoBehaviour
     [Tooltip("Input UI GameObject.")]
     public GameObject input_ui;
 
-    [Tooltip("Current Value UI GameObject")]
+    [Tooltip("Current Value UI GameObject.")]
     public GameObject value_ui;
 
     [Tooltip("Tick SFX.")]
     public AK.Wwise.Event tick_sfx_event;
 
-    [Tooltip("Get Animated GameObject")]
+    [Tooltip("Get Animated GameObject.")]
     public GameObject lock_object;
+
+    [Tooltip("Box Top GameObject.")]
+    public GameObject box_top;
 
     [Tooltip("Camera for Padlock Interaction.")]
     public Camera padlock_camera;
@@ -86,6 +89,7 @@ public class PadLock : MonoBehaviour
     // Disable Code
     public void disableCode()
     {
+        box_top.GetComponent<RotateHingePhysics>().unlock();                        // Unlock Box
 
         Destroy(this);
     }

@@ -20,6 +20,8 @@ public class RotateHingePhysics : MonoBehaviour
 
     [Tooltip("Indicates if Item (eg. a Key) is Required to Apply Force.")]
     public bool requires_item = false;
+    [Tooltip("Requires Message from External Script to Apply Force.")]
+    public bool requires_message = false;
     public bool use_force_direction = true;
     public bool ray_trig = false;
 
@@ -56,6 +58,16 @@ public class RotateHingePhysics : MonoBehaviour
     private Rigidbody rigid_body;
 
     // ************************************************************************************
+    // Member Functions
+    // ************************************************************************************
+
+    // Unlock from External Script
+    public void unlock()
+    {
+        locked = false;
+    }
+
+    // ************************************************************************************
     // Runtime Functions
     // ************************************************************************************
 
@@ -63,7 +75,7 @@ public class RotateHingePhysics : MonoBehaviour
     void Start()
     {
         // Set Locked/Unlocked Variable
-        if (requires_item)
+        if (requires_item || requires_message)
         {
             locked = true;
         }
@@ -147,7 +159,7 @@ public class RotateHingePhysics : MonoBehaviour
         {
             bool has_item = player_object.GetComponent<main_inventory>().startQuery(required_item_id);
 
-            if ((requires_item && has_item) || (!requires_item))
+            if ((requires_item && has_item) || (!requires_item && !locked))
             {
                 interact = true;
 
