@@ -1,8 +1,8 @@
 {
-    "subtitles_list": [
+    "subtitle_list": [
         {
             "audio_id": 0,
-            "audio_title": "Refractions Tape",
+            "audio_name": "Refractions Tape",
             "lines": [
                 {
                     "timestamp": "2.0",
@@ -20,6 +20,18 @@
                     "timestamp": "9.0",
                     "duration": "2.0",
                     "line": "it's truly astounding!",
+                    "style":"None"
+                },
+                {
+                    "timestamp": "15.0",
+                    "duration": "4.0",
+                    "line": "In other news, I've caught the subject checking her reflection again.",
+                    "style":"None"
+                },
+                {
+                    "timestamp": "22.0",
+                    "duration": "3.0",
+                    "line": "I really wonder what she sees in that old mirror.",
                     "style":"None"
                 }
             ]
