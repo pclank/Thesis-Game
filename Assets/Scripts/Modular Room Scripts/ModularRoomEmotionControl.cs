@@ -87,6 +87,8 @@ public class ModularRoomEmotionControl : MonoBehaviour
 
             anger_projector.SetActive(true);
         }
+
+        Destroy(this);                          // Destroy Script after Setup
     }
 
     // Change Book and Plant Materials
