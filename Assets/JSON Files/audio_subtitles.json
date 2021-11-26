@@ -59,12 +59,10 @@
                     "style":"None"
                 },
                 {
-                    {
-                        "timestamp": "21.0",
-                        "duration": "3.0",
-                        "line": "Maybe that's the break I need.",
-                        "style":"None"
-                    }
+                    "timestamp": "21.0",
+                    "duration": "3.0",
+                    "line": "Maybe that's the break I need.",
+                    "style":"None"
                 }
             ]
         }
