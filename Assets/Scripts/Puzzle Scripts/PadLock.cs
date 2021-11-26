@@ -57,9 +57,14 @@ public class PadLock : MonoBehaviour
 
     private int[] code_inputs = new int[3];                             // Code Inputs by Player
 
+    private float timer_value = 0.0f;                                   // Timer Value
+
     private bool ray_trig = false;                                      // Raycast Flag
     private bool last_was_clockwise = false;                            // Whether Last Rotation was Clockwise
     private bool interaction = false;                                   // Whether Player is interaction Padlock
+    private bool clockwise_pressed = false;                             // Whether the Clockwise Button is Held Down
+    private bool counter_clockwise_pressed = false;                     // Whether the Counter - Clockwise Button is Held Down
+    private bool timer_on = false;                                      // Whether Timer is On
 
     private int current_value = 0;                                      // Value the Needle is Pointing at
     private int current_input = 0;                                      // Current Input Array Index
@@ -92,6 +97,41 @@ public class PadLock : MonoBehaviour
         box_top.GetComponent<RotateHingePhysics>().unlock();                        // Unlock Box
 
         Destroy(this);
+    }
+
+    // Process Input
+    private void processInput()
+    {
+        // Clockwise Input
+        if (Input.GetKeyDown(clockwise_button))
+            clockwise_pressed = true;
+        else if (Input.GetKeyUp(clockwise_button))
+            clockwise_pressed = false;
+
+        // Counter - Clockwise Input
+        if (Input.GetKeyDown(counter_clockwise_button))
+            counter_clockwise_pressed = true;
+        else if (Input.GetKeyUp(counter_clockwise_button))
+            counter_clockwise_pressed = false;
+
+        // Process Both Pressed
+        if (clockwise_pressed && counter_clockwise_pressed)
+        {
+            clockwise_pressed = false;
+            counter_clockwise_pressed = false;
+        }
+
+        // Process Timer
+        if (!timer_on && (clockwise_pressed || counter_clockwise_pressed) && Time.time + timer_value >= 0.5f)
+        {
+            timer_value = Time.time;
+
+            timer_on = true;
+        }
+        else if (!clockwise_pressed && !counter_clockwise_pressed)
+        {
+            timer_on = false;
+        }
     }
 
     // Interact with Padlock
@@ -165,6 +205,8 @@ public class PadLock : MonoBehaviour
 
         value_ui.GetComponent<Text>().text = current_value.ToString();      // Update UI Value
 
+        timer_value = Time.time;                                            // Update Timer Value
+
         Debug.Log(string.Join(".", code_inputs));
     }
 
@@ -211,6 +253,8 @@ public class PadLock : MonoBehaviour
 
         value_ui.GetComponent<Text>().text = current_value.ToString();      // Update UI Value
 
+        timer_value = Time.time;                                            // Update Timer Value
+
         Debug.Log(string.Join(".", code_inputs));
     }
 
@@ -245,15 +289,17 @@ public class PadLock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // When Player is interaction Padlock
+        // When Player is interacting with the Padlock
         if (interaction)
         {
             player_object.GetComponent<FirstPersonMovement>().stop_flag = true;         // Freeze Player Controller
             camera_object.GetComponent<FirstPersonLook>().stop_flag = true;             // Freeze Camera Controller
 
-            if (Input.GetKeyDown(clockwise_button))
+            processInput();
+
+            if ((clockwise_pressed && timer_on && Time.time - timer_value >= 0.1f) || (clockwise_pressed && !timer_on))
                 rotateClockwise();
-            else if (Input.GetKeyDown(counter_clockwise_button))
+            else if ((counter_clockwise_pressed && Time.time - timer_value >= 0.1f) || (clockwise_pressed && !timer_on))
                 rotateCounterClockwise();
             else if (Input.GetKeyUp(KeyCode.Mouse1))
             {
