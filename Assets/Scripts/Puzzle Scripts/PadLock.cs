@@ -48,6 +48,9 @@ public class PadLock : MonoBehaviour
     [Tooltip("Rotation per Input.")]
     public float base_rotation = 0.1f;
 
+    [Tooltip("Rotation Delay When Button is Held Down.")]
+    public float rotation_delay = 0.2f;
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
@@ -57,14 +60,14 @@ public class PadLock : MonoBehaviour
 
     private int[] code_inputs = new int[3];                             // Code Inputs by Player
 
-    private float timer_value = 0.0f;                                   // Timer Value
+    private float rotation_timer_value = 0.0f;                          // Rotation Timer Value
 
     private bool ray_trig = false;                                      // Raycast Flag
     private bool last_was_clockwise = false;                            // Whether Last Rotation was Clockwise
     private bool interaction = false;                                   // Whether Player is interaction Padlock
     private bool clockwise_pressed = false;                             // Whether the Clockwise Button is Held Down
     private bool counter_clockwise_pressed = false;                     // Whether the Counter - Clockwise Button is Held Down
-    private bool timer_on = false;                                      // Whether Timer is On
+    private bool rotation_timer_on = false;                             // Whether Rotation Timer is On
 
     private int current_value = 0;                                      // Value the Needle is Pointing at
     private int current_input = 0;                                      // Current Input Array Index
@@ -120,17 +123,10 @@ public class PadLock : MonoBehaviour
             clockwise_pressed = false;
             counter_clockwise_pressed = false;
         }
-
-        // Process Timer
-        if (!timer_on && (clockwise_pressed || counter_clockwise_pressed) && Time.time + timer_value >= 0.5f)
-        {
-            timer_value = Time.time;
-
-            timer_on = true;
-        }
+        // Process Both Not Pressed
         else if (!clockwise_pressed && !counter_clockwise_pressed)
         {
-            timer_on = false;
+            rotation_timer_on = false;
         }
     }
 
@@ -205,7 +201,13 @@ public class PadLock : MonoBehaviour
 
         value_ui.GetComponent<Text>().text = current_value.ToString();      // Update UI Value
 
-        timer_value = Time.time;                                            // Update Timer Value
+        // Timer Section
+        if (!rotation_timer_on)
+        {
+            rotation_timer_on = true;
+        }
+
+        rotation_timer_value = Time.time;                                   // Update Timer Value
 
         Debug.Log(string.Join(".", code_inputs));
     }
@@ -253,7 +255,13 @@ public class PadLock : MonoBehaviour
 
         value_ui.GetComponent<Text>().text = current_value.ToString();      // Update UI Value
 
-        timer_value = Time.time;                                            // Update Timer Value
+        // Timer Section
+        if (!rotation_timer_on)
+        {
+            rotation_timer_on = true;
+        }
+
+        rotation_timer_value = Time.time;                                   // Update Timer Value
 
         Debug.Log(string.Join(".", code_inputs));
     }
@@ -297,9 +305,9 @@ public class PadLock : MonoBehaviour
 
             processInput();
 
-            if ((clockwise_pressed && timer_on && Time.time - timer_value >= 0.1f) || (clockwise_pressed && !timer_on))
+            if ((clockwise_pressed && rotation_timer_on && Time.time - rotation_timer_value >= rotation_delay) || (clockwise_pressed && !rotation_timer_on))
                 rotateClockwise();
-            else if ((counter_clockwise_pressed && Time.time - timer_value >= 0.1f) || (clockwise_pressed && !timer_on))
+            else if ((counter_clockwise_pressed && rotation_timer_on && Time.time - rotation_timer_value >= rotation_delay) || (counter_clockwise_pressed && !rotation_timer_on))
                 rotateCounterClockwise();
             else if (Input.GetKeyUp(KeyCode.Mouse1))
             {
