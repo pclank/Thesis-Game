@@ -39,12 +39,24 @@ public class ModularRoomEmotionControl : MonoBehaviour
     [Tooltip("Anger Material for Plant.")]
     public Material anger_plant_material;
 
+    [Tooltip("Happiness Material for Calendar.")]
+    public Material happiness_calendar_material;
+
+    [Tooltip("Sadness Material for Calendar.")]
+    public Material sadness_calendar_material;
+
+    [Tooltip("Anger Material for Calendar.")]
+    public Material anger_calendar_material;
+
     [Header("GameObjects to Reference for Material Application")]
     [Tooltip("Book GameObject.")]
     public GameObject book_object;
 
     [Tooltip("Plant GameObject.")]
     public GameObject plant_object;
+
+    [Tooltip("Calendar GameObject.")]
+    public GameObject calendar_object;
 
     [Header("Padlock Puzzle Options")]
     [Tooltip("Padlock Happiness Combination.")]
@@ -92,10 +104,11 @@ public class ModularRoomEmotionControl : MonoBehaviour
     }
 
     // Change Book and Plant Materials
-    private void changeMaterials(Material book_mat, Material plant_mat)
+    private void changeMaterials(Material book_mat, Material plant_mat, Material calendar_mat)
     {
         book_object.GetComponent<MeshRenderer>().material = book_mat;
         plant_object.GetComponent<MeshRenderer>().material = plant_mat;
+        calendar_object.GetComponent<MeshRenderer>().material = calendar_mat;
     }
 
     // Change Padlock Puzzle Combination
@@ -128,10 +141,10 @@ public class ModularRoomEmotionControl : MonoBehaviour
     // Lambda Functions
     // ************************************************************************************
 
-    void setHappinessMaterials() => changeMaterials(happiness_book_material, happiness_plant_material);
+    void setHappinessMaterials() => changeMaterials(happiness_book_material, happiness_plant_material, happiness_calendar_material);
     void setHappinessCombination() => changeCombination(happiness_combination);
-    void setSadnessMaterials() => changeMaterials(sadness_book_material, sadness_plant_material);
+    void setSadnessMaterials() => changeMaterials(sadness_book_material, sadness_plant_material, sadness_calendar_material);
     void setSadnessCombination() => changeCombination(sadness_combination);
-    void setAngerMaterials() => changeMaterials(anger_book_material, anger_plant_material);
+    void setAngerMaterials() => changeMaterials(anger_book_material, anger_plant_material, anger_calendar_material);
     void setAngerCombination() => changeCombination(anger_combination);
 }
