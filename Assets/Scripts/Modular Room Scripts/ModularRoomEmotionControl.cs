@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 // ************************************************************************************
@@ -68,13 +69,22 @@ public class ModularRoomEmotionControl : MonoBehaviour
     [Tooltip("Padlock Anger Combination.")]
     public int[] anger_combination;
 
+    [Header("Development Options Section")]
+    [Tooltip("Enable Development Mode.")]
+    public bool development_mode = false;
+
+    [Tooltip("Emotion Index for Development Mode.")]
+    public int development_index = 0;
+
     // ************************************************************************************
     // Member Functions
     // ************************************************************************************
 
     // Start Setup
-    public void startSetup(int emotion_index)
+    private void startSetup(int emotion_index)
     {
+        // TODO: Add Functionality to Change Prefab Material of Plant and Book!
+
         // Happiness Detected
         if (emotion_index == 0)
         {
@@ -135,6 +145,17 @@ public class ModularRoomEmotionControl : MonoBehaviour
         happiness_projector.SetActive(false);
         sadness_projector.SetActive(false);
         anger_projector.SetActive(false);
+
+        if (development_mode)
+            startSetup(development_index);
+    }
+
+    void OnEnable()
+    {
+        Tuple<int, float> prediction = GameObject.FindWithTag("Player").GetComponent<JSONReader>().readEmotionIndex();  // Get Prediction
+
+        if (!development_mode && prediction.Item2 >= 40.0f)
+            startSetup(prediction.Item1);
     }
 
     // ************************************************************************************

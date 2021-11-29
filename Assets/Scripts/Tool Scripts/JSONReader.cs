@@ -60,4 +60,31 @@ public class JSONReader : MonoBehaviour
 
         return new Tuple<string, float>(detected_emotion, detected_certainty);          // Return Information
     }
+
+    // Function to Read Emotion Index from File
+    public Tuple<int, float> readEmotionIndex()
+    {
+        string text = System.IO.File.ReadAllText(@json_location);
+
+        deserialiazed_json = JsonUtility.FromJson<EmotionList>(text);                   // Get Deserialize JSON Objects
+
+        int detected_index = 0;                                                         // Initialize Returned Index
+        float detected_certainty = 0.0f;                                                // Initialize Returned Certainty
+
+        if (deserialiazed_json.Emotion[0].certainty >= lower_limit)
+        {
+            detected_certainty = deserialiazed_json.Emotion[0].certainty;   // Set Certainty
+
+            if (String.Equals(deserialiazed_json.Emotion[0].emotion, "Happy"))
+                detected_index = 0;
+            else if (String.Equals(deserialiazed_json.Emotion[0].emotion, "Sad"))
+                detected_index = 1;
+            else if (String.Equals(deserialiazed_json.Emotion[0].emotion, "Angry"))
+                detected_index = 2;
+            else if (String.Equals(deserialiazed_json.Emotion[0].emotion, "Surprised"))
+                detected_index = 3;
+        }
+
+        return new Tuple<int, float>(detected_index, detected_certainty);               // Return Information
+    }
 }

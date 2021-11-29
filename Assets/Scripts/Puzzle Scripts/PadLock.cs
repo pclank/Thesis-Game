@@ -98,6 +98,9 @@ public class PadLock : MonoBehaviour
     public void disableCode()
     {
         box_top.GetComponent<RotateHingePhysics>().unlock();                        // Unlock Box
+        gameObject.tag = "Untagged";                                                // Untag Object
+
+        setRaycast(false);
 
         Destroy(this);
     }
