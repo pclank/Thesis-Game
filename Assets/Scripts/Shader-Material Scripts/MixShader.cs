@@ -16,6 +16,13 @@ public class MixShader : MonoBehaviour
     public float transition_speed = 0.2f;                       // Speed of Transition
     public float delay = 10.0f;                                 // Prediction Interval
 
+    [Header("Runtime Options")]
+    [Tooltip("Get Emotion from Code.")]
+    public bool manual_emotion = false;
+
+    [Tooltip("Don't Reverse to Original Material.")]
+    public bool forwards_only_mode = true;
+
     [Tooltip("Enables Development Mode.")]
     public bool dev_mode = false;                               // Development Mode
 
@@ -47,7 +54,7 @@ public class MixShader : MonoBehaviour
         Tuple<string, float> prediction = player_object.GetComponent<JSONReader>().readEmotion();
 
         // Check for Target Emotion and Certainty Constraint Satisfaction
-        if (String.Equals(prediction.Item1, target_emotion) && prediction.Item2 >= target_certainty || dev_mode)
+        if (String.Equals(prediction.Item1, target_emotion) && prediction.Item2 >= target_certainty || dev_mode || manual_emotion)
         {
             emotion_detected = true;                            // Set Emotion as Detected
         }
@@ -86,11 +93,20 @@ public class MixShader : MonoBehaviour
             {
                 next_state += transition_speed;
 
+                // Edge Case
                 if (next_state >= 1.0f)
                 {
                     next_state = 1.0f;
 
                     forwards = false;
+
+                    // Forwards Only Mode
+                    if (forwards_only_mode)
+                    {
+                        emotion_detected = false;
+
+                        Destroy(this);
+                    }
                 }
             }
 
@@ -98,6 +114,7 @@ public class MixShader : MonoBehaviour
             {
                 next_state -= transition_speed;
 
+                // Edge Case
                 if (next_state <= 0.0f)
                 {
                     next_state = 0.0f;
