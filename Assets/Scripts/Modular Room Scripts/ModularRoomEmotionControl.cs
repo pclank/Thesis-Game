@@ -53,8 +53,14 @@ public class ModularRoomEmotionControl : MonoBehaviour
     [Tooltip("Book GameObject.")]
     public GameObject book_object;
 
+    [Tooltip("Book Prefabs.")]
+    public GameObject[] book_prefabs = new GameObject[3];
+
     [Tooltip("Plant GameObject.")]
     public GameObject plant_object;
+
+    [Tooltip("Plant Prefabs.")]
+    public GameObject[] plant_prefabs = new GameObject[3];
 
     [Tooltip("Calendar GameObject.")]
     public GameObject calendar_object;
@@ -83,8 +89,6 @@ public class ModularRoomEmotionControl : MonoBehaviour
     // Start Setup
     private void startSetup(int emotion_index)
     {
-        // TODO: Add Functionality to Change Prefab Material of Plant and Book!
-
         // Happiness Detected
         if (emotion_index == 0)
         {
@@ -109,6 +113,9 @@ public class ModularRoomEmotionControl : MonoBehaviour
 
             anger_projector.SetActive(true);
         }
+
+        book_object.GetComponentInParent<ExaminableItem>().gb_prefab = book_prefabs[emotion_index];
+        plant_object.GetComponentInParent<ExaminableItem>().gb_prefab = plant_prefabs[emotion_index];
 
         Destroy(this);                          // Destroy Script after Setup
     }
