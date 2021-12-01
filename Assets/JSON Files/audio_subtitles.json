@@ -1,8 +1,8 @@
 {
-    "subtitles_list": [
+    "subtitle_list": [
         {
             "audio_id": 0,
-            "audio_title": "Refractions Tape",
+            "audio_name": "Refractions Tape",
             "lines": [
                 {
                     "timestamp": "2.0",
@@ -20,6 +20,48 @@
                     "timestamp": "9.0",
                     "duration": "2.0",
                     "line": "it's truly astounding!",
+                    "style":"None"
+                },
+                {
+                    "timestamp": "15.0",
+                    "duration": "4.0",
+                    "line": "In other news, I've caught the subject checking her reflection again.",
+                    "style":"None"
+                },
+                {
+                    "timestamp": "22.0",
+                    "duration": "3.0",
+                    "line": "I really wonder what she sees in that old mirror.",
+                    "style":"None"
+                }
+            ]
+        },
+        {
+            "audio_id": 1,
+            "audio_name": "Calendar Tape",
+            "lines": [
+                {
+                    "timestamp": "3.0",
+                    "duration": "4.0",
+                    "line": "These room projections have been driving me insane.",
+                    "style":"None"
+                },
+                {
+                    "timestamp": "10.0",
+                    "duration": "3.0",
+                    "line": "After my brief access to those visions,",
+                    "style":"None"
+                },
+                {
+                    "timestamp": "15.0",
+                    "duration": "4.0",
+                    "line": "I have observed a number of messages around the room, referencing dates.",
+                    "style":"None"
+                },
+                {
+                    "timestamp": "21.0",
+                    "duration": "3.0",
+                    "line": "Maybe that's the break I need.",
                     "style":"None"
                 }
             ]
