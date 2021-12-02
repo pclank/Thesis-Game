@@ -28,8 +28,14 @@
                     "line": "In other news, I've caught the subject checking her reflection again.",
                     "style":"None"
                 },
-                {
+				{
                     "timestamp": "22.0",
+                    "duration": "4.0",
+                    "line": "Just seems to stare into the void for a few seconds, and then averting her gaze.",
+                    "style":"None"
+                },
+                {
+                    "timestamp": "29.0",
                     "duration": "3.0",
                     "line": "I really wonder what she sees in that old mirror.",
                     "style":"None"

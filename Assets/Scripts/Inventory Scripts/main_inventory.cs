@@ -893,7 +893,7 @@ public class main_inventory : MonoBehaviour
 
         // Examinable GameObject Examine Section
         
-        if (!examine_on && ray_trig && was_clicked)
+        if (!examine_on && ray_trig && was_clicked && !display_on)
         {
             examineItem();
         }
