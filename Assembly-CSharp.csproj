@@ -71,6 +71,7 @@
     <Compile Include="Assets\First person controller\Scripts\FirstPersonLook.cs" />
     <Compile Include="Assets\Scripts\Physics Scripts\RotatingRooms.cs" />
     <Compile Include="Assets\Scripts\Shader-Material Scripts\AnimatedShader.cs" />
+    <Compile Include="Assets\Scripts\Audio Scripts\WwiseDynamicMusic.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\SubtitleControl.cs" />
     <Compile Include="Assets\Scripts\Switch Scripts\lightswitch.cs" />
     <Compile Include="Assets\Scripts\Physics Scripts\TogglePlayerGravity.cs" />
@@ -126,7 +127,7 @@
     <Compile Include="Assets\Scripts\Modular Room Scripts\DynamicMusic.cs" />
     <Compile Include="Assets\Scripts\Light Scripts\LanternFX.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\Audio Scripts\WwiseDynamicMusic.cs" />
+    <Compile Include="Assets\Scripts\Journal Scripts\MainJournal.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />

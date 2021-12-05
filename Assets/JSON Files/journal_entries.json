@@ -1,0 +1,20 @@
+{
+	"journal_list": [
+		{
+			"id": 0,
+			"title": "Mysterious Room",
+			"entries": [
+				{
+					"id": 0,
+					"title": "Found a Tape",
+					"line": "I found a tape labeled \"Interesting Refractions\". Maybe I can listen to it using the Tape Player on the desk."
+				},
+				{
+					"id": 1,
+					"title": "Listened to Tape",
+					"line": "I played the \"Interesting Refractions\" tape. It seems to be somekind of a journal entry. It references a girl looking at a mirror. Is it the mirror in this room?"
+				}
+			]
+		}
+	]
+}
