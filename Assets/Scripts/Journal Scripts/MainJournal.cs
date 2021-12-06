@@ -86,7 +86,7 @@ public class MainJournal : MonoBehaviour
     // ************************************************************************************
 
     [Tooltip("JSON File Containing Entries.")]
-    public Text json_file;
+    public TextAsset json_file;
 
     [Tooltip("Journal UI GameObject Parent.")]
     public GameObject journal_ui;
@@ -105,6 +105,12 @@ public class MainJournal : MonoBehaviour
 
     [Tooltip("UI Prefab for Entry.")]
     public GameObject entry_prefab;
+
+    [Tooltip("Open Journal SFX Event.")]
+    public AK.Wwise.Event open_sfx;
+
+    [Tooltip("Close Journal SFX Event.")]
+    public AK.Wwise.Event close_sfx;
 
     [Tooltip("Key to Open Journal.")]
     public KeyCode open_key = KeyCode.J;
@@ -243,6 +249,8 @@ public class MainJournal : MonoBehaviour
 
         journal_ui.SetActive(true);                                             // Enable Journal UI
 
+        open_sfx.Post(gameObject);                                              // Play SFX
+
         // Fill Category - Entry List
         foreach (JournalCategory j_category in player_journal)
         {
@@ -265,6 +273,8 @@ public class MainJournal : MonoBehaviour
         journal_open = false;                                                   // Set Inventory to Open
 
         journal_ui.SetActive(false);                                            // Enable Journal UI
+
+        close_sfx.Post(gameObject);                                             // Play SFX
 
         journal_line.GetComponent<Text>().text = "";
 
@@ -294,11 +304,16 @@ public class MainJournal : MonoBehaviour
 
         player_object = GameObject.FindWithTag("Player");
         camera_object = GameObject.FindWithTag("MainCamera");
+
+        journal_ui.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (!journal_open && Input.GetKeyUp(open_key))
+            openJournal();
+        else if (journal_open && Input.GetKeyUp(open_key))
+            closeJournal();
     }
 }
