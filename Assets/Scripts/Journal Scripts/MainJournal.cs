@@ -51,6 +51,8 @@ public class JournalCategory
     {
         this.id = id;
         this.title = title;
+
+        this.entries = new List<JournalEntry>();
     }
 }
 
@@ -152,16 +154,12 @@ public class MainJournal : MonoBehaviour
     {
         JournalCategory new_category = new JournalCategory(category_id, "PLACEHOLDER");
 
-        // Check that Category Hasn't been Added
-        if (player_journal[category_id] != null)
-        {
-            new_category.title = journal_list.journal_list[category_id].title;              // Assign Title
-            new_category.entries.Add(journal_list.journal_list[category_id].entries[0]);    // Add First Entry
+        new_category.title = journal_list.journal_list[category_id].title;              // Assign Title
+        new_category.entries.Add(journal_list.journal_list[category_id].entries[0]);    // Add First Entry
 
-            player_journal.Add(new_category);                                               // Add Category Object to Journal
+        player_journal.Add(new_category);                                               // Add Category Object to Journal
 
-            showNotification();                                                             // Show New Entry Notification
-        }
+        showNotification();                                                             // Show New Entry Notification
     }
 
     // Add Journal Entry
@@ -200,7 +198,7 @@ public class MainJournal : MonoBehaviour
 
             temp_ui_entry.GetComponent<JournalEntryUI>().id = j_entry.id;
 
-            Instantiate(temp_ui_entry, category_object.transform);
+            Instantiate(temp_ui_entry, category_object.GetComponentInChildren<VerticalLayoutGroup>().transform);
         }
     }
 
@@ -209,7 +207,7 @@ public class MainJournal : MonoBehaviour
     {
         category_object.GetComponent<Image>().color = category_default_color;
 
-        foreach (Transform child in category_object.transform)
+        foreach (Transform child in category_object.GetComponentInChildren<VerticalLayoutGroup>().transform)
         {
             Destroy(child.gameObject);
         }

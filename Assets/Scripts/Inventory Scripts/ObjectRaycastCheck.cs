@@ -182,6 +182,12 @@ public class ObjectRaycastCheck : MonoBehaviour
                 // Call Knowledge Update Function from KnowledgeOnPickup Script
                 this.gameObject.GetComponent<KnowledgeOnPickup>().increaseKnowledge();
 
+                // Add Entry to Journal
+                if (GetComponent<AddToJournalOnPickup>() != null)
+                {
+                    GetComponent<AddToJournalOnPickup>().addToJournal();
+                }
+
                 // Disable Picked-Up Item's GameObject
                 this.gameObject.SetActive(false);
             }
