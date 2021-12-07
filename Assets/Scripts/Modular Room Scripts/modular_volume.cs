@@ -71,6 +71,10 @@ public class modular_volume : MonoBehaviour
             lod_to_disable.SetActive(false);            // Disable GameObjects
             //lod_to_enable.SetActive(true);              // Enable GameObjects
 
+            // Add Information to Journal
+            if (GetComponent<AddToJournalOnInteraction>() != null)
+                GetComponent<AddToJournalOnInteraction>().addToJournal();
+
             player_trigger = true;
         }
     }
