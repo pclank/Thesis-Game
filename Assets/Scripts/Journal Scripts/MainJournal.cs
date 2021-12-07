@@ -222,7 +222,7 @@ public class MainJournal : MonoBehaviour
 
         entry_object.GetComponent<Image>().color = entry_selected_color;
 
-        journal_line.GetComponent<Text>().text = player_journal[entry_object.GetComponentInParent<JournalEntryUI>().id].entries[id].line;
+        journal_line.GetComponent<Text>().text = player_journal[entry_object.GetComponentInParent<JournalCategoryUI>().id].entries[id].line;
 
         selected_entry = entry_object;                                          // Update Selected Entry UI Object
     }

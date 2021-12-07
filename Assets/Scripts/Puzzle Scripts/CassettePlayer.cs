@@ -35,6 +35,7 @@ public class CassettePlayer : MonoBehaviour
 
     private bool tape_in = false;                                                   // Whether a Tape is Placed in Player
     private bool tape_playing = false;                                              // Whether a Tape is Playing
+    private bool was_played = false;                                                // Whether the Tape was Played
     private bool ray_trig = false;                                                  // Raycast Trigger Flag
     private bool timer_on = false;                                                  // Timer On Flag
 
@@ -91,6 +92,15 @@ public class CassettePlayer : MonoBehaviour
             GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().startSubtitles(audio_id);  // Start Subtitles
 
             tape_playing = true;
+
+            if (!was_played)
+            {
+                was_played = true;
+
+                // Add Information to Journal
+                if (GetComponent<AddToJournalOnInteraction>() != null)
+                    GetComponent<AddToJournalOnInteraction>().addToJournal();
+            }
         }
         else
         {
