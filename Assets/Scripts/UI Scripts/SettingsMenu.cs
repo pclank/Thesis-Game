@@ -19,9 +19,9 @@ public class SettingsMenu : MonoBehaviour
     public Toggle vsync_toggle;                                         // V-Sync Toggle
     public Toggle subtitle_toggle;                                      // Subtitle Toggle
 
-    public Text subtitle_font_size;                                     // Subtitle Font Size Text
+    public Slider subtitle_font_size_slider;                            // Subtitle Font Size Slider
 
-    public Button subtitle_font_apply;                                  // Button to Apply Font Size
+    public Text subtitle_font_size;                                     // Subtitle Font Size Text
 
     [Tooltip("Array of Volumes.")]
     public Volume[] volume_objects = new Volume[4];
@@ -77,7 +77,18 @@ public class SettingsMenu : MonoBehaviour
     // Process Subtitle Font Size
     private void processSubtitleFontSizeChange()
     {
-        GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().changeSubtitleFont(Int32.Parse(subtitle_font_size.text));
+        try
+        {
+            subtitle_font_size.text = subtitle_font_size_slider.value.ToString();
+
+            GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().changeSubtitleFont((int)subtitle_font_size_slider.value);
+        }
+        catch (Exception)
+        {
+            Debug.LogError("Invalid Font Size Input!");
+
+            throw;
+        }
     }
 
     // Use this for initialization
@@ -105,12 +116,9 @@ public class SettingsMenu : MonoBehaviour
             processSubtitleChange();
         });
 
-        subtitle_font_apply.onClick.AddListener(() => buttonCallBack(subtitle_font_apply));
-    }
-
-    private void buttonCallBack(Button but_pressed)
-    {
-        if (but_pressed == subtitle_font_apply)
+        subtitle_font_size_slider.onValueChanged.AddListener(delegate
+        {
             processSubtitleFontSizeChange();
+        });
     }
 }
