@@ -116,6 +116,8 @@ public class CassettePlayer : MonoBehaviour
     {
         play_event.Stop(gameObject);
 
+        GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().stopSubtitles();  // Stop Subtitles
+
         tape_playing = false;
     }
 

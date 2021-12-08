@@ -86,6 +86,8 @@ public class PauseMenu : MonoBehaviour
             settings_ui.SetActive(false);                                           // Disable Settings Menu GameObject
             menu_ui.SetActive(false);                                               // Disable Pause Menu GameObject
 
+            GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().hidePlaceholder(); // Show Subtitles PLACEHOLDER
+
             menu_enabled = false;                                                   // Set Menu as Disabled
         }
 
@@ -125,6 +127,8 @@ public class PauseMenu : MonoBehaviour
         else if (but_pressed == settings_button)
         {
             settings_ui.SetActive(true);
+
+            GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().showPlaceholder(); // Show Subtitles PLACEHOLDER
         }
 
         // Exit Game Button Pressed
@@ -138,6 +142,8 @@ public class PauseMenu : MonoBehaviour
         {
             tutorials_ui.SetActive(false);                                          // Disable Tutorials Menu
             settings_ui.SetActive(false);                                           // Disable Settings Menu
+
+            GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().hidePlaceholder(); // Disable Subtitles PLACEHOLDER
         }
     }
 }

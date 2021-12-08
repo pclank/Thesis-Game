@@ -149,6 +149,12 @@ public class MainJournal : MonoBehaviour
     // Member Functions
     // ************************************************************************************
 
+    // Check Whether the Journal is Open from External Script
+    public bool isJournalOpen()
+    {
+        return journal_open;
+    }
+
     // Add Journal Category
     public void addCategory(int category_id)
     {
@@ -309,9 +315,16 @@ public class MainJournal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!journal_open && Input.GetKeyUp(open_key))
+        if (!journal_open && Input.GetKeyUp(open_key) && !GetComponent<main_inventory>().isInventoryOpen())
             openJournal();
         else if (journal_open && Input.GetKeyUp(open_key))
             closeJournal();
+
+        // Fix Player Unfreezing Issue
+        if (journal_open)
+        {
+            player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
+            camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
+        }
     }
 }

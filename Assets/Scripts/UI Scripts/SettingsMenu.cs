@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Rendering;
-using System.Collections;
+using System;
 
 // ************************************************************************************
 // Settings Menu
@@ -18,6 +18,10 @@ public class SettingsMenu : MonoBehaviour
     public Toggle motionblur_toggle;                                    // Motion Blur Toggle
     public Toggle vsync_toggle;                                         // V-Sync Toggle
     public Toggle subtitle_toggle;                                      // Subtitle Toggle
+
+    public Text subtitle_font_size;                                     // Subtitle Font Size Text
+
+    public Button subtitle_font_apply;                                  // Button to Apply Font Size
 
     [Tooltip("Array of Volumes.")]
     public Volume[] volume_objects = new Volume[4];
@@ -70,6 +74,12 @@ public class SettingsMenu : MonoBehaviour
         GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().changeSubtitlesOn(subtitle_toggle.isOn);
     }
 
+    // Process Subtitle Font Size
+    private void processSubtitleFontSizeChange()
+    {
+        GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().changeSubtitleFont(Int32.Parse(subtitle_font_size.text));
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -94,5 +104,13 @@ public class SettingsMenu : MonoBehaviour
         {
             processSubtitleChange();
         });
+
+        subtitle_font_apply.onClick.AddListener(() => buttonCallBack(subtitle_font_apply));
+    }
+
+    private void buttonCallBack(Button but_pressed)
+    {
+        if (but_pressed == subtitle_font_apply)
+            processSubtitleFontSizeChange();
     }
 }

@@ -100,6 +100,8 @@ public class MirrorPuzzle : MonoBehaviour
     {
         point_sfx_event.Post(gameObject);
 
+        player_object.GetComponent<MainJournal>().addEntry(1, 4);
+
         active = true;
     }
 

@@ -882,7 +882,7 @@ public class main_inventory : MonoBehaviour
             exitDisplay();
         }
 
-        if (Input.GetKeyDown(inventory_key) && !inventory_open)
+        if (Input.GetKeyDown(inventory_key) && !inventory_open && !GetComponent<MainJournal>().isJournalOpen())
         {
             openInventory();
         }
