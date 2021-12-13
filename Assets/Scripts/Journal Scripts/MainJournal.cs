@@ -102,6 +102,9 @@ public class MainJournal : MonoBehaviour
     [Tooltip("UI GameObject for New Entry Notification.")]
     public GameObject new_entry_notification_ui;
 
+    [Tooltip("Duration of New Entry Notification.")]
+    public float timer_duration = 2.0f;
+
     [Tooltip("UI Prefab for Category.")]
     public GameObject category_prefab;
 
@@ -142,6 +145,8 @@ public class MainJournal : MonoBehaviour
 
     private List<JournalCategory> player_journal = new List<JournalCategory>(); // Player Journal List
 
+    private float timer_value = 0.0f;                                           // Timer Current Value
+
     private bool journal_open = false;                                          // Whether Journal is Open
     private bool notification_active = false;                                   // Whether Notification UI is Enabled
 
@@ -165,7 +170,7 @@ public class MainJournal : MonoBehaviour
 
         player_journal.Add(new_category);                                               // Add Category Object to Journal
 
-        showNotification();                                                             // Show New Entry Notification
+        showNotification(journal_list.journal_list[category_id].title);                 // Show New Entry Notification
     }
 
     // Add Journal Entry
@@ -185,7 +190,7 @@ public class MainJournal : MonoBehaviour
             player_journal[category_id].entries.Add(new_entry);     // Add New Entry to Journal
         }
 
-        showNotification();                                                             // Show New Entry Notification
+        showNotification(journal_list.journal_list[category_id].title);     // Show New Entry Notification
     }
 
     // Expand Entries of Selected Category
@@ -296,9 +301,25 @@ public class MainJournal : MonoBehaviour
     }
 
     // Enable New Entry Notification
-    private void showNotification()
+    private void showNotification(string title)
     {
-        // TODO: Add Implementation!
+        if (!notification_active)
+        {
+            new_entry_notification_ui.GetComponentInChildren<Text>().text = "Journal Entry for \""+ title + "\" has been Updated";
+            new_entry_notification_ui.SetActive(true);
+
+            timer_value = Time.time;
+
+            notification_active = true;
+        }
+    }
+
+    // Disable New Entry Notification
+    private void hideNotification()
+    {
+        new_entry_notification_ui.SetActive(false);
+
+        notification_active = false;
     }
 
     // Use this for initialization
@@ -326,5 +347,9 @@ public class MainJournal : MonoBehaviour
             player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
             camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
         }
+
+        // Notification Timer Section
+        if (notification_active && Time.time - timer_value >= timer_duration)
+            hideNotification();
     }
 }
