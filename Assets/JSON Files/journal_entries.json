@@ -8,6 +8,51 @@
 					"id": 0,
 					"title": "Locked Box",
 					"line": "I somehow made it inside an old looking building. I can see a wooden box, with what looks to be a combination lock securing the contents. I should look around. Is that a calendar above it?"
+				},
+				{
+					"id": 1,
+					"title": "Book Happy",
+					"line": "Book Happy Hint"
+				},
+				{
+					"id": 2,
+					"title": "Plant Happy",
+					"line": "Plant Happy Hint"
+				},
+				{
+					"id": 3,
+					"title": "Building Wall Happy",
+					"line": "Building Wall Happy Hint"
+				},
+				{
+					"id": 4,
+					"title": "Book Sad",
+					"line": "Book Sad Hint"
+				},
+				{
+					"id": 5,
+					"title": "Plant Sad",
+					"line": "Plant Sad Hint"
+				},
+				{
+					"id": 6,
+					"title": "Building Wall Sad",
+					"line": "Building Wall Sad Hint"
+				},
+				{
+					"id": 7,
+					"title": "Book Angry",
+					"line": "Book Angry Hint"
+				},
+				{
+					"id": 8,
+					"title": "Plant Angry",
+					"line": "Plant Angry Hint"
+				},
+				{
+					"id": 9,
+					"title": "Building Wall Angry",
+					"line": "Building Wall Angry Hint"
 				}
 			]
 		},
@@ -39,6 +84,32 @@
 					"id": 4,
 					"title": "Mirror Reacted to Stare",
 					"line": "I looked at the old mirror for a few seconds. It somehow... reacted! I swear, I can make out strange shapes in the glass. They weren't there before!"
+				}
+			]
+		},
+		{
+			"id": 2,
+			"title": "Station Maintenance Room",
+			"entries": [
+				{
+					"id": 0,
+					"title": "Entered a Maintanance Room",
+					"line": "I managed to open the door, revealing some sort of maintenance room."
+				},
+				{
+					"id": 1,
+					"title": "Picked up an old coin",
+					"line": "I picked up what seems to be an old coin. I can't tell whether it's real or not. Maybe I should search for more."
+				},
+				{
+					"id": 2,
+					"title": "Found a set of Slots",
+					"line": "I found a set of slots. Maybe I can set the coins in them. But on what order though?"
+				},
+				{
+					"id": 3,
+					"title": "A Gate Appeared",
+					"line": "After setting the coins into the correct slots, an ellipse - shaped gate materialized out of thin air! I can't see very far inside it, but it seems to shimmer and quiver in waves. Wonder where it leads."
 				}
 			]
 		}
