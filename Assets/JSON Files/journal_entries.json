@@ -109,7 +109,43 @@
 				{
 					"id": 3,
 					"title": "A Gate Appeared",
-					"line": "After setting the coins into the correct slots, an ellipse - shaped gate materialized out of thin air! I can't see very far inside it, but it seems to shimmer and quiver in waves. Wonder where it leads."
+					"line": "After setting the coins into the correct slots, an ellipse-shaped gate materialized out of thin air! I can't see very far inside it, but it seems to shimmer and quiver in waves. Wonder where it leads."
+				}
+			]
+		},
+		{
+			"id": 3,
+			"title": "Rotating Rooms",
+			"entries": [
+				{
+					"id": 0,
+					"title": "Found a Keypad",
+					"line": "I discovered a keypad outside what seems to be a garage-like door. I'll have to find the password somwhere."
+				},
+				{
+					"id": 1,
+					"title": "Wall Riddle",
+					"line": "Found a riddle on the wall outside the weird rotating rooms."
+				},
+				{
+					"id": 2,
+					"title": "Classroom Hint",
+					"line": "I found myself in a classroom. There was a hint in the blackboard reading..."
+				},
+				{
+					"id": 3,
+					"title": "Barrel Room Hint",
+					"line": "One of the rooms is a container full of barrels. There seems to be... of them."
+				},
+				{
+					"id": 4,
+					"title": "Rock Room Hint",
+					"line": "I found a note on a rock with the number..."
+				},
+				{
+					"id": 5,
+					"title": "Clock Room Hint",
+					"line": "Entered a room with a chair, a table and a clock on the latter, which reads..."
 				}
 			]
 		}
