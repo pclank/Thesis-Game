@@ -71,6 +71,10 @@ public class modular_volume : MonoBehaviour
             lod_to_disable.SetActive(false);            // Disable GameObjects
             //lod_to_enable.SetActive(true);              // Enable GameObjects
 
+            // Add Information to Journal
+            if (GetComponent<AddToJournalOnInteraction>() != null)
+                GetComponent<AddToJournalOnInteraction>().addToJournal();
+
             player_trigger = true;
         }
     }
@@ -292,21 +296,21 @@ public class modular_volume : MonoBehaviour
 
         // TODO: Remove This as It's a Test Version
 
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             emotion_detected[1] = false;
             emotion_detected[2] = false;
 
             emotion_detected[0] = true;
         }
-        else if (Input.GetKeyDown(KeyCode.H))
+        else if (Input.GetKeyDown(KeyCode.Y))
         {
             emotion_detected[0] = false;
             emotion_detected[2] = false;
 
             emotion_detected[1] = true;
         }
-        else if (Input.GetKeyDown(KeyCode.J))
+        else if (Input.GetKeyDown(KeyCode.U))
         {
             emotion_detected[0] = false;
             emotion_detected[1] = false;

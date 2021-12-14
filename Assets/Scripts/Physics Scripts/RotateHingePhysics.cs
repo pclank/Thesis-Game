@@ -9,6 +9,7 @@ public class RotateHingePhysics : MonoBehaviour
 
     public AK.Wwise.Event locked_event;                     // Wwise Event for Locked Door
     public AK.Wwise.Event unlock_event;                     // Wwise Event for Unlocking Door
+    public AK.Wwise.Event handle_event;                     // Wwise Event for Using the Handle
 
     public GameObject icon_object;
     public GameObject handle;
@@ -45,6 +46,7 @@ public class RotateHingePhysics : MonoBehaviour
     private bool t_ran = false;
     private bool counter_on = false;
     private bool missing_ui_on = false;
+    private bool sfx_played = false;
 
     private float counter_value = 0.0f;
 
@@ -146,6 +148,8 @@ public class RotateHingePhysics : MonoBehaviour
 
             interact = false;
 
+            sfx_played = false;
+
             icon_object.SetActive(false);
         }
 
@@ -162,6 +166,13 @@ public class RotateHingePhysics : MonoBehaviour
             if ((requires_item && has_item) || (!requires_item && !locked))
             {
                 interact = true;
+
+                if (!sfx_played)
+                {
+                    handle_event.Post(gameObject);
+
+                    sfx_played = true;
+                }
 
                 player_object.GetComponent<interaction_restriction>().setEntered(true);
 

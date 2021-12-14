@@ -76,6 +76,10 @@ public class PortalPhysics : MonoBehaviour
         Vector3 target_location = target_portal.transform.position + extend;    // Calculate New Position Coordinates
 
         player_object.transform.position = target_location;                     // Teleport Player
+
+        // Add Information to Journal
+        if (GetComponent<AddToJournalOnInteraction>() != null)
+            GetComponent<AddToJournalOnInteraction>().addToJournal();
     }
 
     // ************************************************************************************

@@ -85,13 +85,22 @@ public class MirrorPuzzle : MonoBehaviour
     // Set Tape Has Been Played
     public void setTapeIsPlayed()
     {
-        tape_is_played = true;
+        if (!tape_is_played)
+        {
+            tape_is_played = true;
+
+            // Add Information to Journal
+            if (GetComponent<AddToJournalOnInteraction>() != null)
+                GetComponent<AddToJournalOnInteraction>().addToJournal();
+        }
     }
 
     // Activate Portal
     private void activatePortal()
     {
         point_sfx_event.Post(gameObject);
+
+        player_object.GetComponent<MainJournal>().addEntry(1, 4);
 
         active = true;
     }

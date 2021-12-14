@@ -1,0 +1,46 @@
+{
+	"journal_list": [
+		{
+			"id": 0,
+			"title": "Old Building",
+			"entries": [
+				{
+					"id": 0,
+					"title": "Locked Box",
+					"line": "I somehow made it inside an old looking building. I can see a wooden box, with what looks to be a combination lock securing the contents. I should look around. Is that a calendar above it?"
+				}
+			]
+		},
+		{
+			"id": 1,
+			"title": "Mysterious Dark Corridor",
+			"entries": [
+				{
+					"id": 0,
+					"title": "Appeared in a Long Candle-Lit Hallway",
+					"line": "How did I get here? How do these portals work? I can't see an end to this hallway."
+				},
+				{
+					"id": 1,
+					"title": "Locked in a Closed Room",
+					"line": "I turned around and before I knew it I'm being blocked by walls that I swear weren't there before. I need to get out! I should look around."
+				},
+				{
+					"id": 2,
+					"title": "Found a Tape",
+					"line": "I found a tape labeled \"Interesting Refractions\". Maybe I can listen to it using the Tape Player on the desk."
+				},
+				{
+					"id": 3,
+					"title": "Listened to Tape",
+					"line": "I played the \"Interesting Refractions\" tape. It seems to be somekind of a journal entry. It references a girl looking at a mirror. Is it the mirror in this room?"
+				},
+				{
+					"id": 4,
+					"title": "Mirror Reacted to Stare",
+					"line": "I looked at the old mirror for a few seconds. It somehow... reacted! I swear, I can make out strange shapes in the glass. They weren't there before!"
+				}
+			]
+		}
+	]
+}

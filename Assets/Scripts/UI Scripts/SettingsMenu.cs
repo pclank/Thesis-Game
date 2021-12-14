@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Rendering;
-using System.Collections;
+using System;
 
 // ************************************************************************************
 // Settings Menu
@@ -18,6 +18,10 @@ public class SettingsMenu : MonoBehaviour
     public Toggle motionblur_toggle;                                    // Motion Blur Toggle
     public Toggle vsync_toggle;                                         // V-Sync Toggle
     public Toggle subtitle_toggle;                                      // Subtitle Toggle
+
+    public Slider subtitle_font_size_slider;                            // Subtitle Font Size Slider
+
+    public Text subtitle_font_size;                                     // Subtitle Font Size Text
 
     [Tooltip("Array of Volumes.")]
     public Volume[] volume_objects = new Volume[4];
@@ -70,6 +74,23 @@ public class SettingsMenu : MonoBehaviour
         GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().changeSubtitlesOn(subtitle_toggle.isOn);
     }
 
+    // Process Subtitle Font Size
+    private void processSubtitleFontSizeChange()
+    {
+        try
+        {
+            subtitle_font_size.text = subtitle_font_size_slider.value.ToString();
+
+            GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().changeSubtitleFont((int)subtitle_font_size_slider.value);
+        }
+        catch (Exception)
+        {
+            Debug.LogError("Invalid Font Size Input!");
+
+            throw;
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -93,6 +114,11 @@ public class SettingsMenu : MonoBehaviour
         subtitle_toggle.onValueChanged.AddListener(delegate
         {
             processSubtitleChange();
+        });
+
+        subtitle_font_size_slider.onValueChanged.AddListener(delegate
+        {
+            processSubtitleFontSizeChange();
         });
     }
 }

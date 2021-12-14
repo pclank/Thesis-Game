@@ -106,6 +106,8 @@ public class ModularCorridor : MonoBehaviour
         GameObject gb = Instantiate(puzzle_objects);                    // Instantiate Puzzle Objects
 
         gb.transform.position = new Vector3 (player_object.transform.position.x - (end_wall_distance / 2), puzzle_gb_initial_position.y, puzzle_gb_initial_position.z);             // Set Position
+
+        player_object.GetComponent<MainJournal>().addEntry(1, 1);
     }
 
     // Use this for initialization

@@ -87,10 +87,28 @@ public class SubtitleControl : MonoBehaviour
     // Member Functions
     // ************************************************************************************
 
-    // Change Subtitles On from SettingsMenu
+    // Change Subtitles On from Settings Menu
     public void changeSubtitlesOn(bool flag)
     {
         subtitles_on = flag;
+    }
+
+    // Change Subtitle Font Size from Settings Menu
+    public void changeSubtitleFont(int font_size)
+    {
+        subtitle_ui.GetComponent<Text>().fontSize = font_size;
+    }
+
+    // Show Placeholder from Settings
+    public void showPlaceholder()
+    {
+        subtitle_ui.SetActive(true);
+    }
+
+    // Hide Placeholder from Settings
+    public void hidePlaceholder()
+    {
+        subtitle_ui.SetActive(false);
     }
 
     // Select and Start Subtitles
@@ -121,6 +139,19 @@ public class SubtitleControl : MonoBehaviour
         return false;
     }
 
+    // Stop and Reset Subtitles
+    public void stopSubtitles()
+    {
+        if (subtitles_running)
+        {
+            line_index = 0;
+
+            subtitles_running = false;
+
+            hideSubtitles();
+        }
+    }
+
     // Set and Show Subtitle UI
     private void showSubtitles()
     {
@@ -145,7 +176,7 @@ public class SubtitleControl : MonoBehaviour
 
         subtitle_ui.SetActive(false);                                           // Disable UI
 
-        subtitle_ui.GetComponent<Text>().text = "";                             // Clear Text
+        subtitle_ui.GetComponent<Text>().text = "PLACEHOLDER";                  // Clear Text
 
         // Check Whether Line List is Over
         if (line_index + 1 == selected_subtitles.getLineCount())
