@@ -13,6 +13,9 @@ public class AddToJournalOnRaycastHit : MonoBehaviour
     [Tooltip("Whether a New Category will Be Added.")]
     public bool add_category = false;
 
+    [Tooltip("Whether to Destroy GameObject after Trigger.")]
+    public bool destroy_after = false;
+
     private bool added = false;                             // Whether it has Already being Added in this Instance
 
     // Add to Journal from On Raycast Hit
@@ -31,7 +34,8 @@ public class AddToJournalOnRaycastHit : MonoBehaviour
     {
         GameObject.FindWithTag("Player").GetComponent<MainJournal>().addCategory(category_id);
 
-        //Destroy(this);
+        if (destroy_after)
+            Destroy(gameObject);
     }
 
     // Add Entry to Journal On Pickup
@@ -39,6 +43,7 @@ public class AddToJournalOnRaycastHit : MonoBehaviour
     {
         GameObject.FindWithTag("Player").GetComponent<MainJournal>().addEntry(category_id, entry_id);
 
-        //Destroy(this);
+        if (destroy_after)
+            Destroy(gameObject);
     }
 }
