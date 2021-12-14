@@ -176,21 +176,24 @@ public class MainJournal : MonoBehaviour
     // Add Journal Entry
     public void addEntry(int category_id, int entry_id)
     {
-        JournalEntry new_entry = new JournalEntry(entry_id, "PLACEHOLDER", "PLACEHOLDER");
-
-        new_entry.title = journal_list.journal_list[category_id].entries[entry_id].title;
-        new_entry.line = journal_list.journal_list[category_id].entries[entry_id].line;
-
-        // Check if Category has been Added
-        if (player_journal[category_id] != null)
-            player_journal[category_id].entries.Add(new_entry);     // Add New Entry to Journal
-        else
+        if (!isEntryInJournal(category_id, entry_id))
         {
-            addCategory(category_id);                               // Add Category if Missing
-            player_journal[category_id].entries.Add(new_entry);     // Add New Entry to Journal
-        }
+            JournalEntry new_entry = new JournalEntry(entry_id, "PLACEHOLDER", "PLACEHOLDER");
 
-        showNotification(journal_list.journal_list[category_id].title);     // Show New Entry Notification
+            new_entry.title = journal_list.journal_list[category_id].entries[entry_id].title;
+            new_entry.line = journal_list.journal_list[category_id].entries[entry_id].line;
+
+            // Check if Category has been Added
+            if (player_journal[category_id] != null)
+                player_journal[category_id].entries.Add(new_entry);     // Add New Entry to Journal
+            else
+            {
+                addCategory(category_id);                               // Add Category if Missing
+                player_journal[category_id].entries.Add(new_entry);     // Add New Entry to Journal
+            }
+
+            showNotification(journal_list.journal_list[category_id].title);     // Show New Entry Notification
+        }
     }
 
     // Expand Entries of Selected Category
@@ -233,7 +236,17 @@ public class MainJournal : MonoBehaviour
 
         entry_object.GetComponent<Image>().color = entry_selected_color;
 
-        journal_line.GetComponent<Text>().text = player_journal[entry_object.GetComponentInParent<JournalCategoryUI>().id].entries[id].line;
+        foreach (JournalEntry j_entry in player_journal[entry_object.GetComponentInParent<JournalCategoryUI>().id].entries)
+        {
+            if (j_entry.id == id)
+            {
+                journal_line.GetComponent<Text>().text = j_entry.line;
+
+                break;
+            }
+        }
+
+        //journal_line.GetComponent<Text>().text = player_journal[entry_object.GetComponentInParent<JournalCategoryUI>().id].entries[id].line;
 
         selected_entry = entry_object;                                          // Update Selected Entry UI Object
     }
@@ -298,6 +311,18 @@ public class MainJournal : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;                               // Lock Cursor to Center
         Cursor.visible = false;                                                 // Hide Cursor
+    }
+
+    // Check if Entry has Already Being Added
+    private bool isEntryInJournal(int category_id, int entry_id)
+    {
+        foreach (JournalEntry j_entry in player_journal[category_id].entries)
+        {
+            if (j_entry.id == entry_id)
+                return true;
+        }
+
+        return false;
     }
 
     // Enable New Entry Notification

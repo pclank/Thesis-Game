@@ -11,48 +11,48 @@
 				},
 				{
 					"id": 1,
-					"title": "Book Happy",
-					"line": "Book Happy Hint"
+					"title": "Book Hint",
+					"line": "Found a message written in a book. It reads \"On the coming week, the Music Blasts, on the weekday before the Dance\"."
 				},
 				{
 					"id": 2,
-					"title": "Plant Happy",
-					"line": "Plant Happy Hint"
+					"title": "Plant Hint",
+					"line": "Found a hidden message on a plant pot. It reads \"On the 3rd Monday of March the Party Starts\"."
 				},
 				{
 					"id": 3,
-					"title": "Building Wall Happy",
-					"line": "Building Wall Happy Hint"
+					"title": "Building Wall Hint",
+					"line": "Found writing on the wall of one of the buildings. It reads \"On the Great Day of God, the Dance Starts\"."
 				},
 				{
 					"id": 4,
-					"title": "Book Sad",
-					"line": "Book Sad Hint"
+					"title": "Book Hint",
+					"line": "Found a message written in a book. It reads \"On the next Weekend, the Soldiers March\"."
 				},
 				{
 					"id": 5,
-					"title": "Plant Sad",
-					"line": "Plant Sad Hint"
+					"title": "Plant Hint",
+					"line": "Found a hidden message on a plant pot. It reads \"On the 1st Friday of February, the Grieving Starts\"."
 				},
 				{
 					"id": 6,
-					"title": "Building Wall Sad",
-					"line": "Building Wall Sad Hint"
+					"title": "Building Wall Hint",
+					"line": "Found writing on the wall of one of the buildings. It reads \"On God's Day, the Fallen Rests\"."
 				},
 				{
 					"id": 7,
-					"title": "Book Angry",
-					"line": "Book Angry Hint"
+					"title": "Book Hint",
+					"line": "Found a message written in a book. It reads \"On the 4th day of the week, the Transformation takes Control\"."
 				},
 				{
 					"id": 8,
-					"title": "Plant Angry",
-					"line": "Plant Angry Hint"
+					"title": "Plant Hint",
+					"line": "Found a hidden message on a plant pot. It reads \"On the last Monday of July, the Pain Starts\"."
 				},
 				{
 					"id": 9,
-					"title": "Building Wall Angry",
-					"line": "Building Wall Angry Hint"
+					"title": "Building Wall Hint",
+					"line": "Found writing on the wall of one of the buildings. It reads \"On the last day of the month, the Beast Begins the Hunt\"."
 				}
 			]
 		},
@@ -125,27 +125,27 @@
 				{
 					"id": 1,
 					"title": "Wall Riddle",
-					"line": "Found a riddle on the wall outside the weird rotating rooms."
+					"line": "Found a riddle on the wall outside the weird rotating rooms. It reads \"Remember. The Container Room is Last, The Castle Walls are somewhere before the Classroom, and between them is the Cave\"."
 				},
 				{
 					"id": 2,
 					"title": "Classroom Hint",
-					"line": "I found myself in a classroom. There was a hint in the blackboard reading..."
+					"line": "I found myself in a classroom. There was a lullaby written in the blackboard reading \"Are you sleeping, are you sleeping, brother John, brother John, Four morning bells are ringing, Four morning bells are ringing, Ding dang dong, ding dang dong\"."
 				},
 				{
 					"id": 3,
 					"title": "Barrel Room Hint",
-					"line": "One of the rooms is a container full of barrels. There seems to be... of them."
+					"line": "One of the rooms is a container full of barrels. There seems to be \"8\" of them."
 				},
 				{
 					"id": 4,
 					"title": "Rock Room Hint",
-					"line": "I found a note on a rock with the number..."
+					"line": "I found a note on a rock with the number \"6\" on it."
 				},
 				{
 					"id": 5,
 					"title": "Clock Room Hint",
-					"line": "Entered a room with a chair, a table and a clock on the latter, which reads..."
+					"line": "Entered a room with a chair, a table and a clock on the latter, which reads \"9 o'clock\"."
 				}
 			]
 		}

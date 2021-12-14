@@ -218,6 +218,14 @@ public class InteractionRaycasting : MonoBehaviour
 
                 hit_gameobject.GetComponent<PowerBox>().setRaycast(true);
             }
+            else if (hit.transform.gameObject.CompareTag("JournalObject"))
+            {
+                hit_flag = true;
+
+                hit_gameobject = hit.transform.gameObject;
+
+                hit_gameobject.GetComponent<AddToJournalOnRaycastHit>().addToJournal();
+            }
 
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
         }
