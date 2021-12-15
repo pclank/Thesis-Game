@@ -792,7 +792,10 @@ public class main_inventory : MonoBehaviour
 
     private void useItem(Item item_used)
     {
-        bool cp = GameObject.FindWithTag("CassettePlayer").GetComponent<CassettePlayer>().getRaycast();
+        bool cp = false;
+
+        if (GameObject.FindWithTag("CassettePlayer") != null)
+            cp = GameObject.FindWithTag("CassettePlayer").GetComponent<CassettePlayer>().getRaycast();
 
         // Check if User can Interact with Slot
         if (item_slot_flag)

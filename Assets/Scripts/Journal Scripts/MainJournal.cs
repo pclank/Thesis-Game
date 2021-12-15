@@ -117,6 +117,9 @@ public class MainJournal : MonoBehaviour
     [Tooltip("Close Journal SFX Event.")]
     public AK.Wwise.Event close_sfx;
 
+    [Tooltip("New Entry SFX Event")]
+    public AK.Wwise.Event new_entry_sfx;
+
     [Tooltip("Key to Open Journal.")]
     public KeyCode open_key = KeyCode.J;
 
@@ -176,23 +179,39 @@ public class MainJournal : MonoBehaviour
     // Add Journal Entry
     public void addEntry(int category_id, int entry_id)
     {
-        if (!isEntryInJournal(category_id, entry_id))
+        bool found = false;
+
+        JournalEntry new_entry = new JournalEntry(entry_id, "PLACEHOLDER", "PLACEHOLDER");
+
+        foreach (JournalCategory j_category in player_journal)
         {
-            JournalEntry new_entry = new JournalEntry(entry_id, "PLACEHOLDER", "PLACEHOLDER");
-
-            new_entry.title = journal_list.journal_list[category_id].entries[entry_id].title;
-            new_entry.line = journal_list.journal_list[category_id].entries[entry_id].line;
-
-            // Check if Category has been Added
-            if (player_journal[category_id] != null)
-                player_journal[category_id].entries.Add(new_entry);     // Add New Entry to Journal
-            else
+            // Find Category with Requested ID
+            if (j_category.id == category_id && !isEntryInJournal(j_category, entry_id))
             {
-                addCategory(category_id);                               // Add Category if Missing
-                player_journal[category_id].entries.Add(new_entry);     // Add New Entry to Journal
-            }
+                new_entry.title = journal_list.journal_list[category_id].entries[entry_id].title;
+                new_entry.line = journal_list.journal_list[category_id].entries[entry_id].line;
 
-            showNotification(journal_list.journal_list[category_id].title);     // Show New Entry Notification
+                j_category.entries.Add(new_entry);                                  // Add New Entry to Journal
+
+                showNotification(journal_list.journal_list[category_id].title);     // Show New Entry Notification
+
+                found = true;
+
+                break;
+            }
+            else if (j_category.id == category_id && isEntryInJournal(j_category, entry_id))
+            {
+                found = true;                                                       // To Circumvent Last If Statement
+
+                break;
+            }
+        }
+
+        // If Category Hasn't being Added
+        if (!found)
+        {
+            addCategory(category_id);                                           // Add Category if Missing
+            player_journal[player_journal.Count - 1].entries.Add(new_entry);    // Add New Entry to Journal
         }
     }
 
@@ -273,6 +292,8 @@ public class MainJournal : MonoBehaviour
 
         open_sfx.Post(gameObject);                                              // Play SFX
 
+        int counter = 0;
+
         // Fill Category - Entry List
         foreach (JournalCategory j_category in player_journal)
         {
@@ -280,9 +301,11 @@ public class MainJournal : MonoBehaviour
 
             temp_ui_category.GetComponentInChildren<Text>().text = j_category.title;
 
-            temp_ui_category.GetComponent<JournalCategoryUI>().id = j_category.id;
+            temp_ui_category.GetComponent<JournalCategoryUI>().id = counter;
 
             Instantiate(temp_ui_category, journal_ui_parent.transform);
+
+            counter++;
         }
 
         Cursor.lockState = CursorLockMode.None;         // Unlock Cursor
@@ -314,9 +337,9 @@ public class MainJournal : MonoBehaviour
     }
 
     // Check if Entry has Already Being Added
-    private bool isEntryInJournal(int category_id, int entry_id)
+    private bool isEntryInJournal(JournalCategory j_category, int entry_id)
     {
-        foreach (JournalEntry j_entry in player_journal[category_id].entries)
+        foreach (JournalEntry j_entry in j_category.entries)
         {
             if (j_entry.id == entry_id)
                 return true;
@@ -330,6 +353,8 @@ public class MainJournal : MonoBehaviour
     {
         if (!notification_active)
         {
+            new_entry_sfx.Post(gameObject);                                     // Play New Entry SFX
+
             new_entry_notification_ui.GetComponentInChildren<Text>().text = "Journal Entry for \""+ title + "\" has been Updated";
             new_entry_notification_ui.SetActive(true);
 

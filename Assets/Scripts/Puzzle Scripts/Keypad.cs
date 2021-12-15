@@ -17,6 +17,8 @@ public class Keypad : MonoBehaviour
     public GameObject tgt_door;                                 // Target Door to Open GameObject
     public GameObject fail_indicator;                           // Wrong Password Indicator GameObject
     public GameObject success_indicator;                        // Correct Password Indicator GameObject
+    public GameObject lod_to_enable;                            // GameObjects to be Enabled on Success
+
     public Camera keypad_camera;                                // Keypad Camera
 
     //public AudioClip success_clip;                              // Success SFX
@@ -29,6 +31,8 @@ public class Keypad : MonoBehaviour
     public AK.Wwise.Event key_clip;                             // Key Press SFX
 
     public float delay = 0.5f;                                  // Ray Hit Update Delay
+
+    public bool enable_lod = false;                             // Whether to Enable LOD on Success
 
     public bool ray_trig = false;                               // Ray Hit Button
     public bool ray_keypad = false;                             // Ray Hit Keypad
@@ -186,6 +190,10 @@ public class Keypad : MonoBehaviour
             success_clip.Post(gameObject);
 
             success_indicator.GetComponent<LightEmissionFX>().startIndicator(); // Start Indication
+
+            // Enable LOD
+            if (enable_lod)
+                lod_to_enable.SetActive(true);
         }
         else
         {
@@ -202,6 +210,10 @@ public class Keypad : MonoBehaviour
         camera_object = GameObject.FindWithTag("MainCamera");   // Get Main Camera GameObject
 
         audio_source = GetComponent<AudioSource>();             // Get Audio Source
+
+        // Disable LOD On Start
+        if (enable_lod)
+            lod_to_enable.SetActive(false);
     }
 
     // Update is called once per frame
