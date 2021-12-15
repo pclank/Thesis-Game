@@ -53,6 +53,7 @@ public class Keypad : MonoBehaviour
     private bool was_clicked = false;                           // Was Clicked Flag
     private bool counter_on = false;                            // Counter On
     private bool interaction = false;                           // Interacting with Keypad
+    private bool solved = false;                                // Whether Correct Passcode has been Entered Before
 
     private float counter_value = 0.0f;                         // Counter Value
 
@@ -191,6 +192,8 @@ public class Keypad : MonoBehaviour
 
             success_indicator.GetComponent<LightEmissionFX>().startIndicator(); // Start Indication
 
+            solved = true;
+
             // Enable LOD
             if (enable_lod)
                 lod_to_enable.SetActive(true);
@@ -220,7 +223,7 @@ public class Keypad : MonoBehaviour
     void Update()
     {
         // Key Press UI Functionality
-        if (interaction && ray_trig)
+        if (!solved && interaction && ray_trig)
         {
             player_object.GetComponent<FirstPersonMovement>().stop_flag = true;         // Freeze Player Controller
             camera_object.GetComponent<FirstPersonLook>().stop_flag = true;             // Freeze Camera Controller
@@ -255,7 +258,7 @@ public class Keypad : MonoBehaviour
         }
 
         // Check for Mouse Down and No Interaction
-        if (!interaction && Input.GetKeyDown(KeyCode.Mouse0))
+        if (!solved && !interaction && Input.GetKeyDown(KeyCode.Mouse0))
         {
             was_clicked = true;
 

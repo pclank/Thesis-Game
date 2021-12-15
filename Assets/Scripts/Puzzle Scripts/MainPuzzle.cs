@@ -102,6 +102,10 @@ public class MainPuzzle : MonoBehaviour
     private void openAfterSolution()
     {
         portal_gameobject.GetComponent<PortalPhysics>().activatePortal();
+
+        // Add Information to Journal
+        if (GetComponent<AddToJournalOnInteraction>())
+            GetComponent<AddToJournalOnInteraction>().addToJournal();
     }
 
     // Start is called before the first frame update

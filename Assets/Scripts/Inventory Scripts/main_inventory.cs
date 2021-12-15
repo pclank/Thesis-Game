@@ -413,6 +413,10 @@ public class main_inventory : MonoBehaviour
         {
             if (it.getID() == i_id)         // Find Item
             {
+                // Don't Change if Item Already has Higher Knowledge Level
+                if (it.getLevel() >= target_level)
+                    break;
+
                 it.setLevel(target_level);      // Set Level
 
                 existance = true;
@@ -974,7 +978,7 @@ public class main_inventory : MonoBehaviour
 
             // Check for Knowledge Update on First Item Examination
 
-            if (!selected_it.wasExamined())
+            if (!selected_it.wasExamined() && selected_it.getLevel() < 1)
             {
                 selected_it.setLevel(1);                    // Set Level to 1
                 selected_it.setExamined(true);              // Set Item as Already Examined
