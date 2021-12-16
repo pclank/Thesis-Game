@@ -112,6 +112,7 @@
     <Compile Include="Assets\Scripts\UI Scripts\SettingsMenu.cs" />
     <Compile Include="Assets\Scripts\Inventory Scripts\ObjectRaycastCheck.cs" />
     <Compile Include="Assets\Scripts\General GameObject Scripts\FacePlayer.cs" />
+    <Compile Include="Assets\Scripts\Journal Scripts\AddToJournalOnTriggerEnter.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\door_rotator_parent.cs" />
     <Compile Include="Assets\Scripts\Shader-Material Scripts\MixShader.cs" />
     <Compile Include="Assets\Scripts\Tool Scripts\PythonScriptConnector.cs" />
@@ -133,7 +134,7 @@
     <Compile Include="Assets\Scripts\Journal Scripts\AddToJournalOnRaycastHit.cs" />
     <Compile Include="Assets\Scripts\Light Scripts\LanternFX.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\Journal Scripts\AddToJournalOnTriggerEnter.cs" />
+    <Compile Include="Assets\Scripts\Modular Room Scripts\DisableLODForVolume.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
