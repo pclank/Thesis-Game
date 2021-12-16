@@ -173,7 +173,7 @@ public class MainJournal : MonoBehaviour
 
         player_journal.Add(new_category);                                               // Add Category Object to Journal
 
-        showNotification(journal_list.journal_list[category_id].title);                 // Show New Entry Notification
+        showNotification(new_category.title);                                           // Show New Entry Notification
     }
 
     // Add Journal Entry
@@ -211,6 +211,10 @@ public class MainJournal : MonoBehaviour
         if (!found)
         {
             addCategory(category_id);                                           // Add Category if Missing
+
+            new_entry.title = journal_list.journal_list[category_id].entries[entry_id].title;
+            new_entry.line = journal_list.journal_list[category_id].entries[entry_id].line;
+
             player_journal[player_journal.Count - 1].entries.Add(new_entry);    // Add New Entry to Journal
         }
     }
@@ -219,6 +223,8 @@ public class MainJournal : MonoBehaviour
     public void expandCategory(int id, GameObject category_object)
     {
         category_object.GetComponent<Image>().color = category_expanded_color;
+
+        category_object.GetComponentInParent<VerticalLayoutGroup>().spacing = 500.0f;
 
         JournalCategory j_category = player_journal[id];            // Get Category
 
@@ -239,6 +245,8 @@ public class MainJournal : MonoBehaviour
     public void collapseCategory(int id, GameObject category_object)
     {
         category_object.GetComponent<Image>().color = category_default_color;
+
+        category_object.GetComponentInParent<VerticalLayoutGroup>().spacing = 50.0f;
 
         foreach (Transform child in category_object.GetComponentInChildren<VerticalLayoutGroup>().transform)
         {
