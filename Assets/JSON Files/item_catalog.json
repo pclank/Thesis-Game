@@ -333,6 +333,28 @@
         }
       ],
       "is_story": "false"
+    },
+    {
+      "id": 18,
+      "dev_title": "Cassette Tape - Calendar",
+      "knowledge": [
+        {
+          "level": 0,
+          "title": "Cassette Tape",
+          "description": "An old cassette tape."
+        },
+        {
+          "level": 1,
+          "title": "Cassette Tape",
+          "description": "An old cassette tape. It reads \"Calendar Remarks\" on the cover."
+        },
+        {
+          "level": 2,
+          "title": "Cassette Tape",
+          "description": "An old cassette tape. It reads \"Calendar Remarks\" on the cover. Can be used in a cassette player."
+        }
+      ],
+      "is_story": "false"
     }
   ]
 }

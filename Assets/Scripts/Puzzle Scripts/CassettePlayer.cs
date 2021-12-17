@@ -14,6 +14,9 @@ public class CassettePlayer : MonoBehaviour
     [Tooltip("Wwise Event to Trigger.")]
     public AK.Wwise.Event play_event;
 
+    [Tooltip("Button SFX Event.")]
+    public AK.Wwise.Event button_event;
+
     [Tooltip("Target Puzzle GameObject to Send \"Tape Played\" Message to.")]
     public GameObject target_puzzle;
 
@@ -82,6 +85,8 @@ public class CassettePlayer : MonoBehaviour
     // Play Tape Audio Clip
     private void playTape()
     {
+        button_event.Post(gameObject);
+
         // Check Whether a Tape is Placed
         if (tape_in)
         {

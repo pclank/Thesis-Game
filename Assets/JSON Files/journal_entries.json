@@ -58,6 +58,11 @@
 					"id": 10,
 					"title": "Power Box",
 					"line": "I found a power box in one of the rooms. It seems to be locked. Maybe I can find the key."
+				},
+				{
+					"id": 11,
+					"title": "Found a Tape",
+					"line": "I found a tape. Maybe I can listen to it at the Tape Player near the sofa."
 				}
 			]
 		},
