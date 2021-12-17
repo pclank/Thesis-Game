@@ -97,6 +97,7 @@
     <Compile Include="Assets\Scripts\Journal Scripts\AddToJournalOnInteraction.cs" />
     <Compile Include="Assets\Scripts\Puzzle Scripts\Keypad.cs" />
     <Compile Include="Assets\Scripts\Puzzle Scripts\PowerBox.cs" />
+    <Compile Include="Assets\Scripts\Modular Room Scripts\DisableLODForVolume.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\modular_volume.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\ModularCorridor.cs" />
     <Compile Include="Assets\Scripts\Shader-Material Scripts\OverlayBreathing.cs" />
@@ -134,7 +135,6 @@
     <Compile Include="Assets\Scripts\Journal Scripts\AddToJournalOnRaycastHit.cs" />
     <Compile Include="Assets\Scripts\Light Scripts\LanternFX.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\Modular Room Scripts\DisableLODForVolume.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />

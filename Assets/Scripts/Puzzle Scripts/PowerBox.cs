@@ -25,6 +25,7 @@ public class PowerBox : MonoBehaviour
     // ************************************************************************************
 
     private bool ray_trig = false;                                      // Raycast Flag
+    private bool turn_on = false;                                       // Whether Power was Turned ON
 
     // ************************************************************************************
     // Member Functions
@@ -33,9 +34,12 @@ public class PowerBox : MonoBehaviour
     // Set Raycast Flag
     public void setRaycast(bool flag)
     {
-        ray_trig = flag;
+        if (!turn_on)
+        {
+            ray_trig = flag;
 
-        ui_object.SetActive(flag);
+            ui_object.SetActive(flag);
+        }
     }
 
     // Use this for initialization
@@ -50,9 +54,11 @@ public class PowerBox : MonoBehaviour
     void Update()
     {
         // Detect Interaction
-        if (ray_trig && Input.GetKeyUp(KeyCode.Mouse0))
+        if (!turn_on && ray_trig && Input.GetKeyUp(KeyCode.Mouse0))
         {
             setRaycast(false);
+
+            turn_on = true;
 
             event_sfx.Post(gameObject);
 
