@@ -857,6 +857,10 @@ public class main_inventory : MonoBehaviour
             // If Validation is True
             if (validation)
             {
+                analytics_list.Add(new AnalyticsItem(item_used.getID(), item_used.getLevel(), item_used.getPickupTime()));  // Record Use Analytics
+
+                Debug.Log("Item with ID: " + item_used.getID() + ", Knowledge Level: " + item_used.getLevel() + " and Pickup Time: " + item_used.getPickupTime() + " Added to Analytics.");
+
                 closeInventory();                   // Close Inventory
 
                 removeItem(item_used);              // Remove Item from Inventory
