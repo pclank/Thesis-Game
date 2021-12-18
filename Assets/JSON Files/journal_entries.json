@@ -7,67 +7,96 @@
 				{
 					"id": 0,
 					"title": "Locked Box",
-					"line": "I somehow made it inside an old looking building. I can see a wooden box, with what looks to be a combination lock securing the contents. I should look around. Is that a calendar above it?"
+					"line": 
+					[
+						{"line": "I somehow made it inside an old looking building. I can see a wooden box, with what looks to be a combination lock securing the contents. I should look around. Is that a calendar above it?"}
+					]
 				},
 				{
 					"id": 1,
 					"title": "Book Hint",
-					"line": "Found a message written in a book. It reads \"On the coming week, the Music Blasts, on the weekday before the Dance\"."
+					"line": 
+					[
+						{"line": "Found a message written in a book. It reads \"On the coming week, the Music Blasts, on the weekday before the Dance\"."}
+					]
 				},
 				{
 					"id": 2,
 					"title": "Plant Hint",
-					"line": "Found a hidden message on a plant pot. It reads \"On the 3rd Monday of March the Party Starts\"."
+					"line": 
+					[
+						{"line": "Found a hidden message on a plant pot. It reads \"On the 3rd Monday of March the Party Starts\"."}
+					]
 				},
 				{
 					"id": 3,
 					"title": "Building Wall Hint",
-					"line": "Found writing on the wall of one of the buildings. It reads \"On the Great Day of God, the Dance Starts\"."
+					"line": 
+					[
+						{"line": "Found writing on the wall of one of the buildings. It reads \"On the Great Day of God, the Dance Starts\"."}
+					]
 				},
 				{
 					"id": 4,
 					"title": "Book Hint",
-					"line": "Found a message written in a book. It reads \"On the next Weekend, the Soldiers March\"."
+					"line": 
+					[
+						{"line": "Found a message written in a book. It reads \"On the next Weekend, the Soldiers March\"."}
+					]
 				},
 				{
 					"id": 5,
 					"title": "Plant Hint",
-					"line": "Found a hidden message on a plant pot. It reads \"On the 1st Friday of February, the Grieving Starts\"."
+					"line": 
+					[
+						{"line": "Found a hidden message on a plant pot. It reads \"On the 1st Friday of February, the Grieving Starts\"."}
+					]
 				},
 				{
 					"id": 6,
 					"title": "Building Wall Hint",
-					"line": "Found writing on the wall of one of the buildings. It reads \"On God's Day, the Fallen Rests\"."
+					"line": 
+					[
+						{"line": "Found writing on the wall of one of the buildings. It reads \"On God's Day, the Fallen Rests\"."}
+					]
 				},
 				{
 					"id": 7,
 					"title": "Book Hint",
-					"line": "Found a message written in a book. It reads \"On the 4th day of the week, the Transformation takes Control\"."
+					"line": 
+					[
+						{"line": "Found a message written in a book. It reads \"On the 4th day of the week, the Transformation takes Control\"."}
+					]
 				},
 				{
 					"id": 8,
 					"title": "Plant Hint",
-					"line": "Found a hidden message on a plant pot. It reads \"On the last Monday of July, the Pain Starts\"."
+					"line": 
+					[
+						{"line": "Found a hidden message on a plant pot. It reads \"On the last Monday of July, the Pain Starts\"."}
+					]
 				},
 				{
 					"id": 9,
 					"title": "Building Wall Hint",
-					"line": "Found writing on the wall of one of the buildings. It reads \"On the last day of the month, the Beast Begins the Hunt\"."
+					"line": 
+					[
+						{"line": "Found writing on the wall of one of the buildings. It reads \"On the last day of the month, the Beast Begins the Hunt\"."}
+					]
 				},
 				{
 					"id": 10,
 					"title": "Power Box",
-					"line": "I found a power box in one of the rooms. It seems to be locked. Maybe I can find the key."
+					"line": 
+					[
+						{"line": "I found a power box in one of the rooms. It seems to be locked. Maybe I can find the key."},
+						{"line": "Is this a power box? It's locked. Where would I find a key in here?!"}
+					]
 				},
 				{
 					"id": 11,
 					"title": "Found a Tape",
 					"line": "I found a tape. Maybe I can listen to it at the Tape Player near the sofa."
-				},
-				{
-					"id": 12,
-					"title": "Listened to Tape",
-					"line": "I played the \"Calendar Remarks\" tape. It seems to be somekind of a journal entry. It references \"projections - visions\", and writings on objects and buildings. Is he talking about this room?"
 				}
 			]
 		},
@@ -78,27 +107,47 @@
 				{
 					"id": 0,
 					"title": "Appeared in a Long Candle-Lit Hallway",
-					"line": "How did I get here? How do these portals work? I can't see an end to this hallway."
+					"line": 
+					[
+						{"line": "I seem to have been transported in a long candlit hallway. Wonder where it leads."},
+						{"line": "How did I get here? How do these portals work? I can't see an end to this hallway!"}
+					]
 				},
 				{
 					"id": 1,
 					"title": "Locked in a Closed Room",
-					"line": "I turned around and before I knew it I'm being blocked by walls that I swear weren't there before. I need to get out! I should look around."
+					"line": 
+					[
+						{"line": "Turns out the hallway wasn't the way out. I'm now in a peculiar room with a table. I wonder whether the tape has any information on getting out."},
+						{"line": "I turned around and before I knew it I'm being blocked by walls that I swear weren't there before. I need to get out! I should look around."}
+					]
 				},
 				{
 					"id": 2,
 					"title": "Found a Tape",
-					"line": "I found a tape labeled \"Interesting Refractions\". Maybe I can listen to it using the Tape Player on the desk."
+					"line": 
+					[
+						{"line": "I found a tape labeled \"Interesting Refractions\". Maybe I can listen to it using the Tape Player on the desk."},
+						{"line": "I found a tape on the table. I hope it leads me out of here somehow. Maybe the Tape Player on the desk works?"}
+					]
 				},
 				{
 					"id": 3,
 					"title": "Listened to Tape",
-					"line": "I played the \"Interesting Refractions\" tape. It seems to be somekind of a journal entry. It references a girl looking at a mirror. Is it the mirror in this room?"
+					"line": 
+					[
+						{"line": "I played the \"Interesting Refractions\" tape. It seems to be somekind of a journal entry. It references a girl looking at a mirror. Is it the mirror in this room?"},
+						{"line": "I listened to that tape. I heard references to a mirror and staring at it! Should I try... staring at it?"}
+					]
 				},
 				{
 					"id": 4,
 					"title": "Mirror Reacted to Stare",
-					"line": "I looked at the old mirror for a few seconds. It somehow... reacted! I swear, I can make out strange shapes in the glass. They weren't there before!"
+					"line": 
+					[
+						{"line": "I looked at the old mirror for a few seconds. It somehow... reacted! I swear, I can make out strange shapes in the glass. They weren't there before!"},
+						{"line": "Aftering staring at the mirror for what seemed an eternity, a wave of dark... shapes appeared! What is wrong with this place? Should I try... reaching out and touching it?"}
+					]
 				}
 			]
 		},
@@ -109,22 +158,38 @@
 				{
 					"id": 0,
 					"title": "Entered a Maintanance Room",
-					"line": "I managed to open the door, revealing some sort of maintenance room."
+					"line": 
+					[
+						{"line": "I managed to open the door, revealing some sort of maintenance room."},
+						{"line": "I finally opened the garage-like door. But there's no exit in sight! Is this a maintenance closet?"}
+					]
 				},
 				{
 					"id": 1,
 					"title": "Picked up an old coin",
-					"line": "I picked up what seems to be an old coin. I can't tell whether it's real or not. Maybe I should search for more."
+					"line": 
+					[
+						{"line": "I picked up what seems to be an old coin. I can't tell whether it's real or not. Maybe I should search for more."},
+						{"line": "I found... a weird coin? Is this going to help me get out?! Ok. Maybe I can use it somewhere."}
+					]
 				},
 				{
 					"id": 2,
 					"title": "Found a set of Slots",
-					"line": "I found a set of slots. Maybe I can set the coins in them. But on what order though?"
+					"line": 
+					[
+						{"line": "I found a set of slots. Maybe I can set the coins in them. But in what order though?"},
+						{"line": "This is it. Something fits in those slots. I just need to somehow figure out the order."}
+					]
 				},
 				{
 					"id": 3,
 					"title": "A Gate Appeared",
-					"line": "After setting the coins into the correct slots, an ellipse-shaped gate materialized out of thin air! I can't see very far inside it, but it seems to shimmer and quiver in waves. Wonder where it leads."
+					"line": 
+					[
+						{"line": "After setting the coins into the correct slots, an ellipse-shaped gate materialized out of thin air! I can't see very far inside it, but it seems to shimmer and quiver in waves. Wonder where it leads."},
+						{"line": "The... solution must be correct. Looks like my way out is a \"portal\"?! I don't know where it leads, but it will have to do."}
+					]
 				}
 			]
 		},
@@ -135,32 +200,51 @@
 				{
 					"id": 0,
 					"title": "Found a Keypad",
-					"line": "I discovered a keypad outside what seems to be a garage-like door. I'll have to find the password somwhere."
+					"line": 
+					[
+						{"line": "I discovered a keypad outside what seems to be a garage-like door. I'll have to find the password somwhere."},
+						{"line": "I made my way upstairs only to come across a shut door! There's a keypad next to it though. But where am I supposed to find the password?!"}
+					]
 				},
 				{
 					"id": 1,
 					"title": "Wall Riddle",
-					"line": "Found a riddle on the wall outside the weird rotating rooms. It reads \"Remember. The Container Room is Last, The Castle Walls are somewhere before the Classroom, and between them is the Cave\"."
+					"line": 
+					[
+						{"line": "Found a riddle on the wall outside the weird rotating rooms. It reads \"Remember. The Container Room is Last, The Castle Walls are somewhere before the Classroom, and between them is the Cave\"."}
+					]
 				},
 				{
 					"id": 2,
 					"title": "Classroom Hint",
-					"line": "I found myself in a classroom. There was a lullaby written in the blackboard reading \"Are you sleeping, are you sleeping, brother John, brother John, Four morning bells are ringing, Four morning bells are ringing, Ding dang dong, ding dang dong\"."
+					"line": 
+					[
+						{"line": "I found myself in a classroom. There was a lullaby written in the blackboard reading \"Are you sleeping, are you sleeping, brother John, brother John, Four morning bells are ringing, Four morning bells are ringing, Ding dang dong, ding dang dong\"."}
+					]
 				},
 				{
 					"id": 3,
 					"title": "Barrel Room Hint",
-					"line": "One of the rooms is a container full of barrels. There seems to be \"8\" of them."
+					"line": 
+					[
+						{"line": "One of the rooms is a container full of barrels. There seems to be \"8\" of them."}
+					]
 				},
 				{
 					"id": 4,
 					"title": "Rock Room Hint",
-					"line": "I found a note on a rock with the number \"6\" on it."
+					"line": 
+					[
+						{"line": "I found a note on a rock with the number \"6\" on it."}
+					]
 				},
 				{
 					"id": 5,
 					"title": "Clock Room Hint",
-					"line": "Entered a room with a chair, a table and a clock on the latter, which reads \"9 o'clock\"."
+					"line": 
+					[
+						{"line": "Entered a room with a chair, a table and a clock on the latter, which reads \"9 o'clock\"."}
+					]
 				}
 			]
 		},
@@ -171,22 +255,38 @@
 				{
 					"id": 0,
 					"title": "Just Woke Up",
-					"line": "What is happening? I seem to have... woken up (?) in some short of bathroom. No. A restroom! Is this one of those dreams again?"
+					"line": 
+					[
+						{"line": "What... I somehow ended up in a public bathroom. Must be one of those visions again. I guess I'll have to find my way out."},
+						{"line": "What is happening? I seem to have... woken up (?) in some short of bathroom. No. A restroom! Is this one of those dreams again?"}
+					]
 				},
 				{
 					"id": 1,
 					"title": "Door",
-					"line": "Door seems to be locked? There must be a key somewhere!"
+					"line": 
+					[
+						{"line": "I found the door, but it's locked. I should search for a key."},
+						{"line": "Door seems to be locked? There must be a key somewhere!"}
+					]
 				},
 				{
 					"id": 2,
 					"title": "Found Key",
-					"line": "I found a key on the sink. I swear... it wasn't there when I woke up."
+					"line": 
+					[
+						{"line": "I found the key on the sink. Seems like it appeared out of thin air, but I'll take it."},
+						{"line": "I found a key on the sink. I swear... it wasn't there when I woke up."}
+					]
 				},
 				{
 					"id": 3,
 					"title": "Opened the Door",
-					"line": "I opened the door. I seem to have found myself in somesort of train station. I should look around for an exit. There must be stairs somewhere."
+					"line": 
+					[
+						{"line": "I opened the door. I seem to have found myself in somesort of train station. I should look around for an exit. There must be stairs somewhere."},
+						{"line": "Finally, the door is open. Is this a train station? How... Well, I guess I'll have to look for the stairway leading outside."}
+					]
 				}
 			]
 		}
