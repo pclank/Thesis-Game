@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.IO;
 using System.Collections.Generic;
 
 // ************************************************************************************
@@ -58,6 +59,16 @@ public class RoomVolumeAnalytics : MonoBehaviour
     // Record Analytics List to JSON File
     private void recordAnalytics()
     {
-        // TODO: Write Code to Store Information From Analytics Item List to JSON File
+        string c_string = "{\"room_analytics\": [" + JsonUtility.ToJson(analytics_list[0]) + ", ";
+
+        for (int i = 1; i < analytics_list.Count; i++)
+        {
+            if (i == analytics_list.Count - 1)
+                c_string += JsonUtility.ToJson(analytics_list[i]) + "]}";
+            else
+                c_string += JsonUtility.ToJson(analytics_list[i]) + ", ";
+        }
+
+        File.WriteAllText("room_analytics.json", c_string);
     }
 }

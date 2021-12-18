@@ -69,6 +69,7 @@
     <Compile Include="Assets\First person controller\Scripts\Components\FirstPersonAudio.cs" />
     <Compile Include="Assets\Scripts\Puzzle Scripts\ItemSlot.cs" />
     <Compile Include="Assets\Scripts\Item Scripts\KnowledgeOnPickup.cs" />
+    <Compile Include="Assets\Scripts\Analytics Scripts\RoomVolumeAnalytics.cs" />
     <Compile Include="Assets\Scripts\Journal Scripts\AddToJournalOnPickup.cs" />
     <Compile Include="Assets\First person controller\Scripts\FirstPersonLook.cs" />
     <Compile Include="Assets\Scripts\Physics Scripts\RotatingRooms.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Assets\First person controller\Scripts\Components\Crouch.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\BasicStartAnimation.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\PauseMenu.cs" />
+    <Compile Include="Assets\Scripts\Analytics Scripts\PuzzleAnalytics.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\ui_click_detector.cs" />
     <Compile Include="Assets\Scripts\Puzzle Scripts\MirrorPuzzle.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\AuxiliaryUI.cs" />
@@ -135,8 +137,6 @@
     <Compile Include="Assets\Scripts\Journal Scripts\AddToJournalOnRaycastHit.cs" />
     <Compile Include="Assets\Scripts\Light Scripts\LanternFX.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\Analytics Scripts\RoomVolumeAnalytics.cs" />
-    <Compile Include="Assets\Scripts\Analytics Scripts\PuzzleAnalytics.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />

@@ -224,7 +224,7 @@ public class MainJournal : MonoBehaviour
     {
         category_object.GetComponent<Image>().color = category_expanded_color;
 
-        category_object.GetComponentInParent<VerticalLayoutGroup>().spacing = 350.0f;
+        category_object.GetComponentInParent<VerticalLayoutGroup>().spacing = 400.0f;
 
         JournalCategory j_category = player_journal[id];            // Get Category
 
@@ -246,7 +246,7 @@ public class MainJournal : MonoBehaviour
     {
         category_object.GetComponent<Image>().color = category_default_color;
 
-        category_object.GetComponentInParent<VerticalLayoutGroup>().spacing = 50.0f;
+        category_object.GetComponentInParent<VerticalLayoutGroup>().spacing = 40.0f;
 
         foreach (Transform child in category_object.GetComponentInChildren<VerticalLayoutGroup>().transform)
         {
@@ -296,7 +296,7 @@ public class MainJournal : MonoBehaviour
         player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
         camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
 
-        journal_ui_parent.GetComponent<VerticalLayoutGroup>().spacing = 50.0f;
+        journal_ui_parent.GetComponent<VerticalLayoutGroup>().spacing = 40.0f;
 
         journal_ui.SetActive(true);                                             // Enable Journal UI
 

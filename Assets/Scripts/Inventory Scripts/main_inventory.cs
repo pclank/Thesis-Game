@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using System.Collections;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
@@ -829,7 +829,7 @@ public class main_inventory : MonoBehaviour
             cp = GameObject.FindWithTag("CassettePlayer").GetComponent<CassettePlayer>().getRaycast();
 
         // Check if User can Interact with Slot
-        if (item_slot_flag)
+        if (!cp && item_slot_flag)
         {
             bool validation = selected_slot.GetComponent<ItemSlot>().placeItem(item_used);          // Place Item on Slot
 
@@ -875,7 +875,17 @@ public class main_inventory : MonoBehaviour
     // Record Item Use to JSON File
     private void recordItemUse()
     {
-        // TODO: Write Code to Store Information From Analytics Item List to JSON File
+        string c_string = "{\"item_analytics\": [" + JsonUtility.ToJson(analytics_list[0]) + ", ";
+
+        for (int i = 1; i < analytics_list.Count; i++)
+        {
+            if (i == analytics_list.Count - 1)
+                c_string += JsonUtility.ToJson(analytics_list[i]) + "]}";
+            else
+                c_string += JsonUtility.ToJson(analytics_list[i]) + ", ";
+        }
+
+        File.WriteAllText("item_analytics.json", c_string);
     }
 
     // ************************************************************************************
@@ -947,7 +957,7 @@ public class main_inventory : MonoBehaviour
         }
 
         // Disable Invalid Item UI Element
-        if (!item_slot_flag)
+        if (!item_slot_flag || invalid_ui.activeSelf)
         {
             invalid_ui.SetActive(false);
         }
