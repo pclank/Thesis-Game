@@ -63,6 +63,11 @@
 					"id": 11,
 					"title": "Found a Tape",
 					"line": "I found a tape. Maybe I can listen to it at the Tape Player near the sofa."
+				},
+				{
+					"id": 12,
+					"title": "Listened to Tape",
+					"line": "I played the \"Calendar Remarks\" tape. It seems to be somekind of a journal entry. It references \"projections - visions\", and writings on objects and buildings. Is he talking about this room?"
 				}
 			]
 		},

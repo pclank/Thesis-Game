@@ -92,7 +92,8 @@ public class CassettePlayer : MonoBehaviour
         {
             play_event.Post(gameObject);
 
-            target_puzzle.GetComponent<MirrorPuzzle>().setTapeIsPlayed();                               // Send Message to Puzzle
+            if (target_puzzle != null)
+                target_puzzle.GetComponent<MirrorPuzzle>().setTapeIsPlayed();                               // Send Message to Puzzle
 
             GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().startSubtitles(audio_id);  // Start Subtitles
 
