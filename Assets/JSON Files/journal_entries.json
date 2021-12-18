@@ -158,6 +158,32 @@
 					"line": "Entered a room with a chair, a table and a clock on the latter, which reads \"9 o'clock\"."
 				}
 			]
+		},
+		{
+			"id": 4,
+			"title": "Where am I?",
+			"entries": [
+				{
+					"id": 0,
+					"title": "Just Woke Up",
+					"line": "What is happening? I seem to have... woken up (?) in some short of bathroom. No. A restroom! Is this one of those dreams again?"
+				},
+				{
+					"id": 1,
+					"title": "Door",
+					"line": "Door seems to be locked? There must be a key somewhere!"
+				},
+				{
+					"id": 2,
+					"title": "Found Key",
+					"line": "I found a key on the sink. I swear... it wasn't there when I woke up."
+				},
+				{
+					"id": 3,
+					"title": "Opened the Door",
+					"line": "I opened the door. I seem to have found myself in somesort of train station. I should look around for an exit. There must be stairs somewhere."
+				}
+			]
 		}
 	]
 }
