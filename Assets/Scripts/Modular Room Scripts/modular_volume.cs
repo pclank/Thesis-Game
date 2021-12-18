@@ -93,6 +93,8 @@ public class modular_volume : MonoBehaviour
 
             player_object.GetComponent<RoomVolumeAnalytics>().addAnalytics(room_name, enter_time);  // Add Analytics on Exit
 
+            Destroy(GameObject.FindWithTag("CassettePlayer"));
+
             disableHDRILighting();                      // Disable HDRI Lighting
         }
     }
