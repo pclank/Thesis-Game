@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 
 // ************************************************************************************
@@ -66,15 +66,25 @@ public class JournalEntry
     public int id;
 
     public string title;
-    public string line;
+    public List<JournalLine> line;
 
     // Constructor
-    public JournalEntry(int id, string title, string line)
+    public JournalEntry(int id, string title, List<JournalLine> line)
     {
         this.id = id;
         this.title = title;
         this.line = line;
     }
+}
+
+// ************************************************************************************
+// Journal Entry Line Class
+// ************************************************************************************
+
+[System.Serializable]
+public class JournalLine
+{
+    public string line;
 }
 
 // ************************************************************************************
@@ -123,6 +133,13 @@ public class MainJournal : MonoBehaviour
     [Tooltip("Key to Open Journal.")]
     public KeyCode open_key = KeyCode.J;
 
+    [Header("Development Mode Options")]
+    [Tooltip("Starts Development Mode.")]
+    public bool development_mode = false;
+
+    [Tooltip("Static Emotion Index for Development Mode.")]
+    public int development_mode_index = 0;
+
     [Header("Color Options")]
     [Tooltip("Category Expanded Color.")]
     public Color category_expanded_color = Color.blue;
@@ -150,6 +167,8 @@ public class MainJournal : MonoBehaviour
 
     private float timer_value = 0.0f;                                           // Timer Current Value
 
+    private int emotion_index = 0;                                              // Current Emotion Index
+
     private bool journal_open = false;                                          // Whether Journal is Open
     private bool notification_active = false;                                   // Whether Notification UI is Enabled
 
@@ -168,8 +187,25 @@ public class MainJournal : MonoBehaviour
     {
         JournalCategory new_category = new JournalCategory(category_id, "PLACEHOLDER");
 
+        JournalEntry new_entry = new JournalEntry(0, "PLACEHOLDER", new List<JournalLine>());
+
+        new_entry.title = journal_list.journal_list[category_id].entries[0].title;
+
+        Tuple<int, float> prediction = GameObject.FindWithTag("Player").GetComponent<JSONReader>().readEmotionIndex();  // Get Prediction
+
+        if (!development_mode && prediction.Item2 >= 40.0f)
+            emotion_index = prediction.Item1;
+        else if (development_mode)
+            emotion_index = development_mode_index;
+
         new_category.title = journal_list.journal_list[category_id].title;              // Assign Title
-        new_category.entries.Add(journal_list.journal_list[category_id].entries[0]);    // Add First Entry
+
+        if (emotion_index == 0 || journal_list.journal_list[category_id].entries[0].line.Count == 1)
+            new_entry.line.Add(journal_list.journal_list[category_id].entries[0].line[0]);
+        else if (emotion_index != 0 && journal_list.journal_list[category_id].entries[0].line.Count == 2)    // TODO: Consider Change to Simple else!
+            new_entry.line.Add(journal_list.journal_list[category_id].entries[0].line[1]);
+
+        new_category.entries.Add(new_entry);                                            // Add First Entry
 
         player_journal.Add(new_category);                                               // Add Category Object to Journal
 
@@ -181,7 +217,14 @@ public class MainJournal : MonoBehaviour
     {
         bool found = false;
 
-        JournalEntry new_entry = new JournalEntry(entry_id, "PLACEHOLDER", "PLACEHOLDER");
+        JournalEntry new_entry = new JournalEntry(entry_id, "PLACEHOLDER", new List<JournalLine>());
+
+        Tuple<int, float> prediction = GameObject.FindWithTag("Player").GetComponent<JSONReader>().readEmotionIndex();  // Get Prediction
+
+        if (!development_mode && prediction.Item2 >= 40.0f)
+            emotion_index = prediction.Item1;
+        else if (development_mode)
+            emotion_index = development_mode_index;
 
         foreach (JournalCategory j_category in player_journal)
         {
@@ -189,7 +232,11 @@ public class MainJournal : MonoBehaviour
             if (j_category.id == category_id && !isEntryInJournal(j_category, entry_id))
             {
                 new_entry.title = journal_list.journal_list[category_id].entries[entry_id].title;
-                new_entry.line = journal_list.journal_list[category_id].entries[entry_id].line;
+                
+                if (emotion_index == 0 || journal_list.journal_list[category_id].entries[entry_id].line.Count == 1)
+                    new_entry.line.Add(journal_list.journal_list[category_id].entries[entry_id].line[0]);
+                else if (emotion_index != 0 && journal_list.journal_list[category_id].entries[entry_id].line.Count == 2)    // TODO: Consider Change to Simple else!
+                    new_entry.line.Add(journal_list.journal_list[category_id].entries[entry_id].line[1]);
 
                 j_category.entries.Add(new_entry);                                  // Add New Entry to Journal
 
@@ -213,7 +260,11 @@ public class MainJournal : MonoBehaviour
             addCategory(category_id);                                           // Add Category if Missing
 
             new_entry.title = journal_list.journal_list[category_id].entries[entry_id].title;
-            new_entry.line = journal_list.journal_list[category_id].entries[entry_id].line;
+
+            if (emotion_index == 0 || journal_list.journal_list[category_id].entries[entry_id].line.Count == 1)
+                new_entry.line.Add(journal_list.journal_list[category_id].entries[entry_id].line[0]);
+            else if (emotion_index != 0 && journal_list.journal_list[category_id].entries[entry_id].line.Count == 2)    // TODO: Consider Change to Simple else!
+                new_entry.line.Add(journal_list.journal_list[category_id].entries[entry_id].line[1]);
 
             player_journal[player_journal.Count - 1].entries.Add(new_entry);    // Add New Entry to Journal
         }
@@ -267,7 +318,7 @@ public class MainJournal : MonoBehaviour
         {
             if (j_entry.id == id)
             {
-                journal_line.GetComponent<Text>().text = j_entry.line;
+                journal_line.GetComponent<Text>().text = j_entry.line[0].line;
 
                 break;
             }
