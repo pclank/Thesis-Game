@@ -95,6 +95,7 @@ public class Item
 
     private float scale;                            // Holds Item Scale
     private float pickup_time;                      // Time Item was Picked Up. Changes for every Knowledge Increase
+    private float used_time;                        // Time Item was Used
 
     private GameObject item_prefab;                 // Item Prefab GameObject
 
@@ -239,6 +240,27 @@ public class Item
 }
 
 // ************************************************************************************
+// Analytics Item Class
+// ************************************************************************************
+public class AnalyticsItem
+{
+    public int item_id;
+    public int knowledge_level;
+
+    public float pickup_time;
+    public float use_time;
+
+    public AnalyticsItem(int id, int k_level, float p_time)
+    {
+        this.item_id = id;
+        this.knowledge_level = k_level;
+
+        this.pickup_time = p_time;
+        this.use_time = Time.time;
+    }
+}
+
+// ************************************************************************************
 // Inventory Class
 // ************************************************************************************
 public class main_inventory : MonoBehaviour
@@ -281,6 +303,7 @@ public class main_inventory : MonoBehaviour
 
     private List<Item> inventory = new List<Item>();    // List of Items in Inventory
     private List<Tuple<int, int>> levelup_queue = new List<Tuple<int, int>>();  // List of Queued Items to be Leveled Up
+    private List<AnalyticsItem> analytics_list = new List<AnalyticsItem>();     // List of Analytics Objects Used to Record Item Use
 
     private bool was_clicked = false;                   // Mouse Click Flag
     private bool display_on = false;                    // Item Being Displayed
@@ -370,6 +393,8 @@ public class main_inventory : MonoBehaviour
 
         addItem(new_item);                                                          // Add to Inventory
 
+        new_item.updatePickupTime();                                                // Set Item Pickup Time
+
         if (display_on_pickup)
         {
             new_item.setLevel(1);                                                       // Set Level to 1
@@ -393,6 +418,8 @@ public class main_inventory : MonoBehaviour
         }
 
         addItem(new_item);                                                          // Add to Inventory
+
+        new_item.updatePickupTime();                                                // Set Item Pickup Time
 
         if (display_on_pickup)
         {
@@ -809,6 +836,10 @@ public class main_inventory : MonoBehaviour
             // If Validation is True
             if (validation)
             {
+                analytics_list.Add(new AnalyticsItem(item_used.getID(), item_used.getLevel(), item_used.getPickupTime()));  // Record Use Analytics
+
+                Debug.Log("Item with ID: " + item_used.getID() + ", Knowledge Level: " + item_used.getLevel() + " and Pickup Time: " + item_used.getPickupTime() + " Added to Analytics.");
+
                 closeInventory();                   // Close Inventory
 
                 removeItem(item_used);              // Remove Item from Inventory
@@ -835,6 +866,12 @@ public class main_inventory : MonoBehaviour
                 invalid_ui.SetActive(true);         // Enable Element
             }
         }
+    }
+
+    // Record Item Use to JSON File
+    private void recordItemUse()
+    {
+        // TODO: Write Code to Store Information From Analytics Item List to JSON File
     }
 
     // ************************************************************************************

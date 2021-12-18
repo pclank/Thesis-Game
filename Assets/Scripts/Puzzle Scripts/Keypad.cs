@@ -192,6 +192,8 @@ public class Keypad : MonoBehaviour
 
             success_indicator.GetComponent<LightEmissionFX>().startIndicator(); // Start Indication
 
+            player_object.GetComponent<PuzzleAnalytics>().addAnalytics("Keypad Puzzle");    // Add to Analytics
+
             solved = true;
 
             // Enable LOD

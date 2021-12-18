@@ -79,6 +79,8 @@ public class MainPuzzle : MonoBehaviour
 
             use_ui.SetActive(false);                    // Disable UI Element
 
+            player_object.GetComponent<PuzzleAnalytics>().addAnalytics("Coin Slot Puzzle");     // Add to Analytics
+
             solved = true;                              // Set Puzzle as Solved
         }
     }

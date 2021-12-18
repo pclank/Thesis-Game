@@ -52,7 +52,16 @@ public class ModularCorridor : MonoBehaviour
     private bool reverse = false;                               // Reverse Image Fading
     private bool fx_active = false;                             // Whether Puzzle Spawn FX is Active
 
+    private float enter_time;                                   // Entered Time for Analytics
+
     private uint state = 0;                                     // Current State of System
+
+    // Set Enter Time
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+            enter_time = Time.time;
+    }
 
     // ************************************************************************************
     // Member Functions
@@ -98,6 +107,8 @@ public class ModularCorridor : MonoBehaviour
     // Spawn Puzzle GameObjects
     private void spawnPuzzle()
     {
+        player_object.GetComponent<RoomVolumeAnalytics>().addAnalytics("Endless Corridor", enter_time);     // Add to Analytics
+
         // Destroy Candle Lights
 
         Destroy(right_lights);

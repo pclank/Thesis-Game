@@ -24,6 +24,9 @@ public class modular_volume : MonoBehaviour
     [Tooltip("HDRISky Night Lighting Value.")]
     public float night_sky_lighting_value = 0.0f;
 
+    [Tooltip("Room Name for Analytics.")]
+    public string room_name = "Old Modular Room";
+
     [Header("Emotion Recognition Response Section")]
 
     public int[] anger_color = new int[3];
@@ -55,6 +58,7 @@ public class modular_volume : MonoBehaviour
     private bool[] emotion_detected = { false, false, false, false };   // Emotion Detected
 
     private float timer_start = 0.0f;                                   // Timer Start Value
+    private float enter_time;                                           // Room Enter Time Value for Analytics
 
     private string model_emotion = "Unknown";                           // Emotion Detected by Model
 
@@ -67,6 +71,8 @@ public class modular_volume : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             enableHDRILighting();                       // Enable HDRI Lighting
+
+            enter_time = Time.time;                     // Set Enter Time for Analytics
 
             lod_to_disable.SetActive(false);            // Disable GameObjects
             //lod_to_enable.SetActive(true);              // Enable GameObjects
@@ -84,6 +90,8 @@ public class modular_volume : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             player_trigger = false;
+
+            player_object.GetComponent<RoomVolumeAnalytics>().addAnalytics(room_name, enter_time);  // Add Analytics on Exit
 
             disableHDRILighting();                      // Disable HDRI Lighting
         }

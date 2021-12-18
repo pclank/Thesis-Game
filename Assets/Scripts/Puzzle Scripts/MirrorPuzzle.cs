@@ -53,6 +53,7 @@ public class MirrorPuzzle : MonoBehaviour
     private float initial_scale;            // Initial Scale of Portal
     private float current_scale = 0.0f;     // Current Scale During FX
     private float timer_value;              // Timer Value
+    private float enter_time;               // Enter Time for Analytics
 
     // ************************************************************************************
     // Member Functions
@@ -102,12 +103,16 @@ public class MirrorPuzzle : MonoBehaviour
 
         player_object.GetComponent<MainJournal>().addEntry(1, 4);
 
+        player_object.GetComponent<PuzzleAnalytics>().addAnalytics("Mirror Puzzle");    // Add to Analytics
+
         active = true;
     }
 
     // Teleport Player to Target Portal
     private void teleport()
     {
+        player_object.GetComponent<RoomVolumeAnalytics>().addAnalytics("Mirror Room", enter_time);  // Add to Analytics
+
         // If Set, Enable GameObject on Teleport
         if (enable_gameobject)
         {

@@ -276,6 +276,8 @@ public class PadLock : MonoBehaviour
         {
             Debug.Log("Solution Correct!");
 
+            player_object.GetComponent<PuzzleAnalytics>().addAnalytics("PadLock Puzzle");   // Add to Analytics
+
             camera_object.GetComponent<InteractionRaycasting>().disableHit();
 
             unlockBox();
