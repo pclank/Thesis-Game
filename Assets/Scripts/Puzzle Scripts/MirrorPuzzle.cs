@@ -132,10 +132,22 @@ public class MirrorPuzzle : MonoBehaviour
         fx_ui = player_object.GetComponent<AuxiliaryUI>().ui_objects[4];    // Get FX UI GameObject
         target_portal = GameObject.FindWithTag("MirrorPortal");             // Get Target Portal GameObject
 
-        // If Set, Initialize GameObject State as Disabled
-        if (enable_gameobject)
+        // Get Target GameObject from Tag
+        try
         {
-            target_gameobject.SetActive(false);
+            target_gameobject = GameObject.FindWithTag("Cave");
+
+            // If Set, Initialize GameObject State as Disabled
+            if (enable_gameobject)
+            {
+                target_gameobject.SetActive(false);
+            }
+        }
+        catch (System.Exception)
+        {
+            Debug.LogError("\"Cave\" Tag Object Not Found!");
+
+            throw;
         }
 
         // Check that Target GameObject is a Portal
@@ -154,18 +166,6 @@ public class MirrorPuzzle : MonoBehaviour
         else
         {
             activatePortal();
-        }
-
-        // Get Target GameObject from Tag
-        try
-        {
-            target_gameobject = GameObject.FindWithTag("Cave");
-        }
-        catch (System.Exception)
-        {
-            Debug.LogError("\"Cave\" Tag Object Not Found!");
-
-            throw;
         }
 
         enter_time = Time.time;                                 // Set Enter Time on Awake
