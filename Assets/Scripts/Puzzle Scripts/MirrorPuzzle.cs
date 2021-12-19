@@ -18,9 +18,6 @@ public class MirrorPuzzle : MonoBehaviour
     public AK.Wwise.Event touch_sfx_event;
 
     [Header("Various")]
-    [Tooltip("GameObject to Enable, if enable_gameobject is True.")]
-    public GameObject target_gameobject;
-
     [Tooltip("Starts Disabled.")]
     public bool starts_disabled = false;
 
@@ -41,6 +38,7 @@ public class MirrorPuzzle : MonoBehaviour
     private GameObject camera_object;       // Camera GameObject
     private GameObject fx_ui;               // FX UI Element
     private GameObject target_portal;       // Target Portal for Teleport
+    private GameObject target_gameobject;   // Target GameObject for Portal
 
     private bool ray_trig = false;
     private bool tape_is_played = false;    // Whether Tape Has Been Played
@@ -157,6 +155,20 @@ public class MirrorPuzzle : MonoBehaviour
         {
             activatePortal();
         }
+
+        // Get Target GameObject from Tag
+        try
+        {
+            target_gameobject = GameObject.FindWithTag("Cave");
+        }
+        catch (System.Exception)
+        {
+            Debug.LogError("\"Cave\" Tag Object Not Found!");
+
+            throw;
+        }
+
+        enter_time = Time.time;                                 // Set Enter Time on Awake
     }
 
     // Update is called once per frame

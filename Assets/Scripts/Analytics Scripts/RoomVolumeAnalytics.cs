@@ -57,7 +57,7 @@ public class RoomVolumeAnalytics : MonoBehaviour
     }
 
     // Record Analytics List to JSON File
-    private void recordAnalytics()
+    public void recordAnalytics()
     {
         string c_string = "{\"room_analytics\": [" + JsonUtility.ToJson(analytics_list[0]) + ", ";
 

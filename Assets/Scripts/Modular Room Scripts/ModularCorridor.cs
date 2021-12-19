@@ -41,6 +41,9 @@ public class ModularCorridor : MonoBehaviour
     [Tooltip("Box Size On X-Axis.")]
     public float box_distance = 2.0f;                           // Distance Denoting Player Box
 
+    [Tooltip("Room - Volume Name for Analytics.")]
+    public string room_name = "";
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
@@ -61,6 +64,20 @@ public class ModularCorridor : MonoBehaviour
     {
         if (other.CompareTag("Player"))
             enter_time = Time.time;
+    }
+
+    // Add to Analytics
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            player_object.GetComponent<RoomVolumeAnalytics>().addAnalytics(room_name, enter_time);  // Add Analytics on Exit
+
+
+            // Disable Corridor GameObjects
+            puzzle_objects.SetActive(false);
+            gameObject.SetActive(false);
+        }
     }
 
     // ************************************************************************************
