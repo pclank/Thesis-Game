@@ -96,7 +96,11 @@
 				{
 					"id": 11,
 					"title": "Found a Tape",
-					"line": "I found a tape. Maybe I can listen to it at the Tape Player near the sofa."
+					"line": 
+					[
+						{"line": "I found a tape. Maybe I can listen to it at the Tape Player near the sofa."},
+						{"line": "A tape?! What am I supposed to do with this? Is there a device to play it around here?"}
+					]
 				}
 			]
 		},

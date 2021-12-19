@@ -247,16 +247,20 @@ public class AnalyticsItem
     public int item_id;
     public int knowledge_level;
 
-    public float pickup_time;
-    public float use_time;
+    public string activity_type;
 
-    public AnalyticsItem(int id, int k_level, float p_time)
+    public float pickup_time;
+    public float activity_time;
+
+    public AnalyticsItem(int id, int k_level, float p_time, string a_type)
     {
         this.item_id = id;
         this.knowledge_level = k_level;
 
         this.pickup_time = p_time;
-        this.use_time = Time.time;
+        this.activity_time = Time.time;
+
+        this.activity_type = a_type;
     }
 }
 
@@ -288,6 +292,8 @@ public class main_inventory : MonoBehaviour
     public GameObject invalid_ui;                       // Invalid Item UI Element
     public GameObject knowledge_acq_ui;                 // New Knowledge UI Element
     public GameObject button_layout;                    // Button UI Layout GameObject
+    public GameObject center_dot_ui;                    // Center - Dot UI GameObject
+    public GameObject examine_control_layout_ui;        // Control Layout UI Copy for Examinable Items
     public Button examine_but;                          // Examine Button UI Element
     public Button use_but;                              // Use Button UI Element
 
@@ -402,6 +408,8 @@ public class main_inventory : MonoBehaviour
 
             displayItem(new_item);                                                      // Display Item
         }
+
+        analytics_list.Add(new AnalyticsItem(new_item.getID(), new_item.getLevel(), new_item.getPickupTime(), "pickup"));       // Record Pickup Analytics
     }
 
     // Build Item Overload with Prefab Reference
@@ -428,6 +436,8 @@ public class main_inventory : MonoBehaviour
 
             displayItem(new_item);                                                      // Display Item
         }
+
+        analytics_list.Add(new AnalyticsItem(new_item.getID(), new_item.getLevel(), new_item.getPickupTime(), "pickup"));       // Record Pickup Analytics
     }
 
     // Increase Knowledge Level of Item
@@ -486,6 +496,10 @@ public class main_inventory : MonoBehaviour
     {
         examine_ui.SetActive(false);                                                                    // Disable Examine UI
         display_light.SetActive(true);                                                                  // Enable Light
+
+        center_dot_ui.SetActive(false);                                                                 // Disable Center - Dot
+
+        examine_control_layout_ui.SetActive(true);                                                      // Enable Control - Layout UI
 
         display_on = true;                                                                              // Enable Display Flag
 
@@ -621,6 +635,10 @@ public class main_inventory : MonoBehaviour
 
         display_light.SetActive(true);                                                                  // Enable Light
 
+        center_dot_ui.SetActive(false);                                                                 // Disable Center - Dot
+
+        analytics_list.Add(new AnalyticsItem(item.getID(), item.getLevel(), item.getPickupTime(), "examination"));       // Record Examine Analytics
+
         title_text.GetComponent<Text>().text = getKnowledge(item.getID(), item.getLevel()).Item1;       // Change Text to Item's Name
 
         title_text.SetActive(true);                                                                     // Enable Title Text
@@ -655,6 +673,10 @@ public class main_inventory : MonoBehaviour
         {
             closeInventory();
         }
+
+        center_dot_ui.SetActive(false);                                                                 // Disable Center - Dot
+
+        analytics_list.Add(new AnalyticsItem(item.getID(), item.getLevel(), item.getPickupTime(), "examination"));       // Record Examine Analytics
 
         title_text.GetComponent<Text>().text = getKnowledge(item.getID(), item.getLevel()).Item1;       // Change Text to Item's Name
 
@@ -696,6 +718,10 @@ public class main_inventory : MonoBehaviour
     private void exitDisplay()
     {
         Destroy(GameObject.FindWithTag("Clone"));                                                       // Black Magic Issue Fix
+
+        center_dot_ui.SetActive(true);                                                                  // Disable Center - Dot
+
+        examine_control_layout_ui.SetActive(false);                                                     // Disable Control - Layout UI
 
         display_light.SetActive(false);                                                                 // Disable Light
         title_text.SetActive(false);                                                                    // Disable Title Text
@@ -836,7 +862,7 @@ public class main_inventory : MonoBehaviour
             // If Validation is True
             if (validation)
             {
-                analytics_list.Add(new AnalyticsItem(item_used.getID(), item_used.getLevel(), item_used.getPickupTime()));  // Record Use Analytics
+                analytics_list.Add(new AnalyticsItem(item_used.getID(), item_used.getLevel(), item_used.getPickupTime(), "use"));       // Record Use Analytics
 
                 Debug.Log("Item with ID: " + item_used.getID() + ", Knowledge Level: " + item_used.getLevel() + " and Pickup Time: " + item_used.getPickupTime() + " Added to Analytics.");
 
@@ -857,7 +883,7 @@ public class main_inventory : MonoBehaviour
             // If Validation is True
             if (validation)
             {
-                analytics_list.Add(new AnalyticsItem(item_used.getID(), item_used.getLevel(), item_used.getPickupTime()));  // Record Use Analytics
+                analytics_list.Add(new AnalyticsItem(item_used.getID(), item_used.getLevel(), item_used.getPickupTime(), "use"));       // Record Use Analytics
 
                 Debug.Log("Item with ID: " + item_used.getID() + ", Knowledge Level: " + item_used.getLevel() + " and Pickup Time: " + item_used.getPickupTime() + " Added to Analytics.");
 
@@ -873,7 +899,7 @@ public class main_inventory : MonoBehaviour
     }
 
     // Record Item Use to JSON File
-    private void recordItemUse()
+    public void recordItemUse()
     {
         string c_string = "{\"item_analytics\": [" + JsonUtility.ToJson(analytics_list[0]) + ", ";
 

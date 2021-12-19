@@ -68,5 +68,7 @@ public class PuzzleAnalytics : MonoBehaviour
         }
 
         File.WriteAllText("puzzle_analytics.json", c_string);
+
+        GameObject.FindWithTag("Player").GetComponent<main_inventory>().recordItemUse();        // Run Analytics Export Function of Main Inventory
     }
 }
