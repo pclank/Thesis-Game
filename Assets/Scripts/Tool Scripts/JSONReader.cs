@@ -22,6 +22,7 @@ public class Emotion
 {
     public string emotion;
     public float certainty;
+    public int face_detected;
 }
 
 public class JSONReader : MonoBehaviour
@@ -29,6 +30,8 @@ public class JSONReader : MonoBehaviour
     // ************************************************************************************
     // Public Variables
     // ************************************************************************************
+
+    public GameObject face_warning_ui;                  // No Face Detected Warning UI GameObject
 
     public string json_location;                        // JSON File to Read
     public float lower_limit = 10.0f;                   // Lower Limit on Certainty
@@ -55,11 +58,15 @@ public class JSONReader : MonoBehaviour
         string detected_emotion = "Unknown";                                            // Initialize Returned Emotion
         float detected_certainty = 0.0f;                                                // Initialize Returned Certainty
 
-        if (deserialiazed_json.Emotion[0].certainty >= lower_limit)
+        if (deserialiazed_json.Emotion[0].face_detected == 1 && deserialiazed_json.Emotion[0].certainty >= lower_limit)
         {
             detected_certainty = deserialiazed_json.Emotion[0].certainty;   // Set Certainty
             detected_emotion = deserialiazed_json.Emotion[0].emotion;       // Set Emotion
+
+            face_warning_ui.SetActive(false);
         }
+        else if (deserialiazed_json.Emotion[0].face_detected == 0)
+            face_warning_ui.SetActive(true);
 
         return new Tuple<string, float>(detected_emotion, detected_certainty);          // Return Information
     }
@@ -86,9 +93,13 @@ public class JSONReader : MonoBehaviour
                 detected_index = 2;
             else if (String.Equals(deserialiazed_json.Emotion[0].emotion, "Surprised"))
                 detected_index = 3;
-        }
 
-        emotion_occurrences[detected_index]++;                                          // Increment Occurrence
+            face_warning_ui.SetActive(false);
+
+            emotion_occurrences[detected_index]++;                                          // Increment Occurrence
+        }
+        else if (deserialiazed_json.Emotion[0].face_detected == 0)
+            face_warning_ui.SetActive(true);
 
         return new Tuple<int, float>(detected_index, detected_certainty);               // Return Information
     }
