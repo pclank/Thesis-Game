@@ -23,6 +23,7 @@ public class ModularCorridor : MonoBehaviour
 
     public GameObject right_lights;                             // Right Lights GameObject
     public GameObject left_lights;                              // Left Lights GameObject
+    public GameObject misc_objects;                             // Misc GameObjects to Remove
 
     public GameObject fx_ui;
 
@@ -126,10 +127,11 @@ public class ModularCorridor : MonoBehaviour
     {
         player_object.GetComponent<RoomVolumeAnalytics>().addAnalytics("Endless Corridor", enter_time);     // Add to Analytics
 
-        // Destroy Candle Lights
+        // Destroy Candle Lights and Misc Objects
 
         Destroy(right_lights);
         Destroy(left_lights);
+        Destroy(misc_objects);
 
         GameObject gb = Instantiate(puzzle_objects);                    // Instantiate Puzzle Objects
 
