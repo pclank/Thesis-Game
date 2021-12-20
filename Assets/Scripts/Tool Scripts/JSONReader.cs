@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Linq;
 using System.Collections;
 
 // ************************************************************************************
@@ -37,6 +38,8 @@ public class JSONReader : MonoBehaviour
     // ************************************************************************************
 
     private EmotionList deserialiazed_json;             // Deserialized JSON Objects
+
+    private int[] emotion_occurrences = new int[4];     // Array to Store Occurrences of each Emotion, Initialized to O
 
     // ************************************************************************************
     // Member Functions
@@ -85,6 +88,14 @@ public class JSONReader : MonoBehaviour
                 detected_index = 3;
         }
 
+        emotion_occurrences[detected_index]++;                                          // Increment Occurrence
+
         return new Tuple<int, float>(detected_index, detected_certainty);               // Return Information
+    }
+
+    // Get Highest Occurring Emotion
+    public int getHighestOccurrence()
+    {
+        return emotion_occurrences.ToList().IndexOf(emotion_occurrences.Max());
     }
 }

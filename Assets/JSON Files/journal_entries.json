@@ -101,6 +101,15 @@
 						{"line": "I found a tape. Maybe I can listen to it at the Tape Player near the sofa."},
 						{"line": "A tape?! What am I supposed to do with this? Is there a device to play it around here?"}
 					]
+				},
+				{
+					"id": 12,
+					"title": "Listened to Tape",
+					"line": 
+					[
+						{"line": "After listening to the tape I found, I think it refers to this very building. The calendar the man talked about must appertain to the one next to the locked box. That means I should look for messages around the room. Maybe on objects? I should also not forget to look outside the windows."},
+						{"line": "The tape gave me some sort of... riddle? It hints at hidden messages around the building. But where? Why did someone leave message here in the first place? It also said to look outside. Maybe it meant out the windows?"}
+					]
 				}
 			]
 		},

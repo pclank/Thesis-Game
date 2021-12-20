@@ -47,38 +47,38 @@
             "audio_name": "Calendar Tape",
             "lines": [
                 {
-                    "timestamp": "3.0",
-                    "duration": "4.0",
+                    "timestamp": "0.5",
+                    "duration": "3.5",
                     "line": "These room projections have been driving me insane.",
                     "style":"None"
                 },
                 {
-                    "timestamp": "10.0",
-                    "duration": "3.0",
+                    "timestamp": "4.2",
+                    "duration": "1.5",
                     "line": "After my brief access to those visions,",
                     "style":"None"
                 },
                 {
-                    "timestamp": "15.0",
-                    "duration": "4.0",
+                    "timestamp": "6.0",
+                    "duration": "6.2",
                     "line": "I have observed a number of messages around the room, referencing dates.",
                     "style":"None"
                 },
                 {
-                    "timestamp": "21.0",
-                    "duration": "3.0",
+                    "timestamp": "13.0",
+                    "duration": "2.0",
                     "line": "Writings on objects, hidden in plain sight.",
                     "style":"None"
                 },
                 {
-                    "timestamp": "25.0",
+                    "timestamp": "16.0",
                     "duration": "3.0",
                     "line": "Noticed a few whilst looking out the windows as well.",
                     "style":"None"
                 },
                 {
-                    "timestamp": "29.0",
-                    "duration": "2.0",
+                    "timestamp": "20.0",
+                    "duration": "3.0",
                     "line": "Maybe that's the break I need.",
                     "style":"None"
                 }
