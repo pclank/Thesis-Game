@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\Player Scripts\hand_collision_detection.cs" />
     <Compile Include="Assets\Scripts\Light Scripts\LightEmissionFX.cs" />
     <Compile Include="Assets\Scripts\Journal Scripts\MainJournal.cs" />
+    <Compile Include="Assets\Scripts\Modular Room Scripts\GeneralRoomVolume.cs" />
     <Compile Include="Assets\Scripts\Puzzle Scripts\CassettePlayer.cs" />
     <Compile Include="Assets\Scripts\Modular Room Scripts\ClearDecoration.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\interaction_restriction.cs" />
@@ -137,11 +138,11 @@
     <Compile Include="Assets\Scripts\Journal Scripts\AddToJournalOnRaycastHit.cs" />
     <Compile Include="Assets\Scripts\Light Scripts\LanternFX.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\Modular Room Scripts\GeneralRoomVolume.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
      <None Include="Assets\Allegorithmic\Plugins\Substance.Engine.dll" />
+     <None Include="Assets\SimpleFX\Materials\UnlitVertexColour_Alpha.shader" />
      <None Include="Assets\Allegorithmic\Plugins\EULA.txt" />
      <None Include="Assets\UnityHDRI\TreasureIsland\Info.txt" />
      <None Include="Assets\StreamingAssets\desc.txt" />

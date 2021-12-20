@@ -390,3 +390,6 @@ healthchecksdb
 /puzzle_analytics.json
 /item_analytics.json
 /room_analytics.json
+/Assets/SimpleFX/Materials
+/Assets/SimpleFX/Prefabs
+/Assets/SimpleFX/Models/FX_Lightray.fbx
