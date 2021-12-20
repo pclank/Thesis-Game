@@ -123,7 +123,7 @@ public class WwiseDynamicMusic : MonoBehaviour
     void Update()
     {
         // Timer Section
-        if (!timer_on && !development_mode || (timer_on && !development_mode && Time.time - timer_value >= read_delay))
+        if ((!timer_on && !development_mode) || (timer_on && !development_mode && Time.time - timer_value >= read_delay))
         {
             if (readEmotion())
                 enableTrack();

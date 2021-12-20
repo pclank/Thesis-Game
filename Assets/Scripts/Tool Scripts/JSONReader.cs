@@ -42,6 +42,8 @@ public class JSONReader : MonoBehaviour
 
     private EmotionList deserialiazed_json;             // Deserialized JSON Objects
 
+    private int previously_detected_emotion_index = -1; // Emotion Previously Detected
+
     private int[] emotion_occurrences = new int[4];     // Array to Store Occurrences of each Emotion, Initialized to O
 
     // ************************************************************************************
@@ -78,10 +80,10 @@ public class JSONReader : MonoBehaviour
 
         deserialiazed_json = JsonUtility.FromJson<EmotionList>(text);                   // Get Deserialize JSON Objects
 
-        int detected_index = 0;                                                         // Initialize Returned Index
+        int detected_index = previously_detected_emotion_index;                         // Initialize Returned Index
         float detected_certainty = 0.0f;                                                // Initialize Returned Certainty
 
-        if (deserialiazed_json.Emotion[0].certainty >= lower_limit)
+        if (deserialiazed_json.Emotion[0].face_detected == 1 && deserialiazed_json.Emotion[0].certainty >= lower_limit)
         {
             detected_certainty = deserialiazed_json.Emotion[0].certainty;   // Set Certainty
 
