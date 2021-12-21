@@ -393,3 +393,6 @@ healthchecksdb
 /Assets/SimpleFX/Materials
 /Assets/SimpleFX/Prefabs
 /Assets/SimpleFX/Models/FX_Lightray.fbx
+/Assets/Particles/Materials/Materials
+/Assets/Particles/Materials/Plane
+/Assets/Particles/Materials/Textures

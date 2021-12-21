@@ -51,16 +51,19 @@ public class MixShader : MonoBehaviour
         // Initial Emotion Prediction
         // *****************************************************************************************
 
-        Tuple<string, float> prediction = player_object.GetComponent<JSONReader>().readEmotion();
-
-        // Check for Target Emotion and Certainty Constraint Satisfaction
-        if (String.Equals(prediction.Item1, target_emotion) && prediction.Item2 >= target_certainty || dev_mode || manual_emotion)
+        if (!dev_mode)
         {
-            emotion_detected = true;                            // Set Emotion as Detected
-        }
+            Tuple<string, float> prediction = player_object.GetComponent<JSONReader>().readEmotion();
 
-        timer_value = Time.time;                            // Update Timer Value
-        timer_on = true;                                    // Enable Timer Functionality
+            // Check for Target Emotion and Certainty Constraint Satisfaction
+            if (String.Equals(prediction.Item1, target_emotion) && prediction.Item2 >= target_certainty || dev_mode || manual_emotion)
+            {
+                emotion_detected = true;                            // Set Emotion as Detected
+            }
+
+            timer_value = Time.time;                            // Update Timer Value
+            timer_on = true;                                    // Enable Timer Functionality
+        }
     }
 
     // Update is called once per frame
@@ -68,7 +71,7 @@ public class MixShader : MonoBehaviour
     {
         // Timer - Prediction Section
 
-        if (timer_on && (Time.time - timer_value) >= delay)
+        if (!dev_mode && timer_on && (Time.time - timer_value) >= delay)
         {
             emotion_detected = false;                           // Reset Flag
 
@@ -85,7 +88,7 @@ public class MixShader : MonoBehaviour
 
         // Shader Mixing Section
 
-        if (emotion_detected)
+        if (emotion_detected || dev_mode)
         {
             float next_state = gameObject.GetComponent<MeshRenderer>().material.GetFloat("BlendOpacity");
 

@@ -49,6 +49,24 @@ public class ModularRoomEmotionControl : MonoBehaviour
     [Tooltip("Anger Material for Calendar.")]
     public Material anger_calendar_material;
 
+    [Tooltip("Happiness Material for Walls.")]
+    public Material happiness_wall_material;
+
+    [Tooltip("Happiness Material for Floor.")]
+    public Material happiness_floor_material;
+
+    [Tooltip("Sadness Material for Walls.")]
+    public Material sadness_wall_material;
+
+    [Tooltip("Sadness Material for Floor.")]
+    public Material sadness_floor_material;
+
+    [Tooltip("Anger Material for Walls.")]
+    public Material anger_wall_material;
+
+    [Tooltip("Anger Material for Floor.")]
+    public Material anger_floor_material;
+
     [Header("GameObjects to Reference for Material Application")]
     [Tooltip("Book GameObject.")]
     public GameObject book_object;
@@ -64,6 +82,15 @@ public class ModularRoomEmotionControl : MonoBehaviour
 
     [Tooltip("Calendar GameObject.")]
     public GameObject calendar_object;
+
+    [Tooltip("Main Wall GameObject.")]
+    public GameObject main_wall;
+
+    [Tooltip("Extra Wall GameObject.")]
+    public GameObject extra_wall;
+
+    [Tooltip("Floor GameObject.")]
+    public GameObject floor;
 
     [Header("Padlock Puzzle Options")]
     [Tooltip("Padlock Happiness Combination.")]
@@ -95,6 +122,10 @@ public class ModularRoomEmotionControl : MonoBehaviour
             setHappinessMaterials();
             setHappinessCombination();
 
+            main_wall.GetComponent<MixShader>().enabled = false;
+            extra_wall.GetComponent<MixShader>().enabled = false;
+            floor.GetComponent<MixShader>().enabled = false;
+
             happiness_projector.SetActive(true);
         }
         // Sadness Detected
@@ -121,11 +152,14 @@ public class ModularRoomEmotionControl : MonoBehaviour
     }
 
     // Change Book and Plant Materials
-    private void changeMaterials(Material book_mat, Material plant_mat, Material calendar_mat)
+    private void changeMaterials(Material book_mat, Material plant_mat, Material calendar_mat, Material wall_mat, Material floor_mat)
     {
         book_object.GetComponent<MeshRenderer>().material = book_mat;
         plant_object.GetComponent<MeshRenderer>().material = plant_mat;
         calendar_object.GetComponent<MeshRenderer>().material = calendar_mat;
+        main_wall.GetComponent<MeshRenderer>().material = wall_mat;
+        extra_wall.GetComponent<MeshRenderer>().material = wall_mat;
+        floor.GetComponent<MeshRenderer>().material = floor_mat;
     }
 
     // Change Padlock Puzzle Combination
@@ -169,10 +203,10 @@ public class ModularRoomEmotionControl : MonoBehaviour
     // Lambda Functions
     // ************************************************************************************
 
-    void setHappinessMaterials() => changeMaterials(happiness_book_material, happiness_plant_material, happiness_calendar_material);
+    void setHappinessMaterials() => changeMaterials(happiness_book_material, happiness_plant_material, happiness_calendar_material, happiness_wall_material, happiness_floor_material);
     void setHappinessCombination() => changeCombination(happiness_combination);
-    void setSadnessMaterials() => changeMaterials(sadness_book_material, sadness_plant_material, sadness_calendar_material);
+    void setSadnessMaterials() => changeMaterials(sadness_book_material, sadness_plant_material, sadness_calendar_material, sadness_wall_material, sadness_floor_material);
     void setSadnessCombination() => changeCombination(sadness_combination);
-    void setAngerMaterials() => changeMaterials(anger_book_material, anger_plant_material, anger_calendar_material);
+    void setAngerMaterials() => changeMaterials(anger_book_material, anger_plant_material, anger_calendar_material, anger_wall_material, anger_floor_material);
     void setAngerCombination() => changeCombination(anger_combination);
 }
