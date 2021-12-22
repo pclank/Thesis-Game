@@ -82,6 +82,10 @@ public class InteractionRaycasting : MonoBehaviour
             {
                 hit_gameobject.GetComponent<PowerBox>().setRaycast(false);
             }
+            else if (hit_gameobject.CompareTag("EndingScroll"))
+            {
+                GameObject.FindWithTag("Cave").GetComponent<EndingSetup>().setRayTrig(false);
+            }
         }
         else if (!gameObject.CompareTag("MainCamera") && hit_gameobject.CompareTag("KeypadButton"))
         {
@@ -225,6 +229,14 @@ public class InteractionRaycasting : MonoBehaviour
                 hit_gameobject = hit.transform.gameObject;
 
                 hit_gameobject.GetComponent<AddToJournalOnRaycastHit>().addToJournal();
+            }
+            else if (hit.transform.gameObject.CompareTag("EndingScroll"))
+            {
+                hit_flag = true;
+
+                hit_gameobject = hit.transform.gameObject;
+
+                GameObject.FindWithTag("Cave").GetComponent<EndingSetup>().setRayTrig(true);
             }
 
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
