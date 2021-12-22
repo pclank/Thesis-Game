@@ -1855,7 +1855,7 @@
     },
     "m_Name": "2nd Blend Opacity",
     "m_DefaultReferenceName": "Vector1_1e672c8c5c3f4f41a5256050974276b0",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "SecBlendOpacity",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -2586,7 +2586,7 @@
         "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
         "m_Guid": ""
     },
-    "m_DefaultType": 0
+    "m_DefaultType": 3
 }
 
 {
@@ -4936,7 +4936,7 @@
         "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
         "m_Guid": ""
     },
-    "m_DefaultType": 3
+    "m_DefaultType": 0
 }
 
 {

@@ -66,7 +66,7 @@ public class ItemSlot : MonoBehaviour
     {
         // Check that Slot isn't Empty
 
-        if (item_object != null)
+        if (!main_puzzle.GetComponent<MainPuzzle>().checkSolved() && item_object != null)
         {
             main_puzzle.unsetItem();        // Unset Item
 
