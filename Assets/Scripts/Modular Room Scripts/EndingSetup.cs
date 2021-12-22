@@ -129,6 +129,8 @@ public class EndingSetup : MonoBehaviour
         camera_object.GetComponent<FirstPersonLook>().enabled = false;
 
         main_ui_page.SetActive(true);
+
+        player_object.GetComponent<RoomVolumeAnalytics>().recordAnalytics();
     }
 
     // Use this for initialization

@@ -115,6 +115,8 @@ public class MirrorPuzzle : MonoBehaviour
         if (enable_gameobject)
         {
             target_gameobject.SetActive(true);
+
+            target_gameobject.GetComponent<EndingSetup>().enabled = true;           // Enable Script
         }
 
         player_object.transform.position = target_portal.transform.position;    // Teleport Player
