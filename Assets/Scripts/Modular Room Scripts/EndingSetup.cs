@@ -150,6 +150,9 @@ public class EndingSetup : MonoBehaviour
         main_ui_page_text.GetComponent<Text>().color = new Color(main_ui_page_text.GetComponent<Text>().color.r, main_ui_page_text.GetComponent<Text>().color.g, main_ui_page_text.GetComponent<Text>().color.b, 0.0f);
         main_ui_page_text_sec.GetComponent<Text>().color = new Color(main_ui_page_text_sec.GetComponent<Text>().color.r, main_ui_page_text_sec.GetComponent<Text>().color.g, main_ui_page_text_sec.GetComponent<Text>().color.b, 0.0f);
 
+        player_object.GetComponent<WwiseDynamicMusic>().stopAllPlayback();                                      // Stop All Dynamic Music Playback
+        player_object.GetComponent<WwiseDynamicMusic>().enabled = false;                                        // Disable Dynamic Music System
+
         // Start Ending Music and Setup Environment
 
         if (emotion_index == 0)

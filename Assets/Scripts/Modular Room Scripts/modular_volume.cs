@@ -72,6 +72,8 @@ public class modular_volume : MonoBehaviour
         {
             enableHDRILighting();                       // Enable HDRI Lighting
 
+            player_object.GetComponent<WwiseDynamicMusic>().setArea();  // Set Secondary Part of the Game Entered for Dynamic Music System
+
             enter_time = Time.time;                     // Set Enter Time for Analytics
 
             lod_to_disable.SetActive(false);            // Disable GameObjects

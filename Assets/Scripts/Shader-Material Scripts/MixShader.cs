@@ -32,6 +32,9 @@ public class MixShader : MonoBehaviour
 
     private GameObject player_object;                           // Player GameObject
 
+    private int emotion_detected_index;
+    private int dev_index;
+
     private float timer_value = 0.0f;                           // Timer Value
 
     private bool timer_on = false;                              // Whether Timer is Enabled
@@ -53,16 +56,30 @@ public class MixShader : MonoBehaviour
 
         if (!dev_mode)
         {
-            Tuple<string, float> prediction = player_object.GetComponent<JSONReader>().readEmotion();
+            Tuple<int, float> prediction = player_object.GetComponent<JSONReader>().readEmotionIndex();
 
             // Check for Target Emotion and Certainty Constraint Satisfaction
-            if (String.Equals(prediction.Item1, target_emotion) && prediction.Item2 >= target_certainty || dev_mode || manual_emotion)
+            if (prediction.Item2 >= target_certainty || dev_mode || manual_emotion)
             {
+                emotion_detected_index = prediction.Item1;
+
                 emotion_detected = true;                            // Set Emotion as Detected
             }
 
             timer_value = Time.time;                            // Update Timer Value
             timer_on = true;                                    // Enable Timer Functionality
+        }
+        else if (dev_mode)
+        {
+            Tuple<int, float> prediction = player_object.GetComponent<JSONReader>().readEmotionIndex();
+
+            // Check for Target Emotion and Certainty Constraint Satisfaction
+            if (prediction.Item2 >= target_certainty || dev_mode || manual_emotion)
+            {
+                emotion_detected_index = prediction.Item1;
+
+                emotion_detected = true;                            // Set Emotion as Detected
+            }
         }
     }
 
@@ -73,17 +90,18 @@ public class MixShader : MonoBehaviour
 
         if (!dev_mode && timer_on && (Time.time - timer_value) >= delay)
         {
-            emotion_detected = false;                           // Reset Flag
-
-            Tuple<string, float> prediction = player_object.GetComponent<JSONReader>().readEmotion();
+            Tuple<int, float> prediction = player_object.GetComponent<JSONReader>().readEmotionIndex();
 
             // Check for Target Emotion and Certainty Constraint Satisfaction
-            if (String.Equals(prediction.Item1, target_emotion) && prediction.Item2 >= target_certainty || dev_mode)
+            if (prediction.Item2 >= target_certainty || dev_mode || manual_emotion)
             {
+                emotion_detected_index = prediction.Item1;
+
                 emotion_detected = true;                            // Set Emotion as Detected
             }
 
             timer_value = Time.time;                            // Update Timer Value
+            timer_on = true;                                    // Enable Timer Functionality
         }
 
         // Shader Mixing Section

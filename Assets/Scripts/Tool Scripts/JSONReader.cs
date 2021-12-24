@@ -70,6 +70,8 @@ public class JSONReader : MonoBehaviour
         else if (deserialiazed_json.Emotion[0].face_detected == 0)
             face_warning_ui.SetActive(true);
 
+        Debug.Log("Detected " + detected_emotion);
+
         return new Tuple<string, float>(detected_emotion, detected_certainty);          // Return Information
     }
 
@@ -102,6 +104,8 @@ public class JSONReader : MonoBehaviour
         }
         else if (deserialiazed_json.Emotion[0].face_detected == 0)
             face_warning_ui.SetActive(true);
+
+        Debug.Log("Detected " + detected_index);
 
         return new Tuple<int, float>(detected_index, detected_certainty);               // Return Information
     }

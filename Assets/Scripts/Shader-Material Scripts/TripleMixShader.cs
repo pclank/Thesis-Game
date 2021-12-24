@@ -161,7 +161,7 @@ public class TripleMixShader : MonoBehaviour
             }
 
             // Anger Emotion
-            else if (emotion_detected_index == 2)
+            else if (emotion_detected_index == 2 || emotion_detected_index == 3)
             {
                 // Reduce First Blend to Zero
                 if (next_state > 0.0f)

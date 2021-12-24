@@ -31,6 +31,15 @@ public class WwiseDynamicMusic : MonoBehaviour
     [Tooltip("Angry Wwise Event.")]
     public AK.Wwise.Event angry_wwise_event;
 
+    [Tooltip("Secondary Angry Wwise Event.")]
+    public AK.Wwise.Event sec_angry_wwise_event;
+
+    [Tooltip("Secondary Happy Wwise Event.")]
+    public AK.Wwise.Event sec_happy_wwise_event;
+
+    [Tooltip("Secondary Sad Wwise Event.")]
+    public AK.Wwise.Event sec_sad_wwise_event;
+
     [Header("Misc Options")]
     [Tooltip("Track Blend Speed.")]
     public float blend_speed = 0.5f;
@@ -56,6 +65,7 @@ public class WwiseDynamicMusic : MonoBehaviour
     private AK.Wwise.Event current_wwise_event;
 
     private bool timer_on = false;
+    private bool entered_secondary_area = false;                            // Whether System should Switch to Secondary Music because Player has Entered the Second Part of the Game
 
     private float timer_value;
 
@@ -64,6 +74,21 @@ public class WwiseDynamicMusic : MonoBehaviour
     // ************************************************************************************
     // Member Functions
     // ************************************************************************************
+
+    // Set Entered Secondary Area
+    public void setArea()
+    {
+        entered_secondary_area = true;
+    }
+
+    // Stop All Playback
+    public void stopAllPlayback()
+    {
+        happy_wwise_event.Stop(gameObject);
+        sad_wwise_event.Stop(gameObject);
+        angry_wwise_event.Stop(gameObject);
+        main_wwise_event.Stop(gameObject);
+    }
 
     // Read Emotion
     private bool readEmotion()
@@ -85,21 +110,51 @@ public class WwiseDynamicMusic : MonoBehaviour
     {
         AK.Wwise.Event selected_event;
 
-        switch (emotion_detected)
+        // First Area
+        if (!entered_secondary_area)
         {
-            case 0:
-                selected_event = happy_wwise_event;
-                break;
-            case 1:
-                selected_event = sad_wwise_event;
-                break;
-            case 2:
-                selected_event = angry_wwise_event;
-                break;
-            default:
-                selected_event = happy_wwise_event;
-                break;
+            switch (emotion_detected)
+            {
+                case 0:
+                    selected_event = happy_wwise_event;
+                    break;
+                case 1:
+                    selected_event = sad_wwise_event;
+                    break;
+                case 2:
+                    selected_event = angry_wwise_event;
+                    break;
+                case 3:
+                    selected_event = angry_wwise_event;
+                    break;
+                default:
+                    selected_event = happy_wwise_event;
+                    break;
+            }
         }
+        // Secondary Area
+        else
+        {
+            switch (emotion_detected)
+            {
+                case 0:
+                    selected_event = sec_happy_wwise_event;
+                    break;
+                case 1:
+                    selected_event = sec_sad_wwise_event;
+                    break;
+                case 2:
+                    selected_event = sec_angry_wwise_event;
+                    break;
+                case 3:
+                    selected_event = sec_angry_wwise_event;
+                    break;
+                default:
+                    selected_event = sec_happy_wwise_event;
+                    break;
+            }
+        }
+        
 
         if (current_wwise_event == null || selected_event != current_wwise_event)
         {
