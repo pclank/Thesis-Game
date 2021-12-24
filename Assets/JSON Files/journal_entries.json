@@ -161,6 +161,15 @@
 						{"line": "I looked at the old mirror for a few seconds. It somehow... reacted! I swear, I can make out strange shapes in the glass. They weren't there before!"},
 						{"line": "Aftering staring at the mirror for what seemed an eternity, a wave of dark... shapes appeared! What is wrong with this place? Should I try... reaching out and touching it?"}
 					]
+				},
+				{
+					"id": 5,
+					"title": "Seems to be going on Forever",
+					"line": 
+					[
+						{"line": "I've been walking for some time now. This hallway seems to be going on and on forever. Maybe I should turn back?!"},
+						{"line": "This hallway is too long. There seems to be no end to it! Am I supposed to turn around? Maybe the door is now open?"}
+					]
 				}
 			]
 		},

@@ -275,7 +275,7 @@ public class MainJournal : MonoBehaviour
     {
         category_object.GetComponent<Image>().color = category_expanded_color;
 
-        category_object.GetComponentInParent<VerticalLayoutGroup>().spacing = 400.0f;
+        category_object.GetComponentInParent<VerticalLayoutGroup>().spacing = 500.0f;
 
         JournalCategory j_category = player_journal[id];            // Get Category
 

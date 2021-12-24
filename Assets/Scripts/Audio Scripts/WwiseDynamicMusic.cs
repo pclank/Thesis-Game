@@ -87,6 +87,9 @@ public class WwiseDynamicMusic : MonoBehaviour
         happy_wwise_event.Stop(gameObject);
         sad_wwise_event.Stop(gameObject);
         angry_wwise_event.Stop(gameObject);
+        sec_happy_wwise_event.Stop(gameObject);
+        sec_sad_wwise_event.Stop(gameObject);
+        sec_angry_wwise_event.Stop(gameObject);
         main_wwise_event.Stop(gameObject);
     }
 

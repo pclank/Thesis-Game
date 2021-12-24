@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\Audio Scripts\audio_play.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\ScrollUIItems.cs" />
     <Compile Include="Assets\Scripts\Physics Scripts\PortalPhysics.cs" />
+    <Compile Include="Assets\Scripts\Shader-Material Scripts\TripleMixShader.cs" />
     <Compile Include="Assets\Scripts\Inventory Scripts\main_inventory.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\TutorialsMenu.cs" />
     <Compile Include="Assets\First person controller\Scripts\FirstPersonMovement.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Assets\Scripts\Light Scripts\LightColorChange.cs" />
     <Compile Include="Assets\Scripts\Tutorial Scripts\ExternalTutorialTrigger.cs" />
     <Compile Include="Assets\Scripts\Physics Scripts\RotatingRoomPlayerDetect.cs" />
+    <Compile Include="Assets\Scripts\Modular Room Scripts\EndingSetup.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\AnimationQueueing.cs" />
     <Compile Include="Assets\Scripts\Light Scripts\LightChainFX.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\Jump.cs" />
@@ -138,8 +140,6 @@
     <Compile Include="Assets\Scripts\Journal Scripts\AddToJournalOnRaycastHit.cs" />
     <Compile Include="Assets\Scripts\Light Scripts\LanternFX.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\Shader-Material Scripts\TripleMixShader.cs" />
-    <Compile Include="Assets\Scripts\Modular Room Scripts\EndingSetup.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />

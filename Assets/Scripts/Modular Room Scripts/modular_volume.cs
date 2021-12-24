@@ -15,6 +15,8 @@ public class modular_volume : MonoBehaviour
     [Tooltip("GameObjects to be Disabled upon Entering Volume.")]
     public GameObject lod_to_disable;                                   // GameObject Parent LOD to Disable
 
+    public GameObject second_lod_to_disable;
+
     [Tooltip("GameObjects to Enable upon Entering Volume.")]
     public GameObject lod_to_enable;
 
@@ -77,6 +79,7 @@ public class modular_volume : MonoBehaviour
             enter_time = Time.time;                     // Set Enter Time for Analytics
 
             lod_to_disable.SetActive(false);            // Disable GameObjects
+            second_lod_to_disable.SetActive(false);     // Disable GameObjects
             //lod_to_enable.SetActive(true);              // Enable GameObjects
 
             // Add Information to Journal
