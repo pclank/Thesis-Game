@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.IO;
 using System.Linq;
 using System.Collections;
 
@@ -46,6 +47,8 @@ public class JSONReader : MonoBehaviour
 
     private int[] emotion_occurrences = new int[4];     // Array to Store Occurrences of each Emotion, Initialized to O
 
+    private string release_path;                        // Release Version Path of JSON File
+
     // ************************************************************************************
     // Member Functions
     // ************************************************************************************
@@ -53,7 +56,8 @@ public class JSONReader : MonoBehaviour
     // Function to Read Emotion from File
     public Tuple<string, float> readEmotion()
     {
-        string text = System.IO.File.ReadAllText(@json_location);
+        //string text = System.IO.File.ReadAllText(@json_location);
+        string text = System.IO.File.ReadAllText("json_results.json");
 
         deserialiazed_json =  JsonUtility.FromJson<EmotionList>(text);                  // Get Deserialize JSON Objects
 
@@ -78,7 +82,8 @@ public class JSONReader : MonoBehaviour
     // Function to Read Emotion Index from File
     public Tuple<int, float> readEmotionIndex()
     {
-        string text = System.IO.File.ReadAllText(@json_location);
+        //string text = System.IO.File.ReadAllText(@json_location);
+        string text = System.IO.File.ReadAllText("json_results.json");
 
         deserialiazed_json = JsonUtility.FromJson<EmotionList>(text);                   // Get Deserialize JSON Objects
 
@@ -114,5 +119,10 @@ public class JSONReader : MonoBehaviour
     public int getHighestOccurrence()
     {
         return emotion_occurrences.ToList().IndexOf(emotion_occurrences.Max());
+    }
+
+    void Start()
+    {
+        release_path = Path.Combine(Directory.GetCurrentDirectory(), "\\json_results.json");
     }
 }

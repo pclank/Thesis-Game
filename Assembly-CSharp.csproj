@@ -151,12 +151,16 @@
      <None Include="Assets\UnityHDRI\MuirWood\Info.txt" />
      <None Include="Assets\WwiseSettings.xml" />
      <None Include="Assets\Allegorithmic\Plugins\Substance.Game.dll" />
+     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\MainSoundBank.txt" />
      <None Include="Assets\Allegorithmic\Plugins\substance_sse2_blend.dll" />
+     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\SoundbanksInfo.xml" />
      <None Include="Assets\Allegorithmic\Plugins\engine_build_info.txt" />
+     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\PluginInfo.xml" />
      <None Include="Assets\UnityHDRI\KirbyCove\Info.txt" />
      <None Include="Assets\UnityHDRI\Gareoult\Info.txt" />
      <None Include="Assets\Wwise\Version.txt" />
      <None Include="Assets\UnityHDRI\Trinitatis Church\Info.txt" />
+     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\Init.txt" />
     <Reference Include="UnityEngine">
       <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
