@@ -79,7 +79,7 @@ public class modular_volume : MonoBehaviour
             enter_time = Time.time;                     // Set Enter Time for Analytics
 
             lod_to_disable.SetActive(false);            // Disable GameObjects
-            second_lod_to_disable.SetActive(false);     // Disable GameObjects
+            //second_lod_to_disable.SetActive(false);     // Disable GameObjects
             //lod_to_enable.SetActive(true);              // Enable GameObjects
 
             // Add Information to Journal

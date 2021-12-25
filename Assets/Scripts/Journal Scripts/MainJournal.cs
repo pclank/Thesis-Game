@@ -185,31 +185,44 @@ public class MainJournal : MonoBehaviour
     // Add Journal Category
     public void addCategory(int category_id)
     {
-        JournalCategory new_category = new JournalCategory(category_id, "PLACEHOLDER");
+        bool duplicate_found = false;
 
-        JournalEntry new_entry = new JournalEntry(0, "PLACEHOLDER", new List<JournalLine>());
+        // Check for Duplicates
+        foreach (JournalCategory j_category in player_journal)
+        {
+            if (j_category.id == category_id)
+                duplicate_found = true;
+        }
 
-        new_entry.title = journal_list.journal_list[category_id].entries[0].title;
+        // No Duplicates Found, then Add Category
+        if (!duplicate_found)
+        {
+            JournalCategory new_category = new JournalCategory(category_id, "PLACEHOLDER");
 
-        Tuple<int, float> prediction = GameObject.FindWithTag("Player").GetComponent<JSONReader>().readEmotionIndex();  // Get Prediction
+            JournalEntry new_entry = new JournalEntry(0, "PLACEHOLDER", new List<JournalLine>());
 
-        if (!development_mode && prediction.Item2 >= 40.0f)
-            emotion_index = prediction.Item1;
-        else if (development_mode)
-            emotion_index = development_mode_index;
+            new_entry.title = journal_list.journal_list[category_id].entries[0].title;
 
-        new_category.title = journal_list.journal_list[category_id].title;              // Assign Title
+            Tuple<int, float> prediction = GameObject.FindWithTag("Player").GetComponent<JSONReader>().readEmotionIndex();  // Get Prediction
 
-        if (emotion_index == 0 || journal_list.journal_list[category_id].entries[0].line.Count == 1)
-            new_entry.line.Add(journal_list.journal_list[category_id].entries[0].line[0]);
-        else if (emotion_index != 0 && journal_list.journal_list[category_id].entries[0].line.Count == 2)    // TODO: Consider Change to Simple else!
-            new_entry.line.Add(journal_list.journal_list[category_id].entries[0].line[1]);
+            if (!development_mode && prediction.Item2 >= 40.0f)
+                emotion_index = prediction.Item1;
+            else if (development_mode)
+                emotion_index = development_mode_index;
 
-        new_category.entries.Add(new_entry);                                            // Add First Entry
+            new_category.title = journal_list.journal_list[category_id].title;              // Assign Title
 
-        player_journal.Add(new_category);                                               // Add Category Object to Journal
+            if (emotion_index == 0 || journal_list.journal_list[category_id].entries[0].line.Count == 1)
+                new_entry.line.Add(journal_list.journal_list[category_id].entries[0].line[0]);
+            else if (emotion_index != 0 && journal_list.journal_list[category_id].entries[0].line.Count == 2)    // TODO: Consider Change to Simple else!
+                new_entry.line.Add(journal_list.journal_list[category_id].entries[0].line[1]);
 
-        showNotification(new_category.title);                                           // Show New Entry Notification
+            new_category.entries.Add(new_entry);                                            // Add First Entry
+
+            player_journal.Add(new_category);                                               // Add Category Object to Journal
+
+            showNotification(new_category.title);                                           // Show New Entry Notification
+        }
     }
 
     // Add Journal Entry

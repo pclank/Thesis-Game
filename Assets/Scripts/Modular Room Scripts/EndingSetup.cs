@@ -173,12 +173,12 @@ public class EndingSetup : MonoBehaviour
 
             sad_columns.SetActive(true);
         }
-        else if (emotion_index == 2)
+        else if (emotion_index == 2 || emotion_index == 3)
         {
             angry_event.Post(gameObject);
 
             Destroy(happy_columns);
-            Destroy(angry_columns);
+            Destroy(sad_columns);
 
             angry_columns.SetActive(true);
         }
