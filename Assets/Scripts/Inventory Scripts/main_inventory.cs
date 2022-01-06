@@ -303,6 +303,13 @@ public class main_inventory : MonoBehaviour
 
     public TextAsset json_file_name;                    // JSON File with Item Information
 
+    [Header("SFX Events")]
+    public AK.Wwise.Event pickup_item_sfx;
+    public AK.Wwise.Event use_item_sfx;
+    public AK.Wwise.Event place_tape_sfx;
+    public AK.Wwise.Event inventory_open_sfx;
+    public AK.Wwise.Event inventory_close_sfx;
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
@@ -534,6 +541,8 @@ public class main_inventory : MonoBehaviour
 
     private void addItem(Item item)
     {
+        pickup_item_sfx.Post(gameObject);
+
         bool flag = true;
         foreach (Item it in inventory)                      // Check that item isn't in Inventory
         {
@@ -798,6 +807,8 @@ public class main_inventory : MonoBehaviour
     {
         inventory_open = true;              // Set Inventory to Open
 
+        inventory_open_sfx.Post(gameObject);
+
         player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
         camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
 
@@ -824,6 +835,8 @@ public class main_inventory : MonoBehaviour
     private void closeInventory()
     {
         inventory_open = false;                         // Set Inventory to Closed
+
+        inventory_close_sfx.Post(gameObject);
 
         ui_main.SetActive(false);
 
@@ -862,6 +875,8 @@ public class main_inventory : MonoBehaviour
             // If Validation is True
             if (validation)
             {
+                use_item_sfx.Post(gameObject);
+
                 analytics_list.Add(new AnalyticsItem(item_used.getID(), item_used.getLevel(), item_used.getPickupTime(), "use"));       // Record Use Analytics
 
                 Debug.Log("Item with ID: " + item_used.getID() + ", Knowledge Level: " + item_used.getLevel() + " and Pickup Time: " + item_used.getPickupTime() + " Added to Analytics.");
@@ -883,6 +898,8 @@ public class main_inventory : MonoBehaviour
             // If Validation is True
             if (validation)
             {
+                place_tape_sfx.Post(gameObject);
+
                 analytics_list.Add(new AnalyticsItem(item_used.getID(), item_used.getLevel(), item_used.getPickupTime(), "use"));       // Record Use Analytics
 
                 Debug.Log("Item with ID: " + item_used.getID() + ", Knowledge Level: " + item_used.getLevel() + " and Pickup Time: " + item_used.getPickupTime() + " Added to Analytics.");

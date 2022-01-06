@@ -131,6 +131,7 @@ public class EndingSetup : MonoBehaviour
         main_ui_page.SetActive(true);
 
         player_object.GetComponent<RoomVolumeAnalytics>().recordAnalytics();
+        player_object.GetComponent<JSONReader>().recordAnalytics();
     }
 
     // Use this for initialization

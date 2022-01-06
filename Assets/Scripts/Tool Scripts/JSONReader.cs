@@ -2,7 +2,25 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Collections;
+using System.Collections.Generic;
+
+// ************************************************************************************
+// Analytics Emotion Class
+// ************************************************************************************
+
+public class AnalyticsEmotion
+{
+    public string emotion;
+
+    public float detection_time;
+
+    public AnalyticsEmotion(string emotion)
+    {
+        this.emotion = emotion;
+
+        this.detection_time = Time.time;
+    }
+}
 
 // ************************************************************************************
 // JSON Object Emotion List Class
@@ -47,6 +65,8 @@ public class JSONReader : MonoBehaviour
 
     private int[] emotion_occurrences = new int[4];     // Array to Store Occurrences of each Emotion, Initialized to O
 
+    private List<AnalyticsEmotion> analytics_list = new List<AnalyticsEmotion>();     // List of Analytics Events
+
     private string release_path;                        // Release Version Path of JSON File
 
     // ************************************************************************************
@@ -66,6 +86,8 @@ public class JSONReader : MonoBehaviour
 
         if (deserialiazed_json.Emotion[0].face_detected == 1 && deserialiazed_json.Emotion[0].certainty >= lower_limit)
         {
+            addAnalytics(deserialiazed_json.Emotion[0].emotion);            // Save Detection to Analytics
+
             detected_certainty = deserialiazed_json.Emotion[0].certainty;   // Set Certainty
             detected_emotion = deserialiazed_json.Emotion[0].emotion;       // Set Emotion
 
@@ -94,6 +116,8 @@ public class JSONReader : MonoBehaviour
         {
             detected_certainty = deserialiazed_json.Emotion[0].certainty;   // Set Certainty
 
+            addAnalytics(deserialiazed_json.Emotion[0].emotion);            // Save Detection to Analytics
+
             if (String.Equals(deserialiazed_json.Emotion[0].emotion, "Happy"))
                 detected_index = 0;
             else if (String.Equals(deserialiazed_json.Emotion[0].emotion, "Sad"))
@@ -119,6 +143,30 @@ public class JSONReader : MonoBehaviour
     public int getHighestOccurrence()
     {
         return emotion_occurrences.ToList().IndexOf(emotion_occurrences.Max());
+    }
+
+    // Add Analytics to List
+    public void addAnalytics(string emotion)
+    {
+        analytics_list.Add(new AnalyticsEmotion(emotion));
+
+        Debug.Log(emotion + " Added to Analytics");
+    }
+
+    // Record Analytics List to JSON File
+    public void recordAnalytics()
+    {
+        string c_string = "{\"emotion_analytics\": [" + JsonUtility.ToJson(analytics_list[0]) + ", ";
+
+        for (int i = 1; i < analytics_list.Count; i++)
+        {
+            if (i == analytics_list.Count - 1)
+                c_string += JsonUtility.ToJson(analytics_list[i]) + "]}";
+            else
+                c_string += JsonUtility.ToJson(analytics_list[i]) + ", ";
+        }
+
+        File.WriteAllText("emotion_analytics.json", c_string);
     }
 
     void Start()
