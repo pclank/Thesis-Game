@@ -12,6 +12,8 @@ public class JournalCategoryUI : MonoBehaviour, IPointerClickHandler
 
     private bool expanded = false;
 
+    public uint number_of_entries = 0;
+
     // Detect Click on UI Element
     public void OnPointerClick(PointerEventData eventData)
     {

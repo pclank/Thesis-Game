@@ -115,6 +115,9 @@ public class MainJournal : MonoBehaviour
     [Tooltip("Duration of New Entry Notification.")]
     public float timer_duration = 2.0f;
 
+    [Tooltip("Amount of Padding for Category Expansion.")]
+    public float padding_interval = 71.1652f;
+
     [Tooltip("UI Prefab for Category.")]
     public GameObject category_prefab;
 
@@ -286,15 +289,24 @@ public class MainJournal : MonoBehaviour
     // Expand Entries of Selected Category
     public void expandCategory(int id, GameObject category_object)
     {
+        // Collapse All Categories
+        for (int i = 0; i < journal_ui_parent.transform.childCount; i++)
+        {
+            GameObject temp_cat = journal_ui_parent.transform.GetChild(i).gameObject;
+            collapseCategory(temp_cat.GetComponent<JournalCategoryUI>().id, temp_cat);
+        }
+
         category_object.GetComponent<Image>().color = category_expanded_color;
 
-        category_object.GetComponentInParent<VerticalLayoutGroup>().spacing = 500.0f;
-
         JournalCategory j_category = player_journal[id];            // Get Category
+
+        uint number_of_entries = 0;                                 // Entries on the Expanding Category
 
         // Add Entries in Category
         foreach (JournalEntry j_entry in j_category.entries)
         {
+            number_of_entries++;
+
             GameObject temp_ui_entry = entry_prefab;
 
             temp_ui_entry.GetComponentInChildren<Text>().text = j_entry.title;
@@ -303,6 +315,18 @@ public class MainJournal : MonoBehaviour
 
             Instantiate(temp_ui_entry, category_object.GetComponentInChildren<VerticalLayoutGroup>().transform);
         }
+
+        // Push Categories that are Underneath
+        for (int i = id + 1; i < journal_ui_parent.transform.childCount; i++)
+        {
+            GameObject temp_category = journal_ui_parent.transform.GetChild(i).gameObject;
+
+            temp_category.GetComponent<LayoutElement>().ignoreLayout = true;
+
+            float interval = number_of_entries * padding_interval;
+
+            temp_category.GetComponent<RectTransform>().anchoredPosition = new Vector2(temp_category.GetComponent<RectTransform>().anchoredPosition.x, temp_category.GetComponent<RectTransform>().anchoredPosition.y - interval);
+        }
     }
 
     // Collapse Entries of Expanded Category
@@ -310,11 +334,17 @@ public class MainJournal : MonoBehaviour
     {
         category_object.GetComponent<Image>().color = category_default_color;
 
-        category_object.GetComponentInParent<VerticalLayoutGroup>().spacing = 40.0f;
-
         foreach (Transform child in category_object.GetComponentInChildren<VerticalLayoutGroup>().transform)
         {
             Destroy(child.gameObject);
+        }
+
+        // Reset Categories that are Underneath
+        for (int i = id + 1; i < journal_ui_parent.transform.childCount; i++)
+        {
+            GameObject temp_category = journal_ui_parent.transform.GetChild(i).gameObject;
+
+            temp_category.GetComponent<LayoutElement>().ignoreLayout = false;
         }
     }
 
@@ -360,7 +390,7 @@ public class MainJournal : MonoBehaviour
         player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
         camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
 
-        journal_ui_parent.GetComponent<VerticalLayoutGroup>().spacing = 40.0f;
+        //journal_ui_parent.GetComponent<VerticalLayoutGroup>().spacing = 40.0f;
 
         journal_ui.SetActive(true);                                             // Enable Journal UI
 
