@@ -33,6 +33,18 @@ public class PauseMenu : MonoBehaviour
 
     private bool menu_enabled = false;                          // Whether Pause Menu is Enabled
 
+    // Pause Game
+    private void pauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    // Unpause Game
+    private void unpauseGame()
+    {
+        Time.timeScale = 1;
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -59,7 +71,7 @@ public class PauseMenu : MonoBehaviour
     {
         // Check for Pause Menu Enable
 
-        if (!menu_enabled && Input.GetKeyUp(KeyCode.Escape))
+        if (!menu_enabled && Input.GetKeyUp(KeyCode.Escape) && !player_object.GetComponent<main_inventory>().isInventoryOpen() && !player_object.GetComponent<MainJournal>().isJournalOpen())
         {
             player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
             camera_object.GetComponent<FirstPersonLook>().stop_flag = true;         // Freeze Camera Controller
@@ -70,6 +82,8 @@ public class PauseMenu : MonoBehaviour
             menu_ui.SetActive(true);                                                // Enable Pause Menu GameObject
 
             menu_enabled = true;                                                    // Set Menu as Enabled
+
+            pauseGame();
         }
 
         // Check for Pause Menu Disable
@@ -89,6 +103,8 @@ public class PauseMenu : MonoBehaviour
             GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().hidePlaceholder(); // Show Subtitles PLACEHOLDER
 
             menu_enabled = false;                                                   // Set Menu as Disabled
+
+            unpauseGame();
         }
 
         // Weird Mouse Click Bug Magic Fix
@@ -113,6 +129,8 @@ public class PauseMenu : MonoBehaviour
             menu_ui.SetActive(false);                                               // Disable Pause Menu GameObject
 
             menu_enabled = false;                                                   // Set Menu as Disabled
+
+            unpauseGame();
         }
 
         // Show Tutorials Button Pressed
@@ -134,6 +152,8 @@ public class PauseMenu : MonoBehaviour
         // Exit Game Button Pressed
         else if (but_pressed == exit_button)
         {
+            unpauseGame();
+
             Application.Quit();                                                     // Quit Application
         }
 

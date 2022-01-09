@@ -112,6 +112,8 @@ public class BaseTutorial : MonoBehaviour
         ui_elements[tutorial_index].SetActive(true);        // Display UI Element
 
         timer_value = Time.time;                            // Set Timer Value
+
+        pauseGame();
     }
 
     // Exit Tutorial
@@ -137,6 +139,8 @@ public class BaseTutorial : MonoBehaviour
         {
             key_object.SetActive(true);
         }
+
+        unpauseGame();
     }
 
     // Freeze Player
@@ -151,6 +155,18 @@ public class BaseTutorial : MonoBehaviour
     {
         player_object.GetComponent<FirstPersonMovement>().stop_flag = false;                    // UnFreeze Player Controller
         main_camera.GetComponent<FirstPersonLook>().stop_flag = false;                          // UnFreeze Camera Controller
+    }
+
+    // Pause Game
+    private void pauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    // Unpause Game
+    private void unpauseGame()
+    {
+        Time.timeScale = 1;
     }
 
     // Use this for initialization

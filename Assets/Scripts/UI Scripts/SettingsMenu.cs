@@ -20,8 +20,10 @@ public class SettingsMenu : MonoBehaviour
     public Toggle subtitle_toggle;                                      // Subtitle Toggle
 
     public Slider subtitle_font_size_slider;                            // Subtitle Font Size Slider
+    public Slider look_sensitivity_slider;
 
     public Text subtitle_font_size;                                     // Subtitle Font Size Text
+    public Text look_sensitivity_text;
 
     [Tooltip("Array of Volumes.")]
     public Volume[] volume_objects = new Volume[4];
@@ -91,6 +93,23 @@ public class SettingsMenu : MonoBehaviour
         }
     }
 
+    // Process Look Sensitivity
+    private void processLookSensitivity()
+    {
+        try
+        {
+            look_sensitivity_text.text = look_sensitivity_slider.value.ToString();
+
+            GameObject.FindWithTag("MainCamera").GetComponent<FirstPersonLook>().sensitivity = look_sensitivity_slider.value;
+        }
+        catch (Exception)
+        {
+            Debug.LogError("Invalid Sensitivity!");
+
+            throw;
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -119,6 +138,11 @@ public class SettingsMenu : MonoBehaviour
         subtitle_font_size_slider.onValueChanged.AddListener(delegate
         {
             processSubtitleFontSizeChange();
+        });
+
+        look_sensitivity_slider.onValueChanged.AddListener(delegate
+        {
+            processLookSensitivity();
         });
     }
 }

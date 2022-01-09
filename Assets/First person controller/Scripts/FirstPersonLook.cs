@@ -26,7 +26,7 @@ public class FirstPersonLook : MonoBehaviour
     void Update()
     {
         // Check for Interaction
-        if (!stop_flag)
+        if (!stop_flag && Time.timeScale == 1)
         {
             // Get smooth mouse look.
             Vector2 smoothMouseDelta = Vector2.Scale(new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")), Vector2.one * sensitivity * smoothing);

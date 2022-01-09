@@ -290,6 +290,8 @@ public class main_inventory : MonoBehaviour
     [Tooltip("Whether to Display Item On Pickup.")]
     public bool display_on_pickup = false;              // Whether to Display Item on Pickup
 
+    public bool use_display_light = false;              // Whether to Enable Display Light on Examine
+
     public float display_distance = 0.5f;               // Distance from Camera to Display Item
     public float rotation_speed = 100.0f;               // Speed of Rotation for Item Display
     public float scale_speed = 10.0f;                   // Speed of Scaling for Item Display
@@ -336,9 +338,11 @@ public class main_inventory : MonoBehaviour
     private bool was_clicked = false;                   // Mouse Click Flag
     private bool display_on = false;                    // Item Being Displayed
     private bool inventory_open = false;                // Inventory is Open/Closed
+    private bool inventory_open_external = false;
     private bool examine_on = false;                    // In Inventory Examine is On/Off
     private bool item_slot_flag = false;                // Main Camera is Pointing to Item Slot
     private bool ray_trig = false;                      // Ray Hit Examinable GameObject
+    private bool inventory_open_delay = false;          // One Frame Delay for Setting the Inventory as Closed / Open on External Script
 
     private int selected_item;                          // ID of Currently Selected Item
     
@@ -359,7 +363,7 @@ public class main_inventory : MonoBehaviour
     // Get Whether Inventory is Open
     public bool isInventoryOpen()
     {
-        return inventory_open;
+        return inventory_open_external;
     }
 
     // Item Slot Set
@@ -521,7 +525,9 @@ public class main_inventory : MonoBehaviour
     private void examineItem()
     {
         examine_ui.SetActive(false);                                                                    // Disable Examine UI
-        display_light.SetActive(true);                                                                  // Enable Light
+
+        if (use_display_light)
+            display_light.SetActive(true);                                                                  // Enable Light
 
         center_dot_ui.SetActive(false);                                                                 // Disable Center - Dot
 
@@ -661,7 +667,8 @@ public class main_inventory : MonoBehaviour
             closeInventory();
         }
 
-        display_light.SetActive(true);                                                                  // Enable Light
+        if (use_display_light)
+            display_light.SetActive(true);                                                                  // Enable Light
 
         center_dot_ui.SetActive(false);                                                                 // Disable Center - Dot
 
@@ -710,7 +717,8 @@ public class main_inventory : MonoBehaviour
 
         title_text.SetActive(true);                                                                     // Enable Title Text
 
-        display_light.SetActive(true);                                                                  // Enable Light
+        if (use_display_light)
+            display_light.SetActive(true);                                                                  // Enable Light
 
         display_on = true;                                                                              // Enable Display Flag
 
@@ -751,7 +759,8 @@ public class main_inventory : MonoBehaviour
 
         examine_control_layout_ui.SetActive(false);                                                     // Disable Control - Layout UI
 
-        display_light.SetActive(false);                                                                 // Disable Light
+        if (use_display_light)
+            display_light.SetActive(false);                                                                 // Disable Light
         title_text.SetActive(false);                                                                    // Disable Title Text
         display_on = false;                                                                             // Disable Display Flag
 
@@ -839,6 +848,20 @@ public class main_inventory : MonoBehaviour
 
         ui_main.SetActive(true);            // Enable Inventory GameObject
 
+        // Make Sure Item List is Clear
+
+        // Clear Item List
+
+        foreach (Transform child in ui_usable_inventory.transform)
+        {
+            Destroy(child.gameObject);                      // Destroy GameObject
+        }
+
+        foreach (Transform child in ui_knowledge_inventory.transform)
+        {
+            Destroy(child.gameObject);                      // Destroy GameObject
+        }
+
         // Fill Item List
 
         foreach (Item it in inventory)
@@ -857,6 +880,8 @@ public class main_inventory : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;         // Unlock Cursor
         Cursor.visible = true;                          // Make Cursor Visible
+
+        inventory_open_delay = true;
 
         pauseGame();
     }
@@ -892,6 +917,8 @@ public class main_inventory : MonoBehaviour
         Cursor.visible = false;                                                     // Hide Cursor
 
         button_layout.SetActive(false);                                             // Disable Buttons
+
+        inventory_open_delay = true;
 
         unpauseGame();
     }
@@ -1012,6 +1039,13 @@ public class main_inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (inventory_open_delay)
+        {
+            inventory_open_delay = false;
+
+            inventory_open_external = inventory_open;
+        }
+
         if (inventory_open)
         {
             player_object.GetComponent<FirstPersonMovement>().stop_flag = true;     // Freeze Player Controller
@@ -1028,22 +1062,23 @@ public class main_inventory : MonoBehaviour
             was_clicked = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && display_on)                           // Exit Item Display on Right Click
-        {
-            exitDisplay();
-        }
-
         if (Input.GetKeyDown(inventory_key) && !inventory_open && !GetComponent<MainJournal>().isJournalOpen())
         {
             openInventory();
         }
-        else if (Input.GetKeyDown(inventory_key) && inventory_open)
+        else if (Input.GetKeyDown(inventory_key) || Input.GetKeyDown(KeyCode.Escape) && inventory_open && !display_on)
         {
             closeInventory();
         }
 
+        // Exit Item Display on Right Click
+        if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(inventory_key) && display_on)
+        {
+            exitDisplay();
+        }
+
         // Examinable GameObject Examine Section
-        
+
         if (!examine_on && ray_trig && was_clicked && !display_on)
         {
             examineItem();

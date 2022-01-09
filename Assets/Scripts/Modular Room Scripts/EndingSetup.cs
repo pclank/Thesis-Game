@@ -66,6 +66,9 @@ public class EndingSetup : MonoBehaviour
     [Tooltip("End It UI GameObject.")]
     public GameObject end_it_ui;
 
+    [Tooltip("Press ESC UI GameObject.")]
+    public GameObject press_esc_ui;
+
     [Tooltip("Delay for FX.")]
     public float delay = 0.1f;
 
@@ -92,8 +95,10 @@ public class EndingSetup : MonoBehaviour
     private bool ran = false;
     private bool fx_done = false;
     private bool sec_fx_done = false;
+    private bool hint_displayed = false;
 
     private float timer_value;
+    private float press_esc_timer_value;
     private float ending_opacity = 0.0f;
 
     private int emotion_index;
@@ -230,6 +235,8 @@ public class EndingSetup : MonoBehaviour
             {
                 ending_opacity = 1.0f;
 
+                press_esc_timer_value = Time.time;
+
                 sec_fx_done = true;
             }
 
@@ -237,6 +244,14 @@ public class EndingSetup : MonoBehaviour
                 timer_value = Time.time;
 
             main_ui_page_text_sec.GetComponent<Text>().color = new Color(main_ui_page_text_sec.GetComponent<Text>().color.r, main_ui_page_text_sec.GetComponent<Text>().color.g, main_ui_page_text_sec.GetComponent<Text>().color.b, ending_opacity);
+        }
+
+        // Timer for Press ESC Hint
+        if (sec_fx_done && !hint_displayed && Time.time - press_esc_timer_value >= 5.0f)
+        {
+            press_esc_ui.SetActive(true);
+
+            hint_displayed = true;
         }
     }
 }

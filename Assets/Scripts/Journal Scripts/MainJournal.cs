@@ -414,6 +414,8 @@ public class MainJournal : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;         // Unlock Cursor
         Cursor.visible = true;                          // Make Cursor Visible
+
+        pauseGame();
     }
 
     // Close Journal
@@ -438,6 +440,8 @@ public class MainJournal : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;                               // Lock Cursor to Center
         Cursor.visible = false;                                                 // Hide Cursor
+
+        unpauseGame();
     }
 
     // Check if Entry has Already Being Added
@@ -476,6 +480,18 @@ public class MainJournal : MonoBehaviour
         notification_active = false;
     }
 
+    // Pause Game
+    private void pauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    // Unpause Game
+    private void unpauseGame()
+    {
+        Time.timeScale = 1;
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -492,7 +508,7 @@ public class MainJournal : MonoBehaviour
     {
         if (!journal_open && Input.GetKeyUp(open_key) && !GetComponent<main_inventory>().isInventoryOpen())
             openJournal();
-        else if (journal_open && Input.GetKeyUp(open_key))
+        else if (journal_open && Input.GetKeyUp(open_key) || Input.GetKeyDown(KeyCode.Escape))
             closeJournal();
 
         // Fix Player Unfreezing Issue
