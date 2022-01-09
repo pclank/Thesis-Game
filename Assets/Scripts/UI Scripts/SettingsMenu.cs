@@ -15,8 +15,6 @@ public class SettingsMenu : MonoBehaviour
     // ************************************************************************************
 
     public Toggle examine_on_pickup_toggle;                             // Examine On Pickup Toggle
-    public Toggle motionblur_toggle;                                    // Motion Blur Toggle
-    public Toggle vsync_toggle;                                         // V-Sync Toggle
     public Toggle subtitle_toggle;                                      // Subtitle Toggle
 
     public Slider subtitle_font_size_slider;                            // Subtitle Font Size Slider
@@ -42,32 +40,6 @@ public class SettingsMenu : MonoBehaviour
     private void processExamineOnPickupChange()
     {
         GameObject.FindWithTag("Player").GetComponent<main_inventory>().display_on_pickup = examine_on_pickup_toggle.isOn;  // Toggle Display On Pickup
-    }
-
-    // Process Motion Blur Toggle
-    private void processMotionblurChange()
-    {
-        // Iterate Through All Volumes to Process
-        foreach (Volume volume in volume_objects)
-        {
-            // Null Check
-            if (volume)
-            {
-                MotionBlur mb;                                              // Declare Motion Blur Variable
-
-                // Get Motion Blur Component
-                if (volume.profile.TryGet(out mb))
-                {
-                    mb.active = motionblur_toggle.isOn;                         // Toggle Motion Blur
-                }
-            }
-        }
-    }
-
-    // Process V-Sync Toggle
-    private void processVsyncChange()
-    {
-        // TODO: Add Functionality?!
     }
 
     // Process Subtitle Toggle
@@ -118,16 +90,6 @@ public class SettingsMenu : MonoBehaviour
         examine_on_pickup_toggle.onValueChanged.AddListener(delegate
         {
             processExamineOnPickupChange();
-        });
-
-        motionblur_toggle.onValueChanged.AddListener(delegate
-        {
-            processMotionblurChange();
-        });
-
-        vsync_toggle.onValueChanged.AddListener(delegate
-        {
-            processVsyncChange();
         });
 
         subtitle_toggle.onValueChanged.AddListener(delegate

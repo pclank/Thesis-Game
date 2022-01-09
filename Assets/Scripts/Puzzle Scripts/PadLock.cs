@@ -190,7 +190,7 @@ public class PadLock : MonoBehaviour
 
                 checkSolution();                                                            // Check Solution
             }
-            else
+            else if (current_input < 2)
                 current_input++;
         }
         else if (last_was_clockwise && current_input == 2)
@@ -244,7 +244,7 @@ public class PadLock : MonoBehaviour
 
                 checkSolution();                                                            // Check Solution
             }
-            else
+            else if (current_input < 2)
                 current_input++;
         }
         else if (!last_was_clockwise && current_input == 2)

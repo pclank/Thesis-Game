@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{B2B58FB2-4462-6B0C-A872-40DD957E5FE0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -57,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Audio Scripts\audio_play.cs" />
+    <Compile Include="Assets\Scripts\Modular Room Scripts\IntroSetup.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\ScrollUIItems.cs" />
     <Compile Include="Assets\Scripts\Physics Scripts\PortalPhysics.cs" />
     <Compile Include="Assets\Scripts\Shader-Material Scripts\TripleMixShader.cs" />
@@ -142,25 +144,21 @@
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
   </ItemGroup>
   <ItemGroup>
-     <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
-     <None Include="Assets\Allegorithmic\Plugins\Substance.Engine.dll" />
-     <None Include="Assets\SimpleFX\Materials\UnlitVertexColour_Alpha.shader" />
-     <None Include="Assets\Allegorithmic\Plugins\EULA.txt" />
-     <None Include="Assets\UnityHDRI\TreasureIsland\Info.txt" />
-     <None Include="Assets\StreamingAssets\desc.txt" />
-     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\PluginInfo.xml" />
-     <None Include="Assets\UnityHDRI\MuirWood\Info.txt" />
-     <None Include="Assets\WwiseSettings.xml" />
-     <None Include="Assets\Allegorithmic\Plugins\Substance.Game.dll" />
-     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\Init.txt" />
-     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\SoundbanksInfo.xml" />
-     <None Include="Assets\Allegorithmic\Plugins\substance_sse2_blend.dll" />
-     <None Include="Assets\Allegorithmic\Plugins\engine_build_info.txt" />
-     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\MainSoundBank.txt" />
-     <None Include="Assets\UnityHDRI\KirbyCove\Info.txt" />
-     <None Include="Assets\UnityHDRI\Gareoult\Info.txt" />
-     <None Include="Assets\Wwise\Version.txt" />
-     <None Include="Assets\UnityHDRI\Trinitatis Church\Info.txt" />
+    <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
+    <None Include="Assets\Allegorithmic\Plugins\Substance.Engine.dll" />
+    <None Include="Assets\SimpleFX\Materials\UnlitVertexColour_Alpha.shader" />
+    <None Include="Assets\Allegorithmic\Plugins\EULA.txt" />
+    <None Include="Assets\UnityHDRI\TreasureIsland\Info.txt" />
+    <None Include="Assets\StreamingAssets\desc.txt" />
+    <None Include="Assets\UnityHDRI\MuirWood\Info.txt" />
+    <None Include="Assets\WwiseSettings.xml" />
+    <None Include="Assets\Allegorithmic\Plugins\Substance.Game.dll" />
+    <None Include="Assets\Allegorithmic\Plugins\substance_sse2_blend.dll" />
+    <None Include="Assets\Allegorithmic\Plugins\engine_build_info.txt" />
+    <None Include="Assets\UnityHDRI\KirbyCove\Info.txt" />
+    <None Include="Assets\UnityHDRI\Gareoult\Info.txt" />
+    <None Include="Assets\Wwise\Version.txt" />
+    <None Include="Assets\UnityHDRI\Trinitatis Church\Info.txt" />
     <Reference Include="UnityEngine">
       <HintPath>H:\Program Files\Unity\2020.3.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
