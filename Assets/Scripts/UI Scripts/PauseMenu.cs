@@ -15,6 +15,7 @@ public class PauseMenu : MonoBehaviour
     public Button resume_button;
     public Button show_tutorials_button;
     public Button settings_button;
+    public Button graphics_button;
     public Button exit_button;
     public Button close_tutorials_menu_button;                  // Button to Close Tutorials Menu
     public Button close_settings_menu_button;                   // Button to Close Settings Menu
@@ -23,6 +24,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject base_tutorial_object;                     // Base Tutorial Object
     public GameObject menu_ui;
     public GameObject settings_ui;
+    public GameObject graphics_ui;
     public GameObject tutorials_ui;                             // Tutorials Menu GameObject
 
     // ************************************************************************************
@@ -54,6 +56,7 @@ public class PauseMenu : MonoBehaviour
 
         menu_ui.SetActive(false);
         settings_ui.SetActive(false);
+        graphics_ui.SetActive(false);
         tutorials_ui.SetActive(false);
 
         // Add Button Listeners
@@ -61,6 +64,7 @@ public class PauseMenu : MonoBehaviour
         resume_button.onClick.AddListener(() => buttonCallBack(resume_button));
         show_tutorials_button.onClick.AddListener(() => buttonCallBack(show_tutorials_button));
         settings_button.onClick.AddListener(() => buttonCallBack(settings_button));
+        graphics_button.onClick.AddListener(() => buttonCallBack(graphics_button));
         exit_button.onClick.AddListener(() => buttonCallBack(exit_button));
         close_tutorials_menu_button.onClick.AddListener(() => buttonCallBack(close_tutorials_menu_button));
         close_settings_menu_button.onClick.AddListener(() => buttonCallBack(close_settings_menu_button));
@@ -98,6 +102,7 @@ public class PauseMenu : MonoBehaviour
 
             tutorials_ui.SetActive(false);                                          // Disable Tutorials Menu GameObject
             settings_ui.SetActive(false);                                           // Disable Settings Menu GameObject
+            graphics_ui.SetActive(false);                                           // Disable Graphics Menu GameObject
             menu_ui.SetActive(false);                                               // Disable Pause Menu GameObject
 
             GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().hidePlaceholder(); // Show Subtitles PLACEHOLDER
@@ -149,6 +154,12 @@ public class PauseMenu : MonoBehaviour
             GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().showPlaceholder(); // Show Subtitles PLACEHOLDER
         }
 
+        // Graphics Button Pressed
+        else if (but_pressed == graphics_button)
+        {
+            graphics_ui.SetActive(true);
+        }
+
         // Exit Game Button Pressed
         else if (but_pressed == exit_button)
         {
@@ -162,6 +173,7 @@ public class PauseMenu : MonoBehaviour
         {
             tutorials_ui.SetActive(false);                                          // Disable Tutorials Menu
             settings_ui.SetActive(false);                                           // Disable Settings Menu
+            graphics_ui.SetActive(false);                                           // Disable Graphics Menu
 
             GameObject.FindWithTag("Player").GetComponent<SubtitleControl>().hidePlaceholder(); // Disable Subtitles PLACEHOLDER
         }

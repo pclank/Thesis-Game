@@ -692,6 +692,9 @@
     <Reference Include="Unity.RenderPipelines.HighDefinition.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="GameOptions">
+      <HintPath>Library\ScriptAssemblies\GameOptions.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
@@ -706,6 +709,9 @@
     </Reference>
     <Reference Include="UnityEngine.UIElementsInputSystemModule">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UIElementsInputSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="GameOptions.Editor">
+      <HintPath>Library\ScriptAssemblies\GameOptions.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>

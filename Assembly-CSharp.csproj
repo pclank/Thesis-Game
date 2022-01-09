@@ -148,11 +148,15 @@
      <None Include="Assets\Allegorithmic\Plugins\EULA.txt" />
      <None Include="Assets\UnityHDRI\TreasureIsland\Info.txt" />
      <None Include="Assets\StreamingAssets\desc.txt" />
+     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\PluginInfo.xml" />
      <None Include="Assets\UnityHDRI\MuirWood\Info.txt" />
      <None Include="Assets\WwiseSettings.xml" />
      <None Include="Assets\Allegorithmic\Plugins\Substance.Game.dll" />
+     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\Init.txt" />
+     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\SoundbanksInfo.xml" />
      <None Include="Assets\Allegorithmic\Plugins\substance_sse2_blend.dll" />
      <None Include="Assets\Allegorithmic\Plugins\engine_build_info.txt" />
+     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\MainSoundBank.txt" />
      <None Include="Assets\UnityHDRI\KirbyCove\Info.txt" />
      <None Include="Assets\UnityHDRI\Gareoult\Info.txt" />
      <None Include="Assets\Wwise\Version.txt" />
@@ -754,6 +758,9 @@
     <Reference Include="Unity.RenderPipelines.HighDefinition.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="GameOptions">
+      <HintPath>Library\ScriptAssemblies\GameOptions.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
@@ -768,6 +775,9 @@
     </Reference>
     <Reference Include="UnityEngine.UIElementsInputSystemModule">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UIElementsInputSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="GameOptions.Editor">
+      <HintPath>Library\ScriptAssemblies\GameOptions.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
