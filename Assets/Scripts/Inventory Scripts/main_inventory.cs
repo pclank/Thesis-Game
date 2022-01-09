@@ -53,6 +53,7 @@ public class Jitem
     public string dev_title;
     public Jitem_knowledge[] knowledge;
     public bool is_story;
+    public bool usable;
 }
 
 // ************************************************************************************
@@ -91,6 +92,7 @@ public class Item
     private int id;                                 // Holds Item ID
 
     private bool is_story;                          // Whether Item is a Story Item
+    private bool usable;                            // Whether Item is of the Usable Category
     private bool uses_prefab;                       // Whether Item References a Prefab
 
     private float scale;                            // Holds Item Scale
@@ -183,6 +185,18 @@ public class Item
     public void setIsStory(bool flag)
     {
         this.is_story = flag;
+    }
+
+    // Get Usable Flag
+    public bool getUsable()
+    {
+        return this.usable;
+    }
+
+    // Set Usable Flag
+    public void setUsable(bool flag)
+    {
+        this.usable = flag;
     }
 
     // Set Examined Flag
@@ -285,7 +299,8 @@ public class main_inventory : MonoBehaviour
     public GameObject display_light;                    // Extra Light for Item Display
     public GameObject examine_ui;                       // Examine UI GameObject
     public GameObject title_text;                       // Item Title UI GameObject
-    public GameObject ui_inventory;                     // Inventory UI GameObject
+    public GameObject ui_usable_inventory;              // Inventory UI GameObject
+    public GameObject ui_knowledge_inventory;           // Inventory UI GameObject
     public GameObject ui_main;                          // Main UI GameObject
     public GameObject item_ui_prefab;                   // Item UI Prefab
     public GameObject description_ui;                   // Item Description UI Element
@@ -398,6 +413,8 @@ public class main_inventory : MonoBehaviour
 
         new_item.setIsStory(isStory(item_id));                                      // Set Whether Item is Story Item
 
+        new_item.setUsable(isUsable(item_id));                                      // Set Whether Item is Usable
+
         // Set Story Item as Examined to Keep it at Knowledge Level 0
         if (new_item.getIsStory())
         {
@@ -425,6 +442,8 @@ public class main_inventory : MonoBehaviour
         Item new_item = new Item(item_id, prefab, item_scale);                      // Build Item
 
         new_item.setIsStory(isStory(item_id));                                      // Set Whether Item is Story Item
+
+        new_item.setUsable(isUsable(item_id));                                      // Set Whether Item is Usable
 
         // Set Story Item as Examined to Keep it at Knowledge Level 0
         if (new_item.getIsStory())
@@ -801,6 +820,12 @@ public class main_inventory : MonoBehaviour
         return items_in_json.items[i_id - 1].is_story;
     }
 
+    // Get Whether Item is Usable
+    private bool isUsable(int i_id)
+    {
+        return items_in_json.items[i_id - 1].usable;
+    }
+
     // Open Item Inventory
 
     private void openInventory()
@@ -823,11 +848,17 @@ public class main_inventory : MonoBehaviour
             temp_ui_item.GetComponentInChildren<Text>().text = getKnowledge(it.getID(), it.getLevel()).Item1;   // Assign Item Name
             temp_ui_item.GetComponentInChildren<ui_click_detector>().item_id = it.getID();                      // Assign Item ID
 
-            Instantiate(temp_ui_item, ui_inventory.transform);
+            // Usable Item
+            if (it.getUsable())
+                Instantiate(temp_ui_item, ui_usable_inventory.transform);
+            else
+                Instantiate(temp_ui_item, ui_knowledge_inventory.transform);
         }
 
         Cursor.lockState = CursorLockMode.None;         // Unlock Cursor
         Cursor.visible = true;                          // Make Cursor Visible
+
+        pauseGame();
     }
 
     // Close Item Inventory
@@ -844,7 +875,12 @@ public class main_inventory : MonoBehaviour
 
         // Clear Item List
 
-        foreach (Transform child in ui_inventory.transform)
+        foreach (Transform child in ui_usable_inventory.transform)
+        {
+            Destroy(child.gameObject);                      // Destroy GameObject
+        }
+
+        foreach (Transform child in ui_knowledge_inventory.transform)
         {
             Destroy(child.gameObject);                      // Destroy GameObject
         }
@@ -856,6 +892,8 @@ public class main_inventory : MonoBehaviour
         Cursor.visible = false;                                                     // Hide Cursor
 
         button_layout.SetActive(false);                                             // Disable Buttons
+
+        unpauseGame();
     }
 
     // Function to Use Item from Inventory
@@ -915,6 +953,18 @@ public class main_inventory : MonoBehaviour
         }
     }
 
+    // Pause Game
+    private void pauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    // Unpause Game
+    private void unpauseGame()
+    {
+        Time.timeScale = 1;
+    }
+
     // Record Item Use to JSON File
     public void recordItemUse()
     {
@@ -948,7 +998,7 @@ public class main_inventory : MonoBehaviour
         display_light.SetActive(false);                                 // Disable Light on Start
 
         // Check that Inventory UI GameObject has Been Assigned
-        if (ui_inventory == null)
+        if (ui_usable_inventory == null)
         {
             Debug.Log("Inventory GameObject not Found!");
         }

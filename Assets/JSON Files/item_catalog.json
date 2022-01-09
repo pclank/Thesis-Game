@@ -28,7 +28,8 @@
           "description": "A damaged coin, from an older period. Looks to Present the Greek God Apollo with a musical instrument. Occurred around 450 BCE in Ancient Greece."
         }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": true
     },
 
     {
@@ -59,7 +60,8 @@
           "description": "A damaged coin, from an older period. Includes inscriptions in Latin and Grant Figures from the Ancient Roman Period. It existed around 69 - 96 CE."
         }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": true
     },
 
     {
@@ -84,7 +86,8 @@
           "description": "A damaged coin, from an older period. Seems to follow a christian design, common in the Byzantine Empire of 491 CE."
         }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": true
     },
 
     {
@@ -109,7 +112,8 @@
           "description": "A curious coin, with a square cut in the center. Chinese Characters are present. Design appears around 300 - 220 BCE."
         }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": true
     },
 
     {
@@ -134,7 +138,8 @@
           "description": "A coin depicting an owl. In Ancient Athens culture, owls where a sign of wisdom. Coins of this type appeared around 454 - 404 BCE."
         }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": true
     },
 
     {
@@ -152,7 +157,8 @@
           "description": "A key made of bronze. It was found in a filing cabinet drawer."
         }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": true
     },
 
     {
@@ -170,7 +176,8 @@
           "description": "A weathered note. It reads: In Ancient Athens, various animals symbolized specific Character Traits. Athena, the Goddess of Wisdom, was often portrayed by an Owl. This kind of Symbology has been found in many forms of art, including plates, vases, and coins."
         }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": false
     },
 	
   	{
@@ -189,7 +196,8 @@
           "description": "A basic key for the Restroom Door. It was found on the sink."
   		  }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": true
   	},
     {
       "id": 9,
@@ -206,7 +214,8 @@
           "description": "An old book. Seems to refer to the Byzantine Empire."
         }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": false
     },
     {
       "id": 10,
@@ -223,7 +232,8 @@
           "description": "A note on Roman Period coins. It reads: Roman Empire coinage included inscriptions of Grant Figures of the Period, with Latin adorning the other side. Major examples are from around 69 - 96 CE."
         }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": false
     },
     {
       "id": 11,
@@ -240,7 +250,8 @@
           "description": "A book on the Three Kingdoms Period of Ancient China. Includes small references to the coinage of the period, with a description of designs of Ban Liang in the early years of 300 - 220 BCE."
         }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": false
     },
     {
       "id": 12,
@@ -257,7 +268,8 @@
           "description": "This scroll -though weathered- mentions the monetary system of the broader region of Ancient Greece. Mostly describes coins of the period around 450 BCE."
         }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": false
     },
     {
       "id": 13,
@@ -269,7 +281,8 @@
           "description": "James seems to be adamant about those... \"hallucinations\". I'll have to consider a new way of keeping a record at this point. I'll relay my findings to my colleagues."
         }
       ],
-      "is_story": "true"
+      "is_story": true,
+      "usable": false
     },
     {
       "id": 14,
@@ -281,7 +294,8 @@
           "description": "New Information has arisen. Dr. Maxwell has assured me that the patient's visions are more than just hallucinations."
         }
       ],
-      "is_story": "true"
+      "is_story": true,
+      "usable": false
     },
     {
       "id": 15,
@@ -293,7 +307,8 @@
           "description":"My colleagues are lost for words. The girl appears to be exhibiting Hyper Activity in multiple parts of the brain. Now, at age 14, she seems capable of changing her surroundings based on her mood. Will conduct more tests."
         }
       ],
-      "is_story": "true"
+      "is_story": true,
+      "usable": false
     },
     {
       "id": 16,
@@ -310,7 +325,8 @@
           "description": "A Circular Key. There's a Key-chain depicting a power symbol on it."
         }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": true
     },
     {
       "id": 17,
@@ -332,7 +348,8 @@
           "description": "An old cassette tape. It reads \"Interesting Refractions\" on the cover. Can be used in a cassette player."
         }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": true
     },
     {
       "id": 18,
@@ -354,7 +371,8 @@
           "description": "An old cassette tape. It reads \"Calendar Remarks\" on the cover. Can be used in a cassette player."
         }
       ],
-      "is_story": "false"
+      "is_story": false,
+      "usable": true
     }
   ]
 }
