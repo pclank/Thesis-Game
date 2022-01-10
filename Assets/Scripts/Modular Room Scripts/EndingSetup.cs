@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 using System;
 using System.Collections.Generic;
 
@@ -82,6 +83,12 @@ public class EndingSetup : MonoBehaviour
     [Tooltip("Angry Columns.")]
     public GameObject angry_columns;
 
+    [Header("End Credits Setup")]
+    [Tooltip("Video Player GameObject.")]
+    public VideoPlayer video_player;
+
+    public GameObject main_canvas;
+
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
@@ -96,6 +103,7 @@ public class EndingSetup : MonoBehaviour
     private bool fx_done = false;
     private bool sec_fx_done = false;
     private bool hint_displayed = false;
+    private bool credits_started = false;
 
     private float timer_value;
     private float press_esc_timer_value;
@@ -135,8 +143,41 @@ public class EndingSetup : MonoBehaviour
 
         main_ui_page.SetActive(true);
 
+        Destroy(player_object.GetComponent<PauseMenu>());
+
+        video_player.Prepare();
+
         player_object.GetComponent<RoomVolumeAnalytics>().recordAnalytics();
         player_object.GetComponent<JSONReader>().recordAnalytics();
+    }
+
+    // Play End Credits
+    private void rollCredits()
+    {
+        main_ui_page.SetActive(false);
+        press_esc_ui.SetActive(false);
+        end_it_ui.SetActive(false);
+        main_canvas.SetActive(false);
+
+        video_player.Play();
+
+        press_esc_timer_value = Time.time;
+
+        credits_started = true;
+    }
+
+    // End of Clip Reached
+    private void endReached(UnityEngine.Video.VideoPlayer vp)
+    {
+        vp.playbackSpeed = vp.playbackSpeed / 10.0F;
+
+        video_player.Stop();
+
+        Destroy(video_player.gameObject);
+
+        Application.Quit();
+
+        Destroy(this);
     }
 
     // Use this for initialization
@@ -158,6 +199,8 @@ public class EndingSetup : MonoBehaviour
 
         player_object.GetComponent<WwiseDynamicMusic>().stopAllPlayback();                                      // Stop All Dynamic Music Playback
         player_object.GetComponent<WwiseDynamicMusic>().enabled = false;                                        // Disable Dynamic Music System
+
+        video_player.loopPointReached += endReached;                                                            // Subscribe to Event
 
         // Start Ending Music and Setup Environment
 
@@ -253,5 +296,13 @@ public class EndingSetup : MonoBehaviour
 
             hint_displayed = true;
         }
+
+        // Credits Section
+        if (hint_displayed && Input.GetKeyDown(KeyCode.Escape) && !credits_started)
+            rollCredits();
+
+        // Quit Game Section
+        else if (credits_started && Input.GetKeyDown(KeyCode.Escape) && Time.time - press_esc_timer_value >= 5.0f)
+            Application.Quit();
     }
 }

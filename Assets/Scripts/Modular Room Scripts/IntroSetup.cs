@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Video;
 using System.Collections;
 
 // ************************************************************************************
@@ -17,32 +18,42 @@ public class IntroSetup : MonoBehaviour
     [Tooltip("Intro Background UI GameObject.")]
     public GameObject intro_background;
 
-    [Tooltip("Intro Duration.")]
-    public float intro_duration = 0.0f;
+    public GameObject crosshair_ui;
+
+    public VideoPlayer video_player;
 
     // ************************************************************************************
     // Private Variables
     // ************************************************************************************
 
-    private bool intro_started = false;
+    // End of Clip Reached
+    private void endReached(UnityEngine.Video.VideoPlayer vp)
+    {
+        vp.playbackSpeed = vp.playbackSpeed / 10.0F;
 
-    private float timer_value = 0.0f;
+        Time.timeScale = 1;
+
+        video_player.Stop();
+
+        Destroy(video_player.gameObject);
+
+        intro_ui.SetActive(false);
+
+        crosshair_ui.SetActive(true);
+
+        Destroy(intro_ui);
+
+        Destroy(this);
+    }
+
 
     // Use this for initialization
     void Start()
     {
-        
-    }
+        Time.timeScale = 0;
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Timer Section
-        if (intro_started && Time.time - timer_value >= intro_duration)
-        {
-            intro_ui.SetActive(false);
+        crosshair_ui.SetActive(false);
 
-            Destroy(intro_ui);
-        }
+        video_player.loopPointReached += endReached;
     }
 }
