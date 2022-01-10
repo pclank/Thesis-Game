@@ -56,4 +56,10 @@ public class IntroSetup : MonoBehaviour
 
         video_player.loopPointReached += endReached;
     }
+
+    void Update()
+    {
+        if (video_player.isPlaying && video_player.clockTime >= 1.0f)
+            intro_ui.SetActive(false);
+    }    
 }
