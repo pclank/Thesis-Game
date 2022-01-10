@@ -52,6 +52,9 @@ public class JSONReader : MonoBehaviour
 
     public GameObject face_warning_ui;                  // No Face Detected Warning UI GameObject
 
+    [Tooltip("Flag to Allow Emotion Detection to Proceed.")]
+    public bool start_trigger;
+
     public string json_location;                        // JSON File to Read
     public float lower_limit = 10.0f;                   // Lower Limit on Certainty
 
@@ -76,6 +79,10 @@ public class JSONReader : MonoBehaviour
     // Function to Read Emotion from File
     public Tuple<string, float> readEmotion()
     {
+        // For Before Exiting Bathroom
+        if (!start_trigger)
+            return new Tuple<string, float>("Happy", 0.0f);
+
         //string text = System.IO.File.ReadAllText(@json_location);
         string text = System.IO.File.ReadAllText("json_results.json");
 
@@ -104,6 +111,10 @@ public class JSONReader : MonoBehaviour
     // Function to Read Emotion Index from File
     public Tuple<int, float> readEmotionIndex()
     {
+        // For Before Exiting Bathroom
+        if (!start_trigger)
+            return new Tuple<int, float>(0, 0.0f);
+
         //string text = System.IO.File.ReadAllText(@json_location);
         string text = System.IO.File.ReadAllText("json_results.json");
 
