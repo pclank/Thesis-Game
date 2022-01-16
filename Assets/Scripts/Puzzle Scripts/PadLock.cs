@@ -36,6 +36,9 @@ public class PadLock : MonoBehaviour
     [Tooltip("Box Top GameObject.")]
     public GameObject box_top;
 
+    [Tooltip("Key GameObject.")]
+    public GameObject key_object;
+
     [Tooltip("Camera for Padlock Interaction.")]
     public Camera padlock_camera;
 
@@ -99,6 +102,8 @@ public class PadLock : MonoBehaviour
     {
         box_top.GetComponent<RotateHingePhysics>().unlock();                        // Unlock Box
         gameObject.tag = "Untagged";                                                // Untag Object
+
+        key_object.SetActive(true);                                                 // Enable Key GameObject
 
         setRaycast(false);
 
@@ -297,6 +302,8 @@ public class PadLock : MonoBehaviour
     {
         player_object = GameObject.FindWithTag("Player");       // Get Player GameObject
         camera_object = GameObject.FindWithTag("MainCamera");   // Get Main Camera GameObject
+
+        key_object.SetActive(false);                            // Disable Key on Start
     }
 
     // Update is called once per frame
