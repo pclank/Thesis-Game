@@ -144,6 +144,17 @@ public class ModularRoomEmotionControl : MonoBehaviour
 
             anger_projector.SetActive(true);
         }
+        else
+        {
+            setHappinessMaterials();
+            setHappinessCombination();
+
+            main_wall.GetComponent<MixShader>().enabled = false;
+            extra_wall.GetComponent<MixShader>().enabled = false;
+            floor.GetComponent<MixShader>().enabled = false;
+
+            happiness_projector.SetActive(true);
+        }
 
         book_object.GetComponentInParent<ExaminableItem>().gb_prefab = book_prefabs[emotion_index];
         plant_object.GetComponentInParent<ExaminableItem>().gb_prefab = plant_prefabs[emotion_index];
