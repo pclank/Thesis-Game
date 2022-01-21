@@ -19,6 +19,9 @@ public class Keypad : MonoBehaviour
     public GameObject success_indicator;                        // Correct Password Indicator GameObject
     public GameObject lod_to_enable;                            // GameObjects to be Enabled on Success
 
+    [Tooltip("Control Layout UI.")]
+    public GameObject control_ui;
+
     public Camera keypad_camera;                                // Keypad Camera
 
     //public AudioClip success_clip;                              // Success SFX
@@ -90,6 +93,8 @@ public class Keypad : MonoBehaviour
 
         keypad_camera.GetComponent<InteractionRaycasting>().cast_flag = true;       // Allow Raycasting from Keypad Camera
 
+        control_ui.SetActive(true);                                                 // Enable UI
+
         Cursor.lockState = CursorLockMode.None;                                     // Unlock Cursor
         Cursor.visible = true;                                                      // Make Cursor Visible
     }
@@ -110,6 +115,8 @@ public class Keypad : MonoBehaviour
         player_object.GetComponent<SwitchCameras>().resetDefaultCamera();           // Switch Camera
 
         keypad_camera.GetComponent<InteractionRaycasting>().cast_flag = false;      // Disallow Raycasting from Keypad Camera
+
+        control_ui.SetActive(false);                                                // Disable UI
 
         Cursor.lockState = CursorLockMode.Locked;                                   // Lock Cursor to Center
         Cursor.visible = false;                                                     // Hide Cursor

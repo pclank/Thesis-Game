@@ -115,6 +115,7 @@
     <Compile Include="Assets\Scripts\Animation Scripts\start_animation.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\rotate_door_physics.cs" />
     <Compile Include="Assets\Scripts\Animation Scripts\drawer_move.cs" />
+    <Compile Include="Assets\Scripts\Utility Scripts\RestroomExited.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\SettingsMenu.cs" />
     <Compile Include="Assets\Scripts\Inventory Scripts\ObjectRaycastCheck.cs" />
     <Compile Include="Assets\Scripts\General GameObject Scripts\FacePlayer.cs" />
@@ -141,22 +142,25 @@
     <Compile Include="Assets\Scripts\Journal Scripts\AddToJournalOnRaycastHit.cs" />
     <Compile Include="Assets\Scripts\Light Scripts\LanternFX.cs" />
     <Compile Include="Assets\First person controller\Scripts\Components\GroundCheck.cs" />
-    <Compile Include="Assets\Scripts\Utility Scripts\RestroomExited.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityHDRI\Seaside\Info.txt" />
      <None Include="Assets\Allegorithmic\Plugins\Substance.Engine.dll" />
      <None Include="Assets\SimpleFX\Materials\UnlitVertexColour_Alpha.shader" />
+     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\PluginInfo.xml" />
      <None Include="Assets\Allegorithmic\Plugins\EULA.txt" />
      <None Include="Assets\UnityHDRI\TreasureIsland\Info.txt" />
      <None Include="Assets\StreamingAssets\desc.txt" />
      <None Include="Assets\UnityHDRI\MuirWood\Info.txt" />
      <None Include="Assets\WwiseSettings.xml" />
      <None Include="Assets\Allegorithmic\Plugins\Substance.Game.dll" />
+     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\MainSoundBank.txt" />
      <None Include="Assets\Allegorithmic\Plugins\substance_sse2_blend.dll" />
      <None Include="Assets\Allegorithmic\Plugins\engine_build_info.txt" />
      <None Include="Assets\UnityHDRI\KirbyCove\Info.txt" />
+     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\Init.txt" />
      <None Include="Assets\UnityHDRI\Gareoult\Info.txt" />
+     <None Include="Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\SoundbanksInfo.xml" />
      <None Include="Assets\Wwise\Version.txt" />
      <None Include="Assets\UnityHDRI\Trinitatis Church\Info.txt" />
     <Reference Include="UnityEngine">

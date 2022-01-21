@@ -27,6 +27,9 @@ public class PadLock : MonoBehaviour
     [Tooltip("Current Value UI GameObject.")]
     public GameObject value_ui;
 
+    [Tooltip("Control Layout UI.")]
+    public GameObject control_ui;
+
     [Tooltip("Tick SFX.")]
     public AK.Wwise.Event tick_sfx_event;
 
@@ -150,6 +153,7 @@ public class PadLock : MonoBehaviour
 
         input_ui.SetActive(true);                                                   // Enable UI
         value_ui.SetActive(true);                                                   // Enable UI
+        control_ui.SetActive(true);                                                 // Enable UI
     }
 
     // Exit Interaction with Keypad
@@ -164,6 +168,7 @@ public class PadLock : MonoBehaviour
 
         input_ui.SetActive(false);                                                  // Disable UI
         value_ui.SetActive(false);                                                  // Disable UI
+        control_ui.SetActive(false);                                                // Disable UI
     }
 
     // Rotate Clockwise
