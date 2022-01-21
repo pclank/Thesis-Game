@@ -206,7 +206,7 @@ public class ModularRoomEmotionControl : MonoBehaviour
     {
         Tuple<int, float> prediction = GameObject.FindWithTag("Player").GetComponent<JSONReader>().readEmotionIndex();  // Get Prediction
 
-        if (!development_mode && prediction.Item2 >= 40.0f)
+        if (!development_mode)
             startSetup(prediction.Item1);
     }
 

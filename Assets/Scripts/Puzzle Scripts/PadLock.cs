@@ -183,7 +183,7 @@ public class PadLock : MonoBehaviour
         // Process Edge Case
         if (current_value == 0)
         {
-            current_value = 99;
+            current_value = 39;
         }
         else
             current_value--;
@@ -235,7 +235,7 @@ public class PadLock : MonoBehaviour
         int prev_value = current_value;                                             // Store Previous Value
 
         // Process Edge Case
-        if (current_value == 99)
+        if (current_value == 39)
         {
             current_value = 0;
         }
