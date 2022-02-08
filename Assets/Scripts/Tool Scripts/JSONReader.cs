@@ -106,7 +106,7 @@ public class JSONReader : MonoBehaviour
             if (Time.time - last_update_time >= 15.0f)
             {
                 // Check Whether File hasn't been Updated
-                if (String.Equals(detected_emotion, previously_detected_emotion) && detected_certainty == previously_detected_emotion_certainty)
+                if ((String.Equals(detected_emotion, previously_detected_emotion) || String.Equals(detected_emotion, "Unknown")) && detected_certainty == previously_detected_emotion_certainty)
                 {
                     face_warning_ui.SetActive(true);
                 }
@@ -175,15 +175,17 @@ public class JSONReader : MonoBehaviour
                 {
                     face_warning_ui.SetActive(false);
 
+                    emotion_occurrences[detected_index]++;                                          // Increment Occurrence
+
                     last_update_time = Time.time;
                 }
             }
             else
             {
                 face_warning_ui.SetActive(false);
-            }
 
-            emotion_occurrences[detected_index]++;                                          // Increment Occurrence
+                emotion_occurrences[detected_index]++;                                          // Increment Occurrence
+            }  
         }
         else if (deserialiazed_json.Emotion[0].face_detected == 0)
             face_warning_ui.SetActive(true);
