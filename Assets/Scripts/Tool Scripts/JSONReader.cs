@@ -68,9 +68,13 @@ public class JSONReader : MonoBehaviour
 
     private int[] emotion_occurrences = new int[4];     // Array to Store Occurrences of each Emotion, Initialized to O
 
+    private float last_update_time = 0.0f;              // Time JSON File was Last Updated
+    private float previously_detected_emotion_certainty = 0.0f;     // Certainty Previously Detected
+
     private List<AnalyticsEmotion> analytics_list = new List<AnalyticsEmotion>();     // List of Analytics Events
 
     private string release_path;                        // Release Version Path of JSON File
+    private string previously_detected_emotion = "Unknown";     // Emotion Previously Detected
 
     // ************************************************************************************
     // Member Functions
@@ -98,12 +102,33 @@ public class JSONReader : MonoBehaviour
             detected_certainty = deserialiazed_json.Emotion[0].certainty;   // Set Certainty
             detected_emotion = deserialiazed_json.Emotion[0].emotion;       // Set Emotion
 
-            face_warning_ui.SetActive(false);
+            // Check Whether File was Updated
+            if (Time.time - last_update_time >= 15.0f)
+            {
+                // Check Whether File hasn't been Updated
+                if (String.Equals(detected_emotion, previously_detected_emotion) && detected_certainty == previously_detected_emotion_certainty)
+                {
+                    face_warning_ui.SetActive(true);
+                }
+                else
+                {
+                    face_warning_ui.SetActive(false);
+
+                    last_update_time = Time.time;
+                }
+            }
+            else
+            {
+                face_warning_ui.SetActive(false);
+            }
         }
         else if (deserialiazed_json.Emotion[0].face_detected == 0)
             face_warning_ui.SetActive(true);
 
         Debug.Log("Detected " + detected_emotion);
+
+        previously_detected_emotion = detected_emotion;
+        previously_detected_emotion_certainty = detected_certainty;
 
         return new Tuple<string, float>(detected_emotion, detected_certainty);          // Return Information
     }
@@ -138,7 +163,25 @@ public class JSONReader : MonoBehaviour
             else if (String.Equals(deserialiazed_json.Emotion[0].emotion, "Surprised"))
                 detected_index = 3;
 
-            face_warning_ui.SetActive(false);
+            // Check Whether File was Updated
+            if (Time.time - last_update_time >= 15.0f)
+            {
+                // Check Whether File hasn't been Updated
+                if (detected_index == previously_detected_emotion_index && detected_certainty == previously_detected_emotion_certainty)
+                {
+                    face_warning_ui.SetActive(true);
+                }
+                else
+                {
+                    face_warning_ui.SetActive(false);
+
+                    last_update_time = Time.time;
+                }
+            }
+            else
+            {
+                face_warning_ui.SetActive(false);
+            }
 
             emotion_occurrences[detected_index]++;                                          // Increment Occurrence
         }
@@ -146,6 +189,9 @@ public class JSONReader : MonoBehaviour
             face_warning_ui.SetActive(true);
 
         Debug.Log("Detected " + detected_index);
+
+        previously_detected_emotion_index = detected_index;
+        previously_detected_emotion_certainty = detected_certainty;
 
         return new Tuple<int, float>(detected_index, detected_certainty);               // Return Information
     }
