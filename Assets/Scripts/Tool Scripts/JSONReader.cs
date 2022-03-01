@@ -103,7 +103,7 @@ public class JSONReader : MonoBehaviour
             detected_emotion = deserialiazed_json.Emotion[0].emotion;       // Set Emotion
 
             // Check Whether File was Updated
-            if (Time.time - last_update_time >= 15.0f)
+            if (Time.time - last_update_time >= 8.0f)
             {
                 // Check Whether File hasn't been Updated
                 if ((String.Equals(detected_emotion, previously_detected_emotion) || String.Equals(detected_emotion, "Unknown")) && detected_certainty == previously_detected_emotion_certainty)
@@ -164,7 +164,7 @@ public class JSONReader : MonoBehaviour
                 detected_index = 3;
 
             // Check Whether File was Updated
-            if (Time.time - last_update_time >= 15.0f)
+            if (Time.time - last_update_time >= 8.0f)
             {
                 // Check Whether File hasn't been Updated
                 if (detected_index == previously_detected_emotion_index && detected_certainty == previously_detected_emotion_certainty)
