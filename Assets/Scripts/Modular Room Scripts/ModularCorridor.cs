@@ -104,6 +104,10 @@ public class ModularCorridor : MonoBehaviour
         door_trigger_object.SetActive(false);                                       // Disable Door Wall Trigger
         end_trigger_object.SetActive(true);                                         // Enable End Wall Trigger
 
+        //  Move Door Wall Further Inside Corridor
+        float new_door_wall_position = door_wall_object.transform.position.x - 3.0f;
+        door_wall_object.transform.position = new Vector3(new_door_wall_position, door_wall_object.transform.position.y, door_wall_object.transform.position.z);
+
         state++;                                                                    // Increment State
     }
 
